@@ -31,15 +31,15 @@ cdm <- mockIncidencePrevalenceRef(
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  outcome_cohorts <- CDMConnector::readCohortSet(here::here("outcome_cohorts"))
-#  cdm <- CDMConnector::generateCohortSet(cdm,
-#                                         outcome_cohorts,
-#                                         cohortTableName = outcome_table)
+#  cdm <- CDMConnector::generateCohortSet(cdm = cdm,
+#                                         cohortSet = outcome_cohorts,
+#                                         name = outcome_table)
 
 ## ---- message= FALSE, warning=FALSE-------------------------------------------
-cdm$denominator <- generateDenominatorCohortSet(
+cdm <- generateDenominatorCohortSet(
   cdm = cdm,
-  startDate = as.Date("2008-01-01"),
-  endDate = as.Date("2012-01-01"),
+  name ="denominator",
+  cohortDateRange = c(as.Date("2008-01-01"), as.Date("2012-01-01")),
   ageGroup = list(c(18, 65)),
   sex = c("Male", "Female", "Both"),
   daysPriorHistory = 365
@@ -69,8 +69,6 @@ prev %>%
 
 ## ---- message= FALSE, warning=FALSE, echo=FALSE-------------------------------
 prev %>%
-  left_join(prevalenceSet(prev),
-            by = "analysis_id") %>%
   ggplot(aes(x = prevalence_start_date, y = prevalence,
              ymin = prevalence_95CI_lower,
              ymax = prevalence_95CI_upper,
@@ -98,8 +96,6 @@ inc %>%
 
 ## ---- message= FALSE, warning=FALSE, echo=FALSE-------------------------------
 inc %>%
-  left_join(incidenceSet(inc),
-            by = "analysis_id") %>%
   ggplot(aes(x = incidence_start_date, y = incidence_100000_pys,
              ymin = incidence_100000_pys_95CI_lower,
              ymax = incidence_100000_pys_95CI_upper,
@@ -110,14 +106,9 @@ inc %>%
   theme_minimal()+
   theme(legend.title = element_blank())
 
-## -----------------------------------------------------------------------------
-study_results <- gatherIncidencePrevalenceResults(cdm = cdm,
-                    resultList = list(inc, prev))
-dplyr::glimpse(study_results$incidence_estimates)
-dplyr::glimpse(study_results$prevalence_estimates)
-
 ## ---- eval=FALSE--------------------------------------------------------------
-#  exportIncidencePrevalenceResults(result = study_results,
+#  exportIncidencePrevalenceResults(resultList = list("incidence" = inc,
+#                                                     "prevalence" = prev),
 #                    zipName = "example_results",
 #                    outputFolder = here::here())
 

@@ -9,7 +9,6 @@ knitr::opts_chunk$set(
 
 ## ---- message= FALSE, warning=FALSE, echo=FALSE-------------------------------
 library(here)
-library(ggplot2)
 library(DBI)
 library(dbplyr)
 library(dplyr)
@@ -28,20 +27,19 @@ knitr::include_graphics(here("vignettes/period_prev.png"))
 library(IncidencePrevalence)
 library(dplyr)
 library(tidyr)
-library(ggplot2)
 
 cdm <- mockIncidencePrevalenceRef(
   sampleSize = 50000,
   outPre = 0.5
 )
 
-cdm$denominator <- generateDenominatorCohortSet(
-  cdm = cdm,
-  startDate = as.Date("2008-01-01"),
-  endDate = as.Date("2012-01-01"),
+cdm <- generateDenominatorCohortSet(
+  cdm = cdm, name = "denominator",
+  cohortDateRange = c(as.Date("2008-01-01"), as.Date("2012-01-01")),
   ageGroup = list(c(0, 150)),
   sex = "Both",
-  daysPriorHistory = 0
+  daysPriorHistory = 0, 
+  temporary = FALSE
 )
 
 cdm$denominator %>%
@@ -53,23 +51,14 @@ prev <- estimatePointPrevalence(
   denominatorTable = "denominator",
   outcomeTable = "outcome",
   interval = "Years",
-  minCellCount = 0
+  minCellCount = 0, 
+  temporary = FALSE
 )
 
 prev %>%
   glimpse()
 
-prev %>%
-  ggplot(aes(x = prevalence_start_date, y = prevalence,
-             ymin = prevalence_95CI_lower,
-             ymax = prevalence_95CI_upper)) +
-  geom_point() +
-  geom_errorbar(width = 0) +
-  scale_y_continuous(
-    labels = scales::percent,
-    limits = c(0, NA)
-  ) +
-  theme_minimal()
+plotPrevalence(prev, ylim =  c(0, NA))
 
 ## ---- message= FALSE, warning=FALSE-------------------------------------------
 prev <- estimatePointPrevalence(
@@ -77,23 +66,14 @@ prev <- estimatePointPrevalence(
   denominatorTable = "denominator",
   outcomeTable = "outcome",
   interval = "Months",
-  minCellCount = 0
+  minCellCount = 0, 
+  temporary = FALSE
 )
 
 prev %>%
   glimpse()
 
-prev %>%
-  ggplot(aes(x = prevalence_start_date, y = prevalence,
-             ymin = prevalence_95CI_lower,
-             ymax = prevalence_95CI_upper)) +
-  geom_point() +
-  geom_errorbar(width = 0) +
-  scale_y_continuous(
-    labels = scales::percent,
-    limits = c(0, NA)
-  ) +
-  theme_minimal()
+plotPrevalence(prev, ylim =  c(0, NA))
 
 ## ---- message= FALSE, warning=FALSE-------------------------------------------
 prev <- estimatePointPrevalence(
@@ -102,23 +82,14 @@ prev <- estimatePointPrevalence(
   outcomeTable = "outcome",
   interval = "Years",
   timePoint = "middle",
-  minCellCount = 0
+  minCellCount = 0, 
+  temporary = FALSE
 )
 
 prev %>%
   glimpse()
 
-prev %>%
-  ggplot(aes(x = prevalence_start_date, y = prevalence,
-             ymin = prevalence_95CI_lower,
-             ymax = prevalence_95CI_upper)) +
-  geom_point() +
-  geom_errorbar(width = 0) +
-  scale_y_continuous(
-    labels = scales::percent,
-    limits = c(0, NA)
-  ) + 
-  theme_minimal()
+plotPrevalence(prev, ylim =  c(0, NA))
 
 ## ---- message= FALSE, warning=FALSE-------------------------------------------
 prev <- estimatePeriodPrevalence(
@@ -126,23 +97,14 @@ prev <- estimatePeriodPrevalence(
   denominatorTable = "denominator",
   outcomeTable = "outcome",
   interval = "Years",
-  minCellCount = 0
+  minCellCount = 0, 
+  temporary = FALSE
 )
 
 prev %>%
   glimpse()
 
-prev %>%
-  ggplot(aes(x = prevalence_start_date, y = prevalence,
-             ymin = prevalence_95CI_lower,
-             ymax = prevalence_95CI_upper)) +
-  geom_point() +
-  geom_errorbar(width = 0) +
-  scale_y_continuous(
-    labels = scales::percent,
-    limits = c(0, NA)
-  ) +
-  theme_minimal()
+plotPrevalence(prev, ylim =  c(0.1, 0.3))
 
 ## ---- message= FALSE, warning=FALSE-------------------------------------------
 prev <- estimatePeriodPrevalence(
@@ -150,23 +112,15 @@ prev <- estimatePeriodPrevalence(
   denominatorTable = "denominator",
   outcomeTable = "outcome",
   interval = "Months",
-  minCellCount = 0
+  minCellCount = 0, 
+  temporary = FALSE
 )
 
 prev %>%
   glimpse()
 
-prev %>%
-  ggplot(aes(x = prevalence_start_date, y = prevalence,
-             ymin = prevalence_95CI_lower,
-             ymax = prevalence_95CI_upper)) +
-  geom_point() +
-  geom_errorbar(width = 0) +
-  scale_y_continuous(
-    labels = scales::percent,
-    limits = c(0, NA)
-  ) +
-  theme_minimal()
+plotPrevalence(prev, ylim =  c(0, NA))
+
 
 ## ---- message= FALSE, warning=FALSE-------------------------------------------
 prev <- estimatePeriodPrevalence(
@@ -175,23 +129,15 @@ prev <- estimatePeriodPrevalence(
   outcomeTable = "outcome",
   interval = "Months",
   fullContribution = FALSE,
-  minCellCount = 0
+  minCellCount = 0, 
+  temporary = FALSE
 )
 
 prev %>%
   glimpse()
 
-prev %>%
-  ggplot(aes(x = prevalence_start_date, y = prevalence,
-             ymin = prevalence_95CI_lower,
-             ymax = prevalence_95CI_upper)) +
-  geom_point() +
-  geom_errorbar(width = 0) +
-  scale_y_continuous(
-    labels = scales::percent,
-    limits = c(0, NA)
-  ) +
-  theme_minimal()
+plotPrevalence(prev,
+               ylim = c(0,0.07))
 
 ## ---- message= FALSE, warning=FALSE-------------------------------------------
 prev <- estimatePointPrevalence(
@@ -200,26 +146,17 @@ prev <- estimatePointPrevalence(
   outcomeTable = "outcome",
   interval = "Years",
   outcomeLookbackDays = c(0, 30),
-  minCellCount = 0
+  minCellCount = 0, 
+  temporary = FALSE
 )
 
 prev %>%
   glimpse()
 
-prev %>%
-  left_join(prevalenceSet(prev)) %>%
-  mutate(analysis_outcome_lookback_days = as.character(analysis_outcome_lookback_days)) %>%
-  ggplot(aes(x = prevalence_start_date, y = prevalence,
-             ymin = prevalence_95CI_lower,
-             ymax = prevalence_95CI_upper,
-             colour = analysis_outcome_lookback_days)) +
-  geom_point() +
-  geom_errorbar(width = 0) +
-  scale_y_continuous(
-    labels = scales::percent,
-    limits = c(0, NA)
-  ) +
-  theme_minimal()
+plotPrevalence(prev,
+               colour = "analysis_outcome_lookback_days", 
+               colour_name = "Outcome lookback days",
+               ylim = c(0,NA))
 
 ## ---- message= FALSE, warning=FALSE-------------------------------------------
 prev <- estimatePeriodPrevalence(
@@ -229,13 +166,24 @@ prev <- estimatePeriodPrevalence(
   interval = "Years",
   fullContribution = c(TRUE, FALSE),
   minCellCount = 0, 
-  tablePrefix = "example_study", # returnParticipants can only be TRUE if tablePrefix is not null
+  temporary = FALSE, # returnParticipants can only be TRUE with temporary = FALSE
   returnParticipants = TRUE
 )
-prevalenceSet(prev)
 prevalenceAttrition(prev)
 
 ## ---- message= FALSE, warning=FALSE-------------------------------------------
 participants(prev, analysisId = 1) %>% 
   glimpse()
+
+## ---- message= FALSE, warning=FALSE-------------------------------------------
+CDMConnector::listTables(attr(cdm, "dbcon"), schema = attr(cdm, "write_schema"))
+# drop tables created when instantiating denominator cohorts
+CDMConnector::dropTable(cdm = cdm, 
+              name = dplyr::starts_with(paste0(attr(cdm, "write_prefix"), 
+                            "denominator"))) 
+# drop table with study participants when returnParticipants = TRUE
+CDMConnector::dropTable(cdm = cdm, 
+              name = paste0(attr(cdm, "write_prefix"), 
+                            "period_prev_participants1")) 
+
 

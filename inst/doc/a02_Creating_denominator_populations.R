@@ -38,10 +38,9 @@ library(tidyr)
 cdm <- mockIncidencePrevalenceRef(sampleSize = 500)
 
 ## ---- message=FALSE, warning=FALSE--------------------------------------------
-cdm$denominator <- generateDenominatorCohortSet(
+cdm <- generateDenominatorCohortSet(
   cdm = cdm,
-  startDate = NULL,
-  endDate = NULL,
+  cohortDateRange = NULL,
   ageGroup = list(c(0, 150)),
   sex = "Both",
   daysPriorHistory = 0
@@ -84,10 +83,9 @@ cdm$denominator %>%
   )
 
 ## ---- message=FALSE, warning=FALSE--------------------------------------------
-cdm$denominator <- generateDenominatorCohortSet(
+cdm <- generateDenominatorCohortSet(
   cdm = cdm,
-  startDate = as.Date("2008-01-01"),
-  endDate = as.Date("2010-01-01"),
+  cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
   ageGroup = list(c(0, 150)),
   sex = "Both",
   daysPriorHistory = 0
@@ -132,10 +130,9 @@ cdm$denominator %>%
   )
 
 ## ---- message=FALSE, warning=FALSE--------------------------------------------
-cdm$denominator <- generateDenominatorCohortSet(
+cdm <- generateDenominatorCohortSet(
   cdm = cdm,
-  startDate = as.Date("2008-01-01"),
-  endDate = as.Date("2010-01-01"),
+  cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
   ageGroup = list(c(0, 150)),
   sex = "Both",
   daysPriorHistory = 365
@@ -180,10 +177,9 @@ cdm$denominator %>%
   )
 
 ## ---- message=FALSE, warning=FALSE--------------------------------------------
-cdm$denominator <- generateDenominatorCohortSet(
+cdm <- generateDenominatorCohortSet(
   cdm = cdm,
-  startDate = as.Date("2008-01-01"),
-  endDate = as.Date("2010-01-01"),
+  cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
   ageGroup = list(c(18, 65)),
   sex = "Female",
   daysPriorHistory = 365
@@ -215,10 +211,9 @@ cdm$denominator %>%
   )
 
 ## ---- message=FALSE, warning=FALSE--------------------------------------------
-cdm$denominator <- generateDenominatorCohortSet(
+cdm <- generateDenominatorCohortSet(
   cdm = cdm,
-  startDate = as.Date("2008-01-01"),
-  endDate = as.Date("2010-01-01"),
+  cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
   ageGroup = list(
     c(0, 40),
     c(41, 100)
@@ -254,10 +249,9 @@ dpop %>%
   coord_flip()
 
 ## ---- message=FALSE, warning=FALSE, fig.height=8------------------------------
-cdm$denominator <- generateDenominatorCohortSet(
+cdm <- generateDenominatorCohortSet(
   cdm = cdm,
-  startDate = as.Date("2008-01-01"),
-  endDate = as.Date("2010-01-01"),
+  cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
   ageGroup = list(
     c(0, 40),
     c(41, 100)
@@ -292,10 +286,9 @@ dpop %>%
   coord_flip()
 
 ## ---- message=FALSE, warning=FALSE, fig.height=10-----------------------------
-cdm$denominator <- generateDenominatorCohortSet(
+cdm <- generateDenominatorCohortSet(
   cdm = cdm,
-  startDate = as.Date("2008-01-01"),
-  endDate = as.Date("2010-01-01"),
+  cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
   ageGroup = list(
     c(0, 40),
     c(41, 100)
@@ -330,10 +323,9 @@ dpop %>%
   coord_flip()
 
 ## ---- message=TRUE, warning=FALSE---------------------------------------------
-cdm$denominator <- generateDenominatorCohortSet(
+cdm <- generateDenominatorCohortSet(
   cdm = cdm,
-  startDate = as.Date("2008-01-01"),
-  endDate = as.Date("2010-01-01"),
+  cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
   ageGroup = list(
     c(0, 18),
     c(19, 100)
@@ -429,11 +421,10 @@ cdm$denominator
 observationPeriodTable
 
 ## ---- message=FALSE, warning=FALSE--------------------------------------------
-cdm$denominator <- generateDenominatorCohortSet(
+cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   strataTable = "strata",
-  strataCohortId = 1,
-  strataCohortName = "strata_cohort_1"
+  strataCohortId = 1
 )
 cdm$denominator
 
@@ -443,11 +434,10 @@ observationPeriodTable %>%
   filter(person_id %in% c("1", "2", "4"))
 
 ## ---- message=FALSE, warning=FALSE--------------------------------------------
-cdm$denominator <- generateDenominatorCohortSet(
+cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   strataTable = "strata",
-  strataCohortId = 2,
-  strataCohortName = "strata_cohort_2"
+  strataCohortId = 2
 )
 cdm$denominator
 
@@ -457,11 +447,10 @@ conditionX %>%
   filter(subject_id %in% c("2", "3", "5"))
 
 ## ---- message=FALSE, warning=FALSE--------------------------------------------
-cdm$denominator <- generateDenominatorCohortSet(
+cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   strataTable = "strata",
-  strataCohortId = 3,
-  strataCohortName = "strata_cohort_2"
+  strataCohortId = 3
 )
 cdm$denominator
 
@@ -471,12 +460,11 @@ conditionX %>%
   filter(subject_id %in% c("2", "3", "5"))
 
 ## ---- message=FALSE, warning=FALSE--------------------------------------------
-cdm$denominator <- generateDenominatorCohortSet(
+cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   strataTable = "strata",
   strataCohortId = 3,
-  startDate = as.Date("2014-01-01"),
-  endDate = as.Date("2016-01-01"),
+  cohortDateRange = c(as.Date("2014-01-01"), as.Date("2016-01-01")),
   ageGroup = list(c(0, 150)),
   sex = "Female",
   daysPriorHistory = 0
