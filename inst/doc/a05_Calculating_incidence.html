@@ -741,13 +741,16 @@ after running our analysis.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>CDMConnector<span class="sc">::</span><span class="fu">listTables</span>(<span class="fu">attr</span>(cdm, <span class="st">&quot;dbcon&quot;</span>))</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;cdm_source&quot;            &quot;denominator&quot;           &quot;denominator_attrition&quot;</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [4] &quot;denominator_count&quot;     &quot;denominator_set&quot;       &quot;inc_participants1&quot;    </span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;observation_period&quot;    &quot;outcome&quot;               &quot;person&quot;               </span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [10] &quot;strata&quot;                &quot;vocabulary&quot;</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>CDMConnector<span class="sc">::</span><span class="fu">dropTable</span>(<span class="at">cdm =</span> cdm, <span class="at">name =</span> <span class="fu">starts_with</span>(<span class="st">&quot;denominator&quot;</span>))</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>CDMConnector<span class="sc">::</span><span class="fu">dropTable</span>(<span class="at">cdm =</span> cdm, <span class="at">name =</span> <span class="fu">starts_with</span>(<span class="st">&quot;inc_participants&quot;</span>))</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>CDMConnector<span class="sc">::</span><span class="fu">listTables</span>(<span class="fu">attr</span>(cdm, <span class="st">&quot;dbcon&quot;</span>))</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;cdm_source&quot;         &quot;observation_period&quot; &quot;outcome&quot;           </span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] &quot;person&quot;             &quot;strata&quot;             &quot;vocabulary&quot;</span></span></code></pre></div>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;observation_period&quot;    &quot;outcome&quot;               &quot;outcome_count&quot;        </span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [10] &quot;outcome_set&quot;           &quot;person&quot;                &quot;strata&quot;               </span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] &quot;strata_count&quot;          &quot;strata_set&quot;            &quot;vocabulary&quot;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>CDMConnector<span class="sc">::</span><span class="fu">dropTable</span>(<span class="at">cdm =</span> cdm, <span class="at">name =</span> <span class="fu">starts_with</span>(<span class="st">&quot;denominator&quot;</span>))</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>CDMConnector<span class="sc">::</span><span class="fu">dropTable</span>(<span class="at">cdm =</span> cdm, <span class="at">name =</span> <span class="fu">starts_with</span>(<span class="st">&quot;inc_participants&quot;</span>))</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>CDMConnector<span class="sc">::</span><span class="fu">listTables</span>(<span class="fu">attr</span>(cdm, <span class="st">&quot;dbcon&quot;</span>))</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;cdm_source&quot;         &quot;observation_period&quot; &quot;outcome&quot;           </span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [4] &quot;outcome_count&quot;      &quot;outcome_set&quot;        &quot;person&quot;            </span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;strata&quot;             &quot;strata_count&quot;       &quot;strata_set&quot;        </span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [10] &quot;vocabulary&quot;</span></span></code></pre></div>
 </div>
 </div>
 

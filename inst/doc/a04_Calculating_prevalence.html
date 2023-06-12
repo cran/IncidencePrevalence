@@ -852,20 +852,22 @@ contributing to analysis 1 by running</p>
 after running our analysis (note, the table created will start with
 write_prefix specified when creating the cdm reference).</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>CDMConnector<span class="sc">::</span><span class="fu">listTables</span>(<span class="fu">attr</span>(cdm, <span class="st">&quot;dbcon&quot;</span>), <span class="at">schema =</span> <span class="fu">attr</span>(cdm, <span class="st">&quot;write_schema&quot;</span>))</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;denominator&quot;               &quot;vocabulary&quot;               </span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [3] &quot;cdm_source&quot;                &quot;outcome&quot;                  </span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;strata&quot;                    &quot;observation_period&quot;       </span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;person&quot;                    &quot;denominator_count&quot;        </span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;denominator_set&quot;           &quot;denominator_attrition&quot;    </span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [11] &quot;period_prev_participants1&quot;</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># drop tables created when instantiating denominator cohorts</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>CDMConnector<span class="sc">::</span><span class="fu">dropTable</span>(<span class="at">cdm =</span> cdm, </span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">name =</span> dplyr<span class="sc">::</span><span class="fu">starts_with</span>(<span class="fu">paste0</span>(<span class="fu">attr</span>(cdm, <span class="st">&quot;write_prefix&quot;</span>), </span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;denominator&quot;</span>))) </span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># drop table with study participants when returnParticipants = TRUE</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>CDMConnector<span class="sc">::</span><span class="fu">dropTable</span>(<span class="at">cdm =</span> cdm, </span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>              <span class="at">name =</span> <span class="fu">paste0</span>(<span class="fu">attr</span>(cdm, <span class="st">&quot;write_prefix&quot;</span>), </span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;period_prev_participants1&quot;</span>)) </span></code></pre></div>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;denominator_attrition&quot;     &quot;denominator_set&quot;          </span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [3] &quot;denominator_count&quot;         &quot;denominator&quot;              </span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;period_prev_participants1&quot; &quot;person&quot;                   </span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;observation_period&quot;        &quot;strata&quot;                   </span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;outcome&quot;                   &quot;cdm_source&quot;               </span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [11] &quot;vocabulary&quot;                &quot;strata_set&quot;               </span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] &quot;strata_count&quot;              &quot;outcome_set&quot;              </span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [15] &quot;outcome_count&quot;</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># drop tables created when instantiating denominator cohorts</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>CDMConnector<span class="sc">::</span><span class="fu">dropTable</span>(<span class="at">cdm =</span> cdm, </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">name =</span> dplyr<span class="sc">::</span><span class="fu">starts_with</span>(<span class="fu">paste0</span>(<span class="fu">attr</span>(cdm, <span class="st">&quot;write_prefix&quot;</span>), </span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;denominator&quot;</span>))) </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co"># drop table with study participants when returnParticipants = TRUE</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>CDMConnector<span class="sc">::</span><span class="fu">dropTable</span>(<span class="at">cdm =</span> cdm, </span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">name =</span> <span class="fu">paste0</span>(<span class="fu">attr</span>(cdm, <span class="st">&quot;write_prefix&quot;</span>), </span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;period_prev_participants1&quot;</span>)) </span></code></pre></div>
 </div>
 </div>
 
