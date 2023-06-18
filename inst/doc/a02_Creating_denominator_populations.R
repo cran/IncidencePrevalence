@@ -211,6 +211,35 @@ cdm$denominator %>%
   )
 
 ## ---- message=FALSE, warning=FALSE--------------------------------------------
+cdm <- cdm %>%
+  generateDenominatorCohortSet(
+    name = "denominator_open",
+    cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
+    closedCohort = FALSE
+  ) %>%
+  generateDenominatorCohortSet(
+    name = "denominator_closed",
+    cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
+    closedCohort = TRUE
+  )
+
+## ---- message=FALSE, warning=FALSE--------------------------------------------
+dplyr::bind_rows(
+  cdm$denominator_open %>%
+    collect() %>%
+    mutate(cohort = "Open cohort"),
+  cdm$denominator_closed %>%
+    collect() %>%
+    mutate(cohort = "Closed cohort")
+) %>%
+  ggplot() +
+  theme_minimal() +
+  geom_histogram(aes(cohort_start_date),
+    colour = "black", fill = "grey"
+  ) +
+  facet_wrap(vars(cohort))
+
+## ---- message=FALSE, warning=FALSE--------------------------------------------
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
@@ -322,7 +351,50 @@ dpop %>%
   ylab("Year") +
   coord_flip()
 
-## ---- message=TRUE, warning=FALSE---------------------------------------------
+## ---- message=FALSE, warning=FALSE, fig.height=10-----------------------------
+cdm <- generateDenominatorCohortSet(
+  cdm = cdm,
+  cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
+  ageGroup = list(
+    c(0, 100),
+    c(0, 40),
+    c(41, 100)
+  ),
+  sex = c("Both", "Male", "Female"),
+  daysPriorHistory = c(0, 365),
+  requirementInteractions = FALSE
+)
+dpop <- cdm$denominator %>%
+  collect() %>%
+  left_join(cohortSet(cdm$denominator))
+
+dpop %>% glimpse()
+
+dpop %>%
+  group_by(cohort_definition_id, age_group, sex, days_prior_history) %>%
+  tally()
+
+dpop %>%
+  dplyr::slice_sample(prop = 0.1) %>%
+  pivot_longer(cols = c(
+    "cohort_start_date",
+    "cohort_end_date"
+  )) %>%
+  mutate(cohort_definition_id = as.character(cohort_definition_id)) %>%
+  ggplot(aes(x = subject_id, y = value, colour = cohort_definition_id)) +
+  facet_grid(sex + days_prior_history ~ age_group, space = "free_y") +
+  geom_point(position = position_dodge(width = 0.5)) +
+  geom_line(position = position_dodge(width = 0.5)) +
+  theme_bw() +
+  theme(
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    legend.position = "top"
+  ) +
+  ylab("Year") +
+  coord_flip()
+
+## ---- message=TRUE, warning=FALSE, message=FALSE------------------------------
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
@@ -412,7 +484,7 @@ cdm <- mockIncidencePrevalenceRef(
 )
 
 ## ---- message=FALSE, warning=FALSE--------------------------------------------
-cdm$denominator <- generateDenominatorCohortSet(
+cdm <- generateDenominatorCohortSet(
   cdm = cdm
 )
 cdm$denominator
@@ -461,15 +533,29 @@ conditionX %>%
 
 ## ---- message=FALSE, warning=FALSE--------------------------------------------
 cdm <- generateDenominatorCohortSet(
-  cdm = cdm,
+  cdm = cdm, name = "denom_reqs_at_strata_entry",
+  cohortDateRange = c(as.Date("2014-01-01"), as.Date("2016-01-01")),
+  ageGroup = list(c(15, 25)),
+  sex = "Female",
+  daysPriorHistory = 0,
   strataTable = "strata",
   strataCohortId = 3,
-  cohortDateRange = c(as.Date("2014-01-01"), as.Date("2016-01-01")),
-  ageGroup = list(c(0, 150)),
-  sex = "Female",
-  daysPriorHistory = 0
+  strataRequirementsAtEntry = FALSE
 )
-cdm$denominator
+cdm$denom_reqs_at_strata_entry
+
+cdm <- generateDenominatorCohortSet(
+  cdm = cdm, name = "denom_reqs_any_time",
+  cohortDateRange = as.Date(c("2014-01-01", NA)),
+  ageGroup = list(c(15, 25)),
+  sex = "Female",
+  daysPriorHistory = 0,
+  strataTable = "strata",
+  strataCohortId = 3,
+  strataRequirementsAtEntry = FALSE
+)
+cdm$denom_reqs_any_time
+
 
 ## ---- message=FALSE, warning=FALSE--------------------------------------------
 cohortSet(cdm$denominator)

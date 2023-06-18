@@ -1,7 +1,7 @@
 Package: IncidencePrevalence
 Title: Estimate Incidence and Prevalence using the OMOP Common Data
         Model
-Version: 0.3.1
+Version: 0.4.0
 Authors@R: c(
     person("Edward", "Burn", email = "edward.burn@ndorms.ox.ac.uk", 
     role = c("aut", "cre"), 
@@ -34,14 +34,14 @@ Imports: CDMConnector (>= 1.0.0), checkmate (>= 2.0.0), cli (>= 3.0.0),
         1.0.0), stringr (>= 1.5.0), tidyr (>= 1.2.0), tidyselect (>=
         1.2.0), zip (>= 2.2.0)
 Suggests: knitr, rmarkdown, RPostgres, tibble, duckdb, odbc, here,
-        Hmisc, epitools, tictoc, testthat (>= 0.3.1), spelling
+        Hmisc, epitools, tictoc, testthat (>= 0.3.1), spelling, PaRe
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Language: en-US
 License: Apache License (>= 2)
 URL: https://darwin-eu.github.io/IncidencePrevalence/
 NeedsCompilation: no
-Packaged: 2023-06-12 15:03:59 UTC; eburn
+Packaged: 2023-06-17 16:47:05 UTC; eburn
 Author: Edward Burn [aut, cre] (<https://orcid.org/0000-0002-9286-1128>),
   Berta Raventos [aut] (<https://orcid.org/0000-0002-4668-2970>),
   Marti Catala [aut] (<https://orcid.org/0000-0003-3308-9905>),
@@ -52,4 +52,4 @@ Author: Edward Burn [aut, cre] (<https://orcid.org/0000-0002-9286-1128>),
   Kim Lopez [ctb] (<https://orcid.org/0000-0002-8462-8668>)
 Maintainer: Edward Burn <edward.burn@ndorms.ox.ac.uk>
 Repository: CRAN
-Date/Publication: 2023-06-12 19:10:05 UTC
+Date/Publication: 2023-06-18 07:50:07 UTC

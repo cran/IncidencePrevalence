@@ -45,8 +45,8 @@ cdm <- generateDenominatorCohortSet(
   cohortDateRange = c(as.Date("2008-01-01"), as.Date("2012-01-01")),
   ageGroup = list(c(0, 150)),
   sex = "Both",
-  daysPriorHistory = 0, 
-  temporary =  FALSE,
+  daysPriorHistory = 0,
+  temporary = FALSE,
 )
 
 cdm$denominator %>%
@@ -84,7 +84,6 @@ inc %>%
 
 plotIncidence(inc)
 
-
 ## ---- message= FALSE, warning=FALSE-------------------------------------------
 inc <- estimateIncidence(
   cdm = cdm,
@@ -117,7 +116,6 @@ inc %>%
 
 plotIncidence(inc)
 
-
 ## ---- message=TRUE, warning=FALSE---------------------------------------------
 inc <- estimateIncidence(
   cdm = cdm,
@@ -145,7 +143,7 @@ inc <- estimateIncidence(
 incidenceAttrition(inc)
 
 ## ---- message= FALSE, warning=FALSE-------------------------------------------
-participants(inc, analysisId = 1) %>% 
+participants(inc, analysisId = 1) %>%
   glimpse()
 
 ## ---- message= FALSE, warning=FALSE-------------------------------------------

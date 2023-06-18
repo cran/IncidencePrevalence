@@ -11,7 +11,9 @@ library(knitr)
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  outcome_cohorts <- CDMConnector::readCohortSet(here::here("outcome_cohorts"))
-#  cdm <- CDMConnector::generateCohortSet(cdm = cdm,
-#                                         cohortSet = outcome_cohorts,
-#                                         name = outcome_table)
+#  cdm <- CDMConnector::generateCohortSet(
+#    cdm = cdm,
+#    cohortSet = outcome_cohorts,
+#    name = outcome_table
+#  )
 
