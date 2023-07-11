@@ -539,23 +539,9 @@ cdm <- generateDenominatorCohortSet(
   sex = "Female",
   daysPriorHistory = 0,
   strataTable = "strata",
-  strataCohortId = 3,
-  strataRequirementsAtEntry = FALSE
+  strataCohortId = 3
 )
 cdm$denom_reqs_at_strata_entry
-
-cdm <- generateDenominatorCohortSet(
-  cdm = cdm, name = "denom_reqs_any_time",
-  cohortDateRange = as.Date(c("2014-01-01", NA)),
-  ageGroup = list(c(15, 25)),
-  sex = "Female",
-  daysPriorHistory = 0,
-  strataTable = "strata",
-  strataCohortId = 3,
-  strataRequirementsAtEntry = FALSE
-)
-cdm$denom_reqs_any_time
-
 
 ## ---- message=FALSE, warning=FALSE--------------------------------------------
 cohortSet(cdm$denominator)
