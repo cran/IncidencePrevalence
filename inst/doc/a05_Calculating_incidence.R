@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -7,7 +7,7 @@ knitr::opts_chunk$set(
   eval = Sys.getenv("$RUNNER_OS") != "macOS"
 )
 
-## ---- message= FALSE, warning=FALSE, echo=FALSE-------------------------------
+## ----message= FALSE, warning=FALSE, echo=FALSE--------------------------------
 library(here)
 library(DBI)
 library(dbplyr)
@@ -45,14 +45,13 @@ cdm <- generateDenominatorCohortSet(
   cohortDateRange = c(as.Date("2008-01-01"), as.Date("2012-01-01")),
   ageGroup = list(c(0, 150)),
   sex = "Both",
-  daysPriorHistory = 0,
-  temporary = FALSE,
+  daysPriorObservation = 0
 )
 
 cdm$denominator %>%
   glimpse()
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 inc <- estimateIncidence(
   cdm = cdm,
   denominatorTable = "denominator",
@@ -68,7 +67,7 @@ inc %>%
 
 plotIncidence(inc)
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 inc <- estimateIncidence(
   cdm = cdm,
   denominatorTable = "denominator",
@@ -84,7 +83,7 @@ inc %>%
 
 plotIncidence(inc)
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 inc <- estimateIncidence(
   cdm = cdm,
   denominatorTable = "denominator",
@@ -100,7 +99,7 @@ inc %>%
 
 plotIncidence(inc)
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 inc <- estimateIncidence(
   cdm = cdm,
   denominatorTable = "denominator",
@@ -116,7 +115,7 @@ inc %>%
 
 plotIncidence(inc)
 
-## ---- message=TRUE, warning=FALSE---------------------------------------------
+## ----message=TRUE, warning=FALSE----------------------------------------------
 inc <- estimateIncidence(
   cdm = cdm,
   denominatorTable = "denominator",
@@ -129,7 +128,7 @@ inc <- estimateIncidence(
   temporary = FALSE
 )
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 inc <- estimateIncidence(
   cdm = cdm,
   denominatorTable = "denominator",
@@ -142,11 +141,11 @@ inc <- estimateIncidence(
 )
 incidenceAttrition(inc)
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 participants(inc, analysisId = 1) %>%
   glimpse()
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 CDMConnector::listTables(attr(cdm, "dbcon"))
 CDMConnector::dropTable(cdm = cdm, name = starts_with("denominator"))
 CDMConnector::dropTable(cdm = cdm, name = starts_with("inc_participants"))

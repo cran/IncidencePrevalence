@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -7,7 +7,7 @@ knitr::opts_chunk$set(
   eval = Sys.getenv("$RUNNER_OS") != "macOS"
 )
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 library(CDMConnector)
 library(IncidencePrevalence)
 library(dplyr)
@@ -25,7 +25,7 @@ library(ggplot2)
 #    cdm_schema = Sys.getenv("CDM5_POSTGRESQL_CDM_SCHEMA")
 #  )
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 cdm <- mockIncidencePrevalenceRef(
   sampleSize = 50000,
   outPre = 0.5
@@ -39,14 +39,14 @@ cdm <- mockIncidencePrevalenceRef(
 #    name = outcome_table
 #  )
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator",
   cohortDateRange = c(as.Date("2008-01-01"), as.Date("2012-01-01")),
   ageGroup = list(c(18, 65)),
   sex = c("Male", "Female", "Both"),
-  daysPriorHistory = 365
+  daysPriorObservation = 365
 )
 
 ## -----------------------------------------------------------------------------
@@ -59,7 +59,7 @@ cohortSet(cdm$denominator)
 ## -----------------------------------------------------------------------------
 cohortCount(cdm$denominator)
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 prev <- estimatePeriodPrevalence(
   cdm = cdm,
   denominatorTable = "denominator",
@@ -71,7 +71,7 @@ prev <- estimatePeriodPrevalence(
 prev %>%
   glimpse()
 
-## ---- message= FALSE, warning=FALSE, echo=FALSE-------------------------------
+## ----message= FALSE, warning=FALSE, echo=FALSE--------------------------------
 prev %>%
   ggplot(aes(
     x = prevalence_start_date, y = prevalence,
@@ -88,7 +88,7 @@ prev %>%
   theme_minimal() +
   theme(legend.title = element_blank())
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 inc <- estimateIncidence(
   cdm = cdm,
   denominatorTable = "denominator",
@@ -100,7 +100,7 @@ inc <- estimateIncidence(
 inc %>%
   glimpse()
 
-## ---- message= FALSE, warning=FALSE, echo=FALSE-------------------------------
+## ----message= FALSE, warning=FALSE, echo=FALSE--------------------------------
 inc %>%
   ggplot(aes(
     x = incidence_start_date, y = incidence_100000_pys,
@@ -114,7 +114,7 @@ inc %>%
   theme_minimal() +
   theme(legend.title = element_blank())
 
-## ---- eval=FALSE--------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  exportIncidencePrevalenceResults(
 #    resultList = list(
 #      "incidence" = inc,

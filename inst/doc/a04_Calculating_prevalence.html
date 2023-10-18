@@ -403,21 +403,20 @@ than a study period.</p>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">cohortDateRange =</span> <span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">&quot;2008-01-01&quot;</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2012-01-01&quot;</span>)),</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">ageGroup =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">150</span>)),</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">sex =</span> <span class="st">&quot;Both&quot;</span>,</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">daysPriorHistory =</span> <span class="dv">0</span>,</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">temporary =</span> <span class="cn">FALSE</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Creating denominator cohorts</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time taken to get cohorts: 0 min and 2 sec</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>cdm<span class="sc">$</span>denominator <span class="sc">%&gt;%</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: ??</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 4</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Database: DuckDB 0.8.1 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cohort_definition_id &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ subject_id           &lt;chr&gt; &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;12&quot;, &quot;13&quot;, &quot;19&quot;, &quot;…</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cohort_start_date    &lt;date&gt; 2008-01-01, 2009-12-20, 2011-04-26, 2011-10-13, …</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cohort_end_date      &lt;date&gt; 2008-08-03, 2011-10-16, 2011-07-16, 2012-01-01, …</span></span></code></pre></div>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">daysPriorObservation =</span> <span class="dv">0</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ Creating denominator cohorts</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Cohorts created in 0 min and 2 sec</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>cdm<span class="sc">$</span>denominator <span class="sc">%&gt;%</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: ??</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 4</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Database: DuckDB 0.8.1 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cohort_definition_id &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ subject_id           &lt;chr&gt; &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;12&quot;, &quot;13&quot;, &quot;19&quot;, &quot;…</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cohort_start_date    &lt;date&gt; 2008-01-01, 2009-12-20, 2011-04-26, 2011-10-13, …</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cohort_end_date      &lt;date&gt; 2008-08-03, 2011-10-16, 2011-07-16, 2012-01-01, …</span></span></code></pre></div>
 <div id="using-estimatepointprevalence" class="section level2">
 <h2>Using estimatePointPrevalence()</h2>
 <p>Let´s first calculate point prevalence on a yearly basis.</p>
@@ -442,27 +441,27 @@ than a study period.</p>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ prevalence                              &lt;dbl&gt; 0.005853219, 0.007748601, 0.0…</span></span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ prevalence_95CI_lower                   &lt;dbl&gt; 0.003997601, 0.005602378, 0.00…</span></span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ prevalence_95CI_upper                   &lt;dbl&gt; 0.008562779, 0.010708169, 0.01…</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cohort_obscured                         &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ result_obscured                         &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_id                       &lt;chr&gt; &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_name                     &lt;chr&gt; &quot;cohort_1&quot;, &quot;cohort_1&quot;, &quot;cohor…</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_outcome_lookback_days          &lt;dbl&gt; 0, 0, 0, 0, 0</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_type                           &lt;chr&gt; &quot;point&quot;, &quot;point&quot;, &quot;point&quot;, &quot;po…</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_interval                       &lt;chr&gt; &quot;years&quot;, &quot;years&quot;, &quot;years&quot;, &quot;ye…</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_complete_database_intervals    &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FA…</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_time_point                     &lt;chr&gt; &quot;start&quot;, &quot;start&quot;, &quot;start&quot;, &quot;st…</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_full_contribution              &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FA…</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_min_cell_count                 &lt;dbl&gt; 0, 0, 0, 0, 0</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_id                   &lt;int&gt; 1, 1, 1, 1, 1</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_name                 &lt;chr&gt; &quot;Denominator cohort 1&quot;, &quot;Denom…</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_age_group                   &lt;chr&gt; &quot;0 to 150&quot;, &quot;0 to 150&quot;, &quot;0 to …</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_sex                         &lt;chr&gt; &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;…</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_days_prior_history          &lt;dbl&gt; 0, 0, 0, 0, 0</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_start_date                  &lt;date&gt; 2008-01-01, 2008-01-01, 2008-0…</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_end_date                    &lt;date&gt; 2012-01-01, 2012-01-01, 2012-0…</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_strata_cohort_definition_id &lt;lgl&gt; NA, NA, NA, NA, NA</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_strata_cohort_name          &lt;lgl&gt; NA, NA, NA, NA, NA</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_closed_cohort               &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FA…</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ population_obscured                     &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cases_obscured                          &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ result_obscured                         &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_id                       &lt;chr&gt; &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_name                     &lt;chr&gt; &quot;cohort_1&quot;, &quot;cohort_1&quot;, &quot;cohor…</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_outcome_lookback_days          &lt;dbl&gt; 0, 0, 0, 0, 0</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_type                           &lt;chr&gt; &quot;point&quot;, &quot;point&quot;, &quot;point&quot;, &quot;po…</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_interval                       &lt;chr&gt; &quot;years&quot;, &quot;years&quot;, &quot;years&quot;, &quot;ye…</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_complete_database_intervals    &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FA…</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_time_point                     &lt;chr&gt; &quot;start&quot;, &quot;start&quot;, &quot;start&quot;, &quot;st…</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_full_contribution              &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FA…</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_min_cell_count                 &lt;dbl&gt; 0, 0, 0, 0, 0</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_id                   &lt;int&gt; 1, 1, 1, 1, 1</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_name                 &lt;chr&gt; &quot;Denominator cohort 1&quot;, &quot;Denom…</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_age_group                   &lt;chr&gt; &quot;0 to 150&quot;, &quot;0 to 150&quot;, &quot;0 to …</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_sex                         &lt;chr&gt; &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;…</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_days_prior_observation      &lt;dbl&gt; 0, 0, 0, 0, 0</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_start_date                  &lt;date&gt; 2008-01-01, 2008-01-01, 2008-0…</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_end_date                    &lt;date&gt; 2012-01-01, 2012-01-01, 2012-0…</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_target_cohort_definition_id &lt;lgl&gt; NA, NA, NA, NA, NA</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_target_cohort_name          &lt;lgl&gt; NA, NA, NA, NA, NA</span></span>
 <span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cdm_name                                &lt;chr&gt; &quot;test_database&quot;, &quot;test_databas…</span></span>
 <span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPrevalence</span>(prev, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>))</span></code></pre></div>
@@ -489,27 +488,27 @@ than a study period.</p>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ prevalence                              &lt;dbl&gt; 0.005853219, 0.004943820, 0.00…</span></span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ prevalence_95CI_lower                   &lt;dbl&gt; 0.003997601, 0.003267167, 0.00…</span></span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ prevalence_95CI_upper                   &lt;dbl&gt; 0.008562779, 0.007474450, 0.01…</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cohort_obscured                         &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ result_obscured                         &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_id                       &lt;chr&gt; &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, …</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_name                     &lt;chr&gt; &quot;cohort_1&quot;, &quot;cohort_1&quot;, &quot;cohor…</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_outcome_lookback_days          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_type                           &lt;chr&gt; &quot;point&quot;, &quot;point&quot;, &quot;point&quot;, &quot;po…</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_interval                       &lt;chr&gt; &quot;months&quot;, &quot;months&quot;, &quot;months&quot;, …</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_complete_database_intervals    &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FA…</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_time_point                     &lt;chr&gt; &quot;start&quot;, &quot;start&quot;, &quot;start&quot;, &quot;st…</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_full_contribution              &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FA…</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_min_cell_count                 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_id                   &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_name                 &lt;chr&gt; &quot;Denominator cohort 1&quot;, &quot;Denom…</span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_age_group                   &lt;chr&gt; &quot;0 to 150&quot;, &quot;0 to 150&quot;, &quot;0 to …</span></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_sex                         &lt;chr&gt; &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;…</span></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_days_prior_history          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_start_date                  &lt;date&gt; 2008-01-01, 2008-01-01, 2008-…</span></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_end_date                    &lt;date&gt; 2012-01-01, 2012-01-01, 2012-…</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_strata_cohort_definition_id &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA…</span></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_strata_cohort_name          &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA…</span></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_closed_cohort               &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FA…</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ population_obscured                     &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cases_obscured                          &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ result_obscured                         &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_id                       &lt;chr&gt; &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, …</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_name                     &lt;chr&gt; &quot;cohort_1&quot;, &quot;cohort_1&quot;, &quot;cohor…</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_outcome_lookback_days          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_type                           &lt;chr&gt; &quot;point&quot;, &quot;point&quot;, &quot;point&quot;, &quot;po…</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_interval                       &lt;chr&gt; &quot;months&quot;, &quot;months&quot;, &quot;months&quot;, …</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_complete_database_intervals    &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FA…</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_time_point                     &lt;chr&gt; &quot;start&quot;, &quot;start&quot;, &quot;start&quot;, &quot;st…</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_full_contribution              &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FA…</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_min_cell_count                 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_id                   &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_name                 &lt;chr&gt; &quot;Denominator cohort 1&quot;, &quot;Denom…</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_age_group                   &lt;chr&gt; &quot;0 to 150&quot;, &quot;0 to 150&quot;, &quot;0 to …</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_sex                         &lt;chr&gt; &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;…</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_days_prior_observation      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_start_date                  &lt;date&gt; 2008-01-01, 2008-01-01, 2008-…</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_end_date                    &lt;date&gt; 2012-01-01, 2012-01-01, 2012-…</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_target_cohort_definition_id &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA…</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_target_cohort_name          &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA…</span></span>
 <span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cdm_name                                &lt;chr&gt; &quot;test_database&quot;, &quot;test_databas…</span></span>
 <span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPrevalence</span>(prev, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>))</span></code></pre></div>
@@ -540,27 +539,27 @@ middle instead like so:</p>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ prevalence                              &lt;dbl&gt; 0.006805708, 0.007653619, 0.0…</span></span>
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ prevalence_95CI_lower                   &lt;dbl&gt; 0.004798807, 0.005508445, 0.00…</span></span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ prevalence_95CI_upper                   &lt;dbl&gt; 0.009643779, 0.010625271, 0.01…</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cohort_obscured                         &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ result_obscured                         &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_id                       &lt;chr&gt; &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_name                     &lt;chr&gt; &quot;cohort_1&quot;, &quot;cohort_1&quot;, &quot;cohor…</span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_outcome_lookback_days          &lt;dbl&gt; 0, 0, 0, 0</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_type                           &lt;chr&gt; &quot;point&quot;, &quot;point&quot;, &quot;point&quot;, &quot;po…</span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_interval                       &lt;chr&gt; &quot;years&quot;, &quot;years&quot;, &quot;years&quot;, &quot;ye…</span></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_complete_database_intervals    &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE</span></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_time_point                     &lt;chr&gt; &quot;middle&quot;, &quot;middle&quot;, &quot;middle&quot;, …</span></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_full_contribution              &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE</span></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_min_cell_count                 &lt;dbl&gt; 0, 0, 0, 0</span></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_id                   &lt;int&gt; 1, 1, 1, 1</span></span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_name                 &lt;chr&gt; &quot;Denominator cohort 1&quot;, &quot;Denom…</span></span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_age_group                   &lt;chr&gt; &quot;0 to 150&quot;, &quot;0 to 150&quot;, &quot;0 to …</span></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_sex                         &lt;chr&gt; &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;</span></span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_days_prior_history          &lt;dbl&gt; 0, 0, 0, 0</span></span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_start_date                  &lt;date&gt; 2008-01-01, 2008-01-01, 2008-0…</span></span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_end_date                    &lt;date&gt; 2012-01-01, 2012-01-01, 2012-0…</span></span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_strata_cohort_definition_id &lt;lgl&gt; NA, NA, NA, NA</span></span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_strata_cohort_name          &lt;lgl&gt; NA, NA, NA, NA</span></span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_closed_cohort               &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ population_obscured                     &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cases_obscured                          &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ result_obscured                         &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_id                       &lt;chr&gt; &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_name                     &lt;chr&gt; &quot;cohort_1&quot;, &quot;cohort_1&quot;, &quot;cohor…</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_outcome_lookback_days          &lt;dbl&gt; 0, 0, 0, 0</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_type                           &lt;chr&gt; &quot;point&quot;, &quot;point&quot;, &quot;point&quot;, &quot;po…</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_interval                       &lt;chr&gt; &quot;years&quot;, &quot;years&quot;, &quot;years&quot;, &quot;ye…</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_complete_database_intervals    &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_time_point                     &lt;chr&gt; &quot;middle&quot;, &quot;middle&quot;, &quot;middle&quot;, …</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_full_contribution              &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_min_cell_count                 &lt;dbl&gt; 0, 0, 0, 0</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_id                   &lt;int&gt; 1, 1, 1, 1</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_name                 &lt;chr&gt; &quot;Denominator cohort 1&quot;, &quot;Denom…</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_age_group                   &lt;chr&gt; &quot;0 to 150&quot;, &quot;0 to 150&quot;, &quot;0 to …</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_sex                         &lt;chr&gt; &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_days_prior_observation      &lt;dbl&gt; 0, 0, 0, 0</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_start_date                  &lt;date&gt; 2008-01-01, 2008-01-01, 2008-0…</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_end_date                    &lt;date&gt; 2012-01-01, 2012-01-01, 2012-0…</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_target_cohort_definition_id &lt;lgl&gt; NA, NA, NA, NA</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_target_cohort_name          &lt;lgl&gt; NA, NA, NA, NA</span></span>
 <span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cdm_name                                &lt;chr&gt; &quot;test_database&quot;, &quot;test_databas…</span></span>
 <span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPrevalence</span>(prev, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>))</span></code></pre></div>
@@ -591,27 +590,27 @@ calendar year)</p>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ prevalence                              &lt;dbl&gt; 0.2139793, 0.2186596, 0.21277…</span></span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ prevalence_95CI_lower                   &lt;dbl&gt; 0.2050903, 0.2097124, 0.203982…</span></span>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ prevalence_95CI_upper                   &lt;dbl&gt; 0.2231454, 0.2278785, 0.221849…</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cohort_obscured                         &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ result_obscured                         &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_id                       &lt;chr&gt; &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_name                     &lt;chr&gt; &quot;cohort_1&quot;, &quot;cohort_1&quot;, &quot;cohor…</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_outcome_lookback_days          &lt;dbl&gt; 0, 0, 0, 0</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_type                           &lt;chr&gt; &quot;period&quot;, &quot;period&quot;, &quot;period&quot;, …</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_interval                       &lt;chr&gt; &quot;years&quot;, &quot;years&quot;, &quot;years&quot;, &quot;ye…</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_complete_database_intervals    &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_time_point                     &lt;chr&gt; &quot;start&quot;, &quot;start&quot;, &quot;start&quot;, &quot;st…</span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_full_contribution              &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE</span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_min_cell_count                 &lt;dbl&gt; 0, 0, 0, 0</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_id                   &lt;int&gt; 1, 1, 1, 1</span></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_name                 &lt;chr&gt; &quot;Denominator cohort 1&quot;, &quot;Denom…</span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_age_group                   &lt;chr&gt; &quot;0 to 150&quot;, &quot;0 to 150&quot;, &quot;0 to …</span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_sex                         &lt;chr&gt; &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;</span></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_days_prior_history          &lt;dbl&gt; 0, 0, 0, 0</span></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_start_date                  &lt;date&gt; 2008-01-01, 2008-01-01, 2008-0…</span></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_end_date                    &lt;date&gt; 2012-01-01, 2012-01-01, 2012-0…</span></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_strata_cohort_definition_id &lt;lgl&gt; NA, NA, NA, NA</span></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_strata_cohort_name          &lt;lgl&gt; NA, NA, NA, NA</span></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_closed_cohort               &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ population_obscured                     &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cases_obscured                          &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ result_obscured                         &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_id                       &lt;chr&gt; &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_name                     &lt;chr&gt; &quot;cohort_1&quot;, &quot;cohort_1&quot;, &quot;cohor…</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_outcome_lookback_days          &lt;dbl&gt; 0, 0, 0, 0</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_type                           &lt;chr&gt; &quot;period&quot;, &quot;period&quot;, &quot;period&quot;, …</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_interval                       &lt;chr&gt; &quot;years&quot;, &quot;years&quot;, &quot;years&quot;, &quot;ye…</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_complete_database_intervals    &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_time_point                     &lt;chr&gt; &quot;start&quot;, &quot;start&quot;, &quot;start&quot;, &quot;st…</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_full_contribution              &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_min_cell_count                 &lt;dbl&gt; 0, 0, 0, 0</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_id                   &lt;int&gt; 1, 1, 1, 1</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_name                 &lt;chr&gt; &quot;Denominator cohort 1&quot;, &quot;Denom…</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_age_group                   &lt;chr&gt; &quot;0 to 150&quot;, &quot;0 to 150&quot;, &quot;0 to …</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_sex                         &lt;chr&gt; &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_days_prior_observation      &lt;dbl&gt; 0, 0, 0, 0</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_start_date                  &lt;date&gt; 2008-01-01, 2008-01-01, 2008-0…</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_end_date                    &lt;date&gt; 2012-01-01, 2012-01-01, 2012-0…</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_target_cohort_definition_id &lt;lgl&gt; NA, NA, NA, NA</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_target_cohort_name          &lt;lgl&gt; NA, NA, NA, NA</span></span>
 <span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cdm_name                                &lt;chr&gt; &quot;test_database&quot;, &quot;test_databas…</span></span>
 <span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPrevalence</span>(prev, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.3</span>))</span></code></pre></div>
@@ -639,27 +638,27 @@ calendar month)</p>
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ prevalence                              &lt;dbl&gt; 0.03253750, 0.03123672, 0.0350…</span></span>
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ prevalence_95CI_lower                   &lt;dbl&gt; 0.02784982, 0.02663631, 0.0302…</span></span>
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ prevalence_95CI_upper                   &lt;dbl&gt; 0.03798338, 0.03660180, 0.0406…</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cohort_obscured                         &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ result_obscured                         &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_id                       &lt;chr&gt; &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, …</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_name                     &lt;chr&gt; &quot;cohort_1&quot;, &quot;cohort_1&quot;, &quot;cohor…</span></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_outcome_lookback_days          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_type                           &lt;chr&gt; &quot;period&quot;, &quot;period&quot;, &quot;period&quot;, …</span></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_interval                       &lt;chr&gt; &quot;months&quot;, &quot;months&quot;, &quot;months&quot;, …</span></span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_complete_database_intervals    &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, …</span></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_time_point                     &lt;chr&gt; &quot;start&quot;, &quot;start&quot;, &quot;start&quot;, &quot;st…</span></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_full_contribution              &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FA…</span></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_min_cell_count                 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_id                   &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …</span></span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_name                 &lt;chr&gt; &quot;Denominator cohort 1&quot;, &quot;Denom…</span></span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_age_group                   &lt;chr&gt; &quot;0 to 150&quot;, &quot;0 to 150&quot;, &quot;0 to …</span></span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_sex                         &lt;chr&gt; &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;…</span></span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_days_prior_history          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_start_date                  &lt;date&gt; 2008-01-01, 2008-01-01, 2008-…</span></span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_end_date                    &lt;date&gt; 2012-01-01, 2012-01-01, 2012-…</span></span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_strata_cohort_definition_id &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA…</span></span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_strata_cohort_name          &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA…</span></span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_closed_cohort               &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FA…</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ population_obscured                     &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cases_obscured                          &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ result_obscured                         &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_id                       &lt;chr&gt; &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, …</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_name                     &lt;chr&gt; &quot;cohort_1&quot;, &quot;cohort_1&quot;, &quot;cohor…</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_outcome_lookback_days          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_type                           &lt;chr&gt; &quot;period&quot;, &quot;period&quot;, &quot;period&quot;, …</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_interval                       &lt;chr&gt; &quot;months&quot;, &quot;months&quot;, &quot;months&quot;, …</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_complete_database_intervals    &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, …</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_time_point                     &lt;chr&gt; &quot;start&quot;, &quot;start&quot;, &quot;start&quot;, &quot;st…</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_full_contribution              &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FA…</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_min_cell_count                 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_id                   &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_name                 &lt;chr&gt; &quot;Denominator cohort 1&quot;, &quot;Denom…</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_age_group                   &lt;chr&gt; &quot;0 to 150&quot;, &quot;0 to 150&quot;, &quot;0 to …</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_sex                         &lt;chr&gt; &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;…</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_days_prior_observation      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_start_date                  &lt;date&gt; 2008-01-01, 2008-01-01, 2008-…</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_end_date                    &lt;date&gt; 2012-01-01, 2012-01-01, 2012-…</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_target_cohort_definition_id &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA…</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_target_cohort_name          &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA…</span></span>
 <span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cdm_name                                &lt;chr&gt; &quot;test_database&quot;, &quot;test_databas…</span></span>
 <span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPrevalence</span>(prev, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>))</span></code></pre></div>
@@ -692,27 +691,27 @@ required to be present for one day of the interval to contribute
 <span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ prevalence                              &lt;dbl&gt; 0.03253750, 0.03123672, 0.0350…</span></span>
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ prevalence_95CI_lower                   &lt;dbl&gt; 0.02784982, 0.02663631, 0.0302…</span></span>
 <span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ prevalence_95CI_upper                   &lt;dbl&gt; 0.03798338, 0.03660180, 0.0406…</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cohort_obscured                         &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ result_obscured                         &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_id                       &lt;chr&gt; &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, …</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_name                     &lt;chr&gt; &quot;cohort_1&quot;, &quot;cohort_1&quot;, &quot;cohor…</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_outcome_lookback_days          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_type                           &lt;chr&gt; &quot;period&quot;, &quot;period&quot;, &quot;period&quot;, …</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_interval                       &lt;chr&gt; &quot;months&quot;, &quot;months&quot;, &quot;months&quot;, …</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_complete_database_intervals    &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, …</span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_time_point                     &lt;chr&gt; &quot;start&quot;, &quot;start&quot;, &quot;start&quot;, &quot;st…</span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_full_contribution              &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FA…</span></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_min_cell_count                 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_id                   &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …</span></span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_name                 &lt;chr&gt; &quot;Denominator cohort 1&quot;, &quot;Denom…</span></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_age_group                   &lt;chr&gt; &quot;0 to 150&quot;, &quot;0 to 150&quot;, &quot;0 to …</span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_sex                         &lt;chr&gt; &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;…</span></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_days_prior_history          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_start_date                  &lt;date&gt; 2008-01-01, 2008-01-01, 2008-…</span></span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_end_date                    &lt;date&gt; 2012-01-01, 2012-01-01, 2012-…</span></span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_strata_cohort_definition_id &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA…</span></span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_strata_cohort_name          &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA…</span></span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_closed_cohort               &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FA…</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ population_obscured                     &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cases_obscured                          &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ result_obscured                         &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_id                       &lt;chr&gt; &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, …</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_name                     &lt;chr&gt; &quot;cohort_1&quot;, &quot;cohort_1&quot;, &quot;cohor…</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_outcome_lookback_days          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_type                           &lt;chr&gt; &quot;period&quot;, &quot;period&quot;, &quot;period&quot;, …</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_interval                       &lt;chr&gt; &quot;months&quot;, &quot;months&quot;, &quot;months&quot;, …</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_complete_database_intervals    &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, …</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_time_point                     &lt;chr&gt; &quot;start&quot;, &quot;start&quot;, &quot;start&quot;, &quot;st…</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_full_contribution              &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FA…</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_min_cell_count                 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_id                   &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_name                 &lt;chr&gt; &quot;Denominator cohort 1&quot;, &quot;Denom…</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_age_group                   &lt;chr&gt; &quot;0 to 150&quot;, &quot;0 to 150&quot;, &quot;0 to …</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_sex                         &lt;chr&gt; &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;…</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_days_prior_observation      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_start_date                  &lt;date&gt; 2008-01-01, 2008-01-01, 2008-…</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_end_date                    &lt;date&gt; 2012-01-01, 2012-01-01, 2012-…</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_target_cohort_definition_id &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA…</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_target_cohort_name          &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA…</span></span>
 <span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cdm_name                                &lt;chr&gt; &quot;test_database&quot;, &quot;test_databas…</span></span>
 <span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPrevalence</span>(prev,</span>
@@ -753,28 +752,28 @@ seen in the last 30 days).</p>
 <span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ prevalence                              &lt;dbl&gt; 0.005853219, 0.007748601, 0.00…</span></span>
 <span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ prevalence_95CI_lower                   &lt;dbl&gt; 0.003997601, 0.005602378, 0.00…</span></span>
 <span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ prevalence_95CI_upper                   &lt;dbl&gt; 0.008562779, 0.010708169, 0.01…</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cohort_obscured                         &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ result_obscured                         &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_id                       &lt;chr&gt; &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, …</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_name                     &lt;chr&gt; &quot;cohort_1&quot;, &quot;cohort_1&quot;, &quot;cohor…</span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_outcome_lookback_days          &lt;dbl&gt; 0, 0, 0, 0, 0, 30, 30, 30, 30,…</span></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_type                           &lt;chr&gt; &quot;point&quot;, &quot;point&quot;, &quot;point&quot;, &quot;po…</span></span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_interval                       &lt;chr&gt; &quot;years&quot;, &quot;years&quot;, &quot;years&quot;, &quot;ye…</span></span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_complete_database_intervals    &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FA…</span></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_time_point                     &lt;chr&gt; &quot;start&quot;, &quot;start&quot;, &quot;start&quot;, &quot;st…</span></span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_full_contribution              &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FA…</span></span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_min_cell_count                 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</span></span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_id                   &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1</span></span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_name                 &lt;chr&gt; &quot;Denominator cohort 1&quot;, &quot;Denom…</span></span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_age_group                   &lt;chr&gt; &quot;0 to 150&quot;, &quot;0 to 150&quot;, &quot;0 to …</span></span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_sex                         &lt;chr&gt; &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;…</span></span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_days_prior_history          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</span></span>
-<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_start_date                  &lt;date&gt; 2008-01-01, 2008-01-01, 2008-0…</span></span>
-<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_end_date                    &lt;date&gt; 2012-01-01, 2012-01-01, 2012-0…</span></span>
-<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_strata_cohort_definition_id &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA…</span></span>
-<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_strata_cohort_name          &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, N…</span></span>
-<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_closed_cohort               &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, F…</span></span>
-<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cdm_name                                &lt;chr&gt; &quot;test_database&quot;, &quot;test_databas…</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ population_obscured                     &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cases_obscured                          &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ result_obscured                         &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FA…</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_id                       &lt;chr&gt; &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, …</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_name                     &lt;chr&gt; &quot;cohort_1&quot;, &quot;cohort_1&quot;, &quot;cohor…</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_outcome_lookback_days          &lt;dbl&gt; 0, 0, 0, 0, 0, 30, 30, 30, 30,…</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_type                           &lt;chr&gt; &quot;point&quot;, &quot;point&quot;, &quot;point&quot;, &quot;po…</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_interval                       &lt;chr&gt; &quot;years&quot;, &quot;years&quot;, &quot;years&quot;, &quot;ye…</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_complete_database_intervals    &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FA…</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_time_point                     &lt;chr&gt; &quot;start&quot;, &quot;start&quot;, &quot;start&quot;, &quot;st…</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_full_contribution              &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FA…</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ analysis_min_cell_count                 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_id                   &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_name                 &lt;chr&gt; &quot;Denominator cohort 1&quot;, &quot;Denom…</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_age_group                   &lt;chr&gt; &quot;0 to 150&quot;, &quot;0 to 150&quot;, &quot;0 to …</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_sex                         &lt;chr&gt; &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;…</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_days_prior_observation      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_start_date                  &lt;date&gt; 2008-01-01, 2008-01-01, 2008-0…</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_end_date                    &lt;date&gt; 2012-01-01, 2012-01-01, 2012-0…</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_target_cohort_definition_id &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA…</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ denominator_target_cohort_name          &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, N…</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ cdm_name                                &lt;chr&gt; &quot;test_database&quot;, &quot;test_databa…</span></span>
 <span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPrevalence</span>(prev,</span>
 <span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>  <span class="at">colour =</span> <span class="st">&quot;analysis_outcome_lookback_days&quot;</span>,</span>
@@ -824,7 +823,7 @@ information on settings and attrition.</p>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">returnParticipants =</span> <span class="cn">TRUE</span></span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">prevalenceAttrition</span>(prev)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 22 × 27</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 22 × 26</span></span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    analysis_id number_records number_subjects reason_id reason  excluded_records</span></span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;                &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt; &lt;glue&gt;             &lt;dbl&gt;</span></span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 1                    50000           50000         1 Starti…               NA</span></span>
@@ -838,7 +837,7 @@ information on settings and attrition.</p>
 <span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 1                    18018           18018        11 Starti…               NA</span></span>
 <span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 1                    18014           18014        14 Not ob…                4</span></span>
 <span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 12 more rows</span></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 21 more variables: excluded_subjects &lt;dbl&gt;, outcome_cohort_id &lt;chr&gt;,</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 20 more variables: excluded_subjects &lt;dbl&gt;, outcome_cohort_id &lt;chr&gt;,</span></span>
 <span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   outcome_cohort_name &lt;chr&gt;, analysis_outcome_lookback_days &lt;dbl&gt;,</span></span>
 <span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   analysis_type &lt;chr&gt;, analysis_interval &lt;chr&gt;,</span></span>
 <span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   analysis_complete_database_intervals &lt;lgl&gt;, analysis_time_point &lt;chr&gt;,</span></span>
@@ -861,30 +860,29 @@ contributing to analysis 1 by running</p>
 after running our analysis (note, the table created will start with
 write_prefix specified when creating the cdm reference).</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>CDMConnector<span class="sc">::</span><span class="fu">listTables</span>(<span class="fu">attr</span>(cdm, <span class="st">&quot;dbcon&quot;</span>), <span class="at">schema =</span> <span class="fu">attr</span>(cdm, <span class="st">&quot;write_schema&quot;</span>))</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;denominator_attrition&quot;     &quot;denominator_set&quot;          </span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [3] &quot;denominator_count&quot;         &quot;denominator&quot;              </span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;period_prev_participants1&quot; &quot;person&quot;                   </span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;observation_period&quot;        &quot;strata&quot;                   </span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;outcome&quot;                   &quot;cdm_source&quot;               </span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [11] &quot;vocabulary&quot;                &quot;strata_set&quot;               </span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] &quot;strata_count&quot;              &quot;outcome_set&quot;              </span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [15] &quot;outcome_count&quot;</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># drop tables created when instantiating denominator cohorts</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>CDMConnector<span class="sc">::</span><span class="fu">dropTable</span>(</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">cdm =</span> cdm,</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> dplyr<span class="sc">::</span><span class="fu">starts_with</span>(<span class="fu">paste0</span>(</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">attr</span>(cdm, <span class="st">&quot;write_prefix&quot;</span>),</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;denominator&quot;</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  ))</span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co"># drop table with study participants when returnParticipants = TRUE</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>CDMConnector<span class="sc">::</span><span class="fu">dropTable</span>(</span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">cdm =</span> cdm,</span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">paste0</span>(</span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">attr</span>(cdm, <span class="st">&quot;write_prefix&quot;</span>),</span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;period_prev_participants1&quot;</span></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;denominator&quot;               &quot;person&quot;                   </span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [3] &quot;observation_period&quot;        &quot;target&quot;                   </span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;outcome&quot;                   &quot;cdm_source&quot;               </span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;period_prev_participants1&quot; &quot;vocabulary&quot;               </span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;target_set&quot;                &quot;target_count&quot;             </span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [11] &quot;target_attrition&quot;          &quot;outcome_set&quot;              </span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] &quot;outcome_count&quot;             &quot;outcome_attrition&quot;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># drop tables created when instantiating denominator cohorts</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>CDMConnector<span class="sc">::</span><span class="fu">dropTable</span>(</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">cdm =</span> cdm,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> dplyr<span class="sc">::</span><span class="fu">starts_with</span>(<span class="fu">paste0</span>(</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">attr</span>(cdm, <span class="st">&quot;write_prefix&quot;</span>),</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;denominator&quot;</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co"># drop table with study participants when returnParticipants = TRUE</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>CDMConnector<span class="sc">::</span><span class="fu">dropTable</span>(</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">cdm =</span> cdm,</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">paste0</span>(</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">attr</span>(cdm, <span class="st">&quot;write_prefix&quot;</span>),</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;period_prev_participants1&quot;</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 </div>
 

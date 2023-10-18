@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -7,7 +7,7 @@ knitr::opts_chunk$set(
   eval = Sys.getenv("$RUNNER_OS") != "macOS"
 )
 
-## ---- message= FALSE, warning=FALSE, echo=FALSE-------------------------------
+## ----message= FALSE, warning=FALSE, echo=FALSE--------------------------------
 library(here)
 library(DBI)
 library(dbplyr)
@@ -38,14 +38,13 @@ cdm <- generateDenominatorCohortSet(
   cohortDateRange = c(as.Date("2008-01-01"), as.Date("2012-01-01")),
   ageGroup = list(c(0, 150)),
   sex = "Both",
-  daysPriorHistory = 0,
-  temporary = FALSE
+  daysPriorObservation = 0
 )
 
 cdm$denominator %>%
   glimpse()
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 prev <- estimatePointPrevalence(
   cdm = cdm,
   denominatorTable = "denominator",
@@ -60,7 +59,7 @@ prev %>%
 
 plotPrevalence(prev, ylim = c(0, NA))
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 prev <- estimatePointPrevalence(
   cdm = cdm,
   denominatorTable = "denominator",
@@ -75,7 +74,7 @@ prev %>%
 
 plotPrevalence(prev, ylim = c(0, NA))
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 prev <- estimatePointPrevalence(
   cdm = cdm,
   denominatorTable = "denominator",
@@ -91,7 +90,7 @@ prev %>%
 
 plotPrevalence(prev, ylim = c(0, NA))
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 prev <- estimatePeriodPrevalence(
   cdm = cdm,
   denominatorTable = "denominator",
@@ -106,7 +105,7 @@ prev %>%
 
 plotPrevalence(prev, ylim = c(0.1, 0.3))
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 prev <- estimatePeriodPrevalence(
   cdm = cdm,
   denominatorTable = "denominator",
@@ -121,7 +120,7 @@ prev %>%
 
 plotPrevalence(prev, ylim = c(0, NA))
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 prev <- estimatePeriodPrevalence(
   cdm = cdm,
   denominatorTable = "denominator",
@@ -139,7 +138,7 @@ plotPrevalence(prev,
   ylim = c(0, 0.07)
 )
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 prev <- estimatePointPrevalence(
   cdm = cdm,
   denominatorTable = "denominator",
@@ -159,7 +158,7 @@ plotPrevalence(prev,
   ylim = c(0, NA)
 )
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 prev <- estimatePeriodPrevalence(
   cdm = cdm,
   denominatorTable = "denominator",
@@ -172,11 +171,11 @@ prev <- estimatePeriodPrevalence(
 )
 prevalenceAttrition(prev)
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 participants(prev, analysisId = 1) %>%
   glimpse()
 
-## ---- message= FALSE, warning=FALSE-------------------------------------------
+## ----message= FALSE, warning=FALSE--------------------------------------------
 CDMConnector::listTables(attr(cdm, "dbcon"), schema = attr(cdm, "write_schema"))
 # drop tables created when instantiating denominator cohorts
 CDMConnector::dropTable(

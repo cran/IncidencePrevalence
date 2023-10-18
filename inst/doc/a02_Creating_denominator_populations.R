@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -7,7 +7,7 @@ knitr::opts_chunk$set(
   eval = Sys.getenv("$RUNNER_OS") != "macOS"
 )
 
-## ---- message= FALSE, warning=FALSE, echo=FALSE-------------------------------
+## ----message= FALSE, warning=FALSE, echo=FALSE--------------------------------
 library(CDMConnector)
 library(IncidencePrevalence)
 library(dbplyr)
@@ -30,27 +30,28 @@ knitr::include_graphics(here("vignettes/dpop3.png"))
 ## ----echo=FALSE, out.width="80%"----------------------------------------------
 knitr::include_graphics(here("vignettes/dpop4.png"))
 
-## ---- message=FALSE, warning=FALSE, results='hide'----------------------------
+## ----message=FALSE, warning=FALSE, results='hide'-----------------------------
 library(IncidencePrevalence)
 library(ggplot2)
 library(tidyr)
 
 cdm <- mockIncidencePrevalenceRef(sampleSize = 500)
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm <- generateDenominatorCohortSet(
-  cdm = cdm,
+  cdm = cdm, 
+  name = "denominator",
   cohortDateRange = NULL,
   ageGroup = list(c(0, 150)),
   sex = "Both",
-  daysPriorHistory = 0
+  daysPriorObservation = 0
 )
 cdm$denominator
 
 cdm$denominator %>%
   filter(subject_id %in% c("1", "2", "3", "4", "5"))
 
-## ---- message=FALSE, warning=FALSE, echo=FALSE--------------------------------
+## ----message=FALSE, warning=FALSE, echo=FALSE---------------------------------
 cdm$denominator %>%
   collect() %>%
   filter(subject_id %in% c("1", "2", "3", "4", "5")) %>%
@@ -64,7 +65,7 @@ cdm$denominator %>%
   theme_minimal() +
   xlab("Year")
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm$denominator %>%
   collect() %>%
   ggplot() +
@@ -73,7 +74,7 @@ cdm$denominator %>%
     colour = "black", fill = "grey"
   )
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm$denominator %>%
   collect() %>%
   ggplot() +
@@ -82,13 +83,15 @@ cdm$denominator %>%
     colour = "black", fill = "grey"
   )
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
+  name = "denominator", 
+  overwrite = TRUE,
   cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
   ageGroup = list(c(0, 150)),
   sex = "Both",
-  daysPriorHistory = 0
+  daysPriorObservation = 0
 )
 cdm$denominator
 
@@ -97,7 +100,7 @@ cohortCount(cdm$denominator)
 cdm$denominator %>%
   filter(subject_id %in% c("1", "2", "3", "4", "5"))
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm$denominator %>%
   filter(subject_id %in% c("1", "2", "3", "4", "5")) %>%
   collect() %>%
@@ -111,7 +114,7 @@ cdm$denominator %>%
   theme_minimal() +
   xlab("Year")
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm$denominator %>%
   collect() %>%
   ggplot() +
@@ -120,7 +123,7 @@ cdm$denominator %>%
     colour = "black", fill = "grey"
   )
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm$denominator %>%
   collect() %>%
   ggplot() +
@@ -129,13 +132,15 @@ cdm$denominator %>%
     colour = "black", fill = "grey"
   )
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
+  name = "denominator",
+  overwrite = TRUE,
   cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
   ageGroup = list(c(0, 150)),
   sex = "Both",
-  daysPriorHistory = 365
+  daysPriorObservation = 365
 )
 cdm$denominator
 
@@ -144,7 +149,7 @@ cohortCount(cdm$denominator)
 cdm$denominator %>%
   filter(subject_id %in% c("1", "2", "3", "4", "5"))
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm$denominator %>%
   filter(subject_id %in% c("1", "2", "3", "4", "5")) %>%
   collect() %>%
@@ -158,7 +163,7 @@ cdm$denominator %>%
   theme_minimal() +
   xlab("Year")
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm$denominator %>%
   collect() %>%
   ggplot() +
@@ -167,7 +172,7 @@ cdm$denominator %>%
     colour = "black", fill = "grey"
   )
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm$denominator %>%
   collect() %>%
   ggplot() +
@@ -176,13 +181,15 @@ cdm$denominator %>%
     colour = "black", fill = "grey"
   )
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
+  name = "denominator",
+  overwrite = TRUE,
   cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
   ageGroup = list(c(18, 65)),
   sex = "Female",
-  daysPriorHistory = 365
+  daysPriorObservation = 365
 )
 cdm$denominator %>%
   glimpse()
@@ -192,7 +199,7 @@ cohortCount(cdm$denominator)
 cdm$denominator %>%
   filter(subject_id %in% c("1", "2", "3", "4", "5"))
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm$denominator %>%
   collect() %>%
   ggplot() +
@@ -201,7 +208,7 @@ cdm$denominator %>%
     colour = "black", fill = "grey"
   )
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm$denominator %>%
   collect() %>%
   ggplot() +
@@ -210,45 +217,18 @@ cdm$denominator %>%
     colour = "black", fill = "grey"
   )
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
-cdm <- cdm %>%
-  generateDenominatorCohortSet(
-    name = "denominator_open",
-    cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
-    closedCohort = FALSE
-  ) %>%
-  generateDenominatorCohortSet(
-    name = "denominator_closed",
-    cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
-    closedCohort = TRUE
-  )
-
-## ---- message=FALSE, warning=FALSE--------------------------------------------
-dplyr::bind_rows(
-  cdm$denominator_open %>%
-    collect() %>%
-    mutate(cohort = "Open cohort"),
-  cdm$denominator_closed %>%
-    collect() %>%
-    mutate(cohort = "Closed cohort")
-) %>%
-  ggplot() +
-  theme_minimal() +
-  geom_histogram(aes(cohort_start_date),
-    colour = "black", fill = "grey"
-  ) +
-  facet_wrap(vars(cohort))
-
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
+  name = "denominator",
+  overwrite = TRUE,
   cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
   ageGroup = list(
     c(0, 40),
     c(41, 100)
   ),
   sex = "Both",
-  daysPriorHistory = 0
+  daysPriorObservation = 0
 )
 dpop <- cdm$denominator %>%
   collect() %>%
@@ -277,16 +257,18 @@ dpop %>%
   ylab("Year") +
   coord_flip()
 
-## ---- message=FALSE, warning=FALSE, fig.height=8------------------------------
+## ----message=FALSE, warning=FALSE, fig.height=8-------------------------------
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
+  name = "denominator",
+  overwrite = TRUE,
   cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
   ageGroup = list(
     c(0, 40),
     c(41, 100)
   ),
   sex = c("Male", "Female", "Both"),
-  daysPriorHistory = 0
+  daysPriorObservation = 0
 )
 dpop <- cdm$denominator %>%
   collect() %>%
@@ -314,16 +296,18 @@ dpop %>%
   ylab("Year") +
   coord_flip()
 
-## ---- message=FALSE, warning=FALSE, fig.height=10-----------------------------
+## ----message=FALSE, warning=FALSE, fig.height=10------------------------------
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
+  name = "denominator",
+  overwrite = TRUE,
   cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
   ageGroup = list(
     c(0, 40),
     c(41, 100)
   ),
   sex = c("Male", "Female", "Both"),
-  daysPriorHistory = c(0, 365)
+  daysPriorObservation = c(0, 365)
 )
 dpop <- cdm$denominator %>%
   collect() %>%
@@ -332,7 +316,7 @@ dpop <- cdm$denominator %>%
 dpop %>% glimpse()
 
 dpop %>%
-  group_by(cohort_definition_id, age_group, sex, days_prior_history) %>%
+  group_by(cohort_definition_id, age_group, sex, days_prior_observation) %>%
   tally()
 
 dpop %>%
@@ -343,7 +327,7 @@ dpop %>%
   )) %>%
   mutate(cohort_definition_id = as.character(cohort_definition_id)) %>%
   ggplot(aes(x = subject_id, y = value, colour = cohort_definition_id)) +
-  facet_grid(sex + days_prior_history ~ ., space = "free_y") +
+  facet_grid(sex + days_prior_observation ~ ., space = "free_y") +
   geom_point(position = position_dodge(width = 0.5)) +
   geom_line(position = position_dodge(width = 0.5)) +
   theme_bw() +
@@ -351,9 +335,11 @@ dpop %>%
   ylab("Year") +
   coord_flip()
 
-## ---- message=FALSE, warning=FALSE, fig.height=10-----------------------------
+## ----message=FALSE, warning=FALSE, fig.height=10------------------------------
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
+  name = "denominator",
+  overwrite = TRUE,
   cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
   ageGroup = list(
     c(0, 100),
@@ -361,7 +347,7 @@ cdm <- generateDenominatorCohortSet(
     c(41, 100)
   ),
   sex = c("Both", "Male", "Female"),
-  daysPriorHistory = c(0, 365),
+  daysPriorObservation = c(0, 365),
   requirementInteractions = FALSE
 )
 dpop <- cdm$denominator %>%
@@ -371,7 +357,7 @@ dpop <- cdm$denominator %>%
 dpop %>% glimpse()
 
 dpop %>%
-  group_by(cohort_definition_id, age_group, sex, days_prior_history) %>%
+  group_by(cohort_definition_id, age_group, sex, days_prior_observation) %>%
   tally()
 
 dpop %>%
@@ -382,7 +368,7 @@ dpop %>%
   )) %>%
   mutate(cohort_definition_id = as.character(cohort_definition_id)) %>%
   ggplot(aes(x = subject_id, y = value, colour = cohort_definition_id)) +
-  facet_grid(sex + days_prior_history ~ age_group, space = "free_y") +
+  facet_grid(sex + days_prior_observation ~ age_group, space = "free_y") +
   geom_point(position = position_dodge(width = 0.5)) +
   geom_line(position = position_dodge(width = 0.5)) +
   theme_bw() +
@@ -394,30 +380,32 @@ dpop %>%
   ylab("Year") +
   coord_flip()
 
-## ---- message=TRUE, warning=FALSE, message=FALSE------------------------------
+## ----message=TRUE, warning=FALSE, message=FALSE-------------------------------
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
+  name = "denominator",
+  overwrite = TRUE,
   cohortDateRange = c(as.Date("2008-01-01"), as.Date("2010-01-01")),
   ageGroup = list(
     c(0, 18),
     c(19, 100)
   ),
   sex = c("Male", "Female"),
-  daysPriorHistory = c(0, 365)
+  daysPriorObservation = c(0, 365)
 )
 
 head(cdm$denominator, 8)
 
-## ---- message=TRUE, warning=FALSE---------------------------------------------
+## ----message=TRUE, warning=FALSE----------------------------------------------
 cohortSet(cdm$denominator)
 
-## ---- message=TRUE, warning=FALSE---------------------------------------------
+## ----message=TRUE, warning=FALSE----------------------------------------------
 cohortCount(cdm$denominator)
 
-## ---- message=TRUE, warning=FALSE---------------------------------------------
+## ----message=TRUE, warning=FALSE----------------------------------------------
 cohortAttrition(cdm$denominator)
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 personTable <- tibble(
   person_id = c("1", "2", "3", "4", "5"),
   gender_concept_id = c(rep("8507", 2), rep("8532", 3)),
@@ -444,7 +432,7 @@ observationPeriodTable <- tibble(
   )
 )
 
-## ---- message=FALSE, warning=FALSE, results='hide'----------------------------
+## ----message=FALSE, warning=FALSE, results='hide'-----------------------------
 conditionX <- tibble(
   cohort_definition_id = c(rep("1", 3), rep("2", 3), rep("3", 5)),
   subject_id = c("1", "2", "4", "3", "5", "2", "3", "3", "5", "5", "2"),
@@ -480,69 +468,79 @@ conditionX <- tibble(
 cdm <- mockIncidencePrevalenceRef(
   personTable = personTable,
   observationPeriodTable = observationPeriodTable,
-  strataTable = conditionX
+  targetCohortTable = conditionX
 )
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm <- generateDenominatorCohortSet(
-  cdm = cdm
+  cdm = cdm, 
+  name = "denominator",
+  overwrite = TRUE
 )
 cdm$denominator
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 observationPeriodTable
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm <- generateDenominatorCohortSet(
-  cdm = cdm,
-  strataTable = "strata",
-  strataCohortId = 1
+  cdm = cdm, 
+  name = "denominator",
+  overwrite = TRUE,
+  targetCohortTable = "target",
+  targetCohortId = 1
 )
 cdm$denominator
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 library(dplyr)
 observationPeriodTable %>%
   filter(person_id %in% c("1", "2", "4"))
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm <- generateDenominatorCohortSet(
-  cdm = cdm,
-  strataTable = "strata",
-  strataCohortId = 2
+  cdm = cdm, 
+  name = "denominator",
+  overwrite = TRUE,
+  targetCohortTable = "target",
+  targetCohortId = 2
 )
 cdm$denominator
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 conditionX %>%
   filter(cohort_definition_id == 2) %>%
   filter(subject_id %in% c("2", "3", "5"))
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm <- generateDenominatorCohortSet(
-  cdm = cdm,
-  strataTable = "strata",
-  strataCohortId = 3
+  cdm = cdm, 
+  name = "denominator",
+  overwrite = TRUE,
+  targetCohortTable = "target",
+  targetCohortId = 3
 )
 cdm$denominator
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 conditionX %>%
   filter(cohort_definition_id == 3) %>%
   filter(subject_id %in% c("2", "3", "5"))
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm <- generateDenominatorCohortSet(
-  cdm = cdm, name = "denom_reqs_at_strata_entry",
+  cdm = cdm, 
+  name = "denom_reqs_at_target_entry",
+  overwrite = TRUE,
   cohortDateRange = c(as.Date("2014-01-01"), as.Date("2016-01-01")),
   ageGroup = list(c(15, 25)),
   sex = "Female",
-  daysPriorHistory = 0,
-  strataTable = "strata",
-  strataCohortId = 3
+  daysPriorObservation = 0,
+  targetCohortTable = "target",
+  targetCohortId = 3
 )
-cdm$denom_reqs_at_strata_entry
+cdm$denom_reqs_at_target_entry
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cohortSet(cdm$denominator)
 

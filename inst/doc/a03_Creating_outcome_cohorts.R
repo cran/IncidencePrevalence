@@ -1,11 +1,11 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   eval = Sys.getenv("$RUNNER_OS") != "macOS"
 )
 
-## ---- message= FALSE, warning=FALSE, echo=FALSE-------------------------------
+## ----message= FALSE, warning=FALSE, echo=FALSE--------------------------------
 library(here)
 library(knitr)
 
