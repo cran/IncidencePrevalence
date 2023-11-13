@@ -22,7 +22,8 @@ library(ggplot2)
 #    password = Sys.getenv("CDM5_POSTGRESQL_PASSWORD")
 #  )
 #  cdm <- CDMConnector::cdm_from_con(con,
-#    cdm_schema = Sys.getenv("CDM5_POSTGRESQL_CDM_SCHEMA")
+#    cdm_schema = Sys.getenv("CDM5_POSTGRESQL_CDM_SCHEMA"),
+#    write_schema = Sys.getenv("CDM5_POSTGRESQL_WRITE_SCHEMA")
 #  )
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
@@ -36,7 +37,7 @@ cdm <- mockIncidencePrevalenceRef(
 #  cdm <- CDMConnector::generateCohortSet(
 #    cdm = cdm,
 #    cohortSet = outcome_cohorts,
-#    name = outcome_table
+#    name = "outcome"
 #  )
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------

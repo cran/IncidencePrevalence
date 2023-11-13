@@ -41,7 +41,7 @@ cdm <- mockIncidencePrevalenceRef(sampleSize = 500)
 cdm <- generateDenominatorCohortSet(
   cdm = cdm, 
   name = "denominator",
-  cohortDateRange = NULL,
+  cohortDateRange = as.Date(c(NA,NA)),
   ageGroup = list(c(0, 150)),
   sex = "Both",
   daysPriorObservation = 0
