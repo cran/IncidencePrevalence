@@ -29,16 +29,11 @@ library(ggplot2)
 ## ----message= FALSE, warning=FALSE--------------------------------------------
 cdm <- mockIncidencePrevalenceRef(
   sampleSize = 50000,
-  outPre = 0.5
+  outPre = 0.2
 )
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  outcome_cohorts <- CDMConnector::readCohortSet(here::here("outcome_cohorts"))
-#  cdm <- CDMConnector::generateCohortSet(
-#    cdm = cdm,
-#    cohortSet = outcome_cohorts,
-#    name = "outcome"
-#  )
+#  cdm$outcome
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
 cdm <- generateDenominatorCohortSet(
@@ -73,21 +68,9 @@ prev %>%
   glimpse()
 
 ## ----message= FALSE, warning=FALSE, echo=FALSE--------------------------------
-prev %>%
-  ggplot(aes(
-    x = prevalence_start_date, y = prevalence,
-    ymin = prevalence_95CI_lower,
-    ymax = prevalence_95CI_upper,
-    colour = denominator_sex
-  )) +
-  geom_point(position = position_dodge(50)) +
-  geom_errorbar(width = 0, position = position_dodge(50)) +
-  scale_y_continuous(
-    labels = scales::percent,
-    limits = c(0, 0.3)
-  ) +
-  theme_minimal() +
-  theme(legend.title = element_blank())
+plotPrevalence(prev, 
+               facet = "denominator_sex", 
+               colour = "denominator_sex")
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
 inc <- estimateIncidence(
@@ -102,26 +85,5 @@ inc %>%
   glimpse()
 
 ## ----message= FALSE, warning=FALSE, echo=FALSE--------------------------------
-inc %>%
-  ggplot(aes(
-    x = incidence_start_date, y = incidence_100000_pys,
-    ymin = incidence_100000_pys_95CI_lower,
-    ymax = incidence_100000_pys_95CI_upper,
-    colour = denominator_sex
-  )) +
-  geom_point(position = position_dodge(50)) +
-  geom_errorbar(width = 0, position = position_dodge(50)) +
-  scale_y_continuous(limits = c(0, NA)) +
-  theme_minimal() +
-  theme(legend.title = element_blank())
-
-## ----eval=FALSE---------------------------------------------------------------
-#  exportIncidencePrevalenceResults(
-#    resultList = list(
-#      "incidence" = inc,
-#      "prevalence" = prev
-#    ),
-#    zipName = "example_results",
-#    outputFolder = here::here()
-#  )
+plotIncidence(inc, facet = "denominator_sex", colour = "denominator_sex")
 

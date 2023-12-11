@@ -115,6 +115,62 @@ inc %>%
 
 plotIncidence(inc)
 
+## -----------------------------------------------------------------------------
+cdm <- generateDenominatorCohortSet(
+  cdm = cdm, name = "denominator_age_sex",
+  cohortDateRange = c(as.Date("2008-01-01"), as.Date("2012-01-01")),
+  ageGroup = list(c(0, 39),
+                  c(41, 65),
+                  c(66, 150)),
+  sex = "Both",
+  daysPriorObservation = 0
+)
+inc <- estimateIncidence(
+  cdm = cdm,
+  denominatorTable = "denominator_age_sex",
+  outcomeTable = "outcome",
+  interval = "years",
+  outcomeWashout = 180,
+  repeatedEvents = TRUE,
+  temporary = FALSE
+)
+
+plotIncidence(inc, facet = "denominator_age_group")
+
+## -----------------------------------------------------------------------------
+cdm$denominator <- cdm$denominator %>% 
+  mutate(group = if_else(as.numeric(subject_id)  < 500, "first", "second")) 
+
+inc <- estimateIncidence(
+  cdm = cdm,
+  denominatorTable = "denominator",
+  outcomeTable = "outcome",
+  strata = list("group"),
+  outcomeWashout = 180,
+  repeatedEvents = TRUE
+)
+
+plotIncidence(inc, 
+               facet = "strata_level")
+
+cdm$denominator <- cdm$denominator %>% 
+  mutate(group_1 = if_else(as.numeric(subject_id)  < 1500, "first", "second"))  %>% 
+  mutate(group_2 = if_else(cohort_start_date  < as.Date("2010-01-01"), 
+                           "pre", "post"))
+
+inc <- estimateIncidence(
+  cdm = cdm,
+  denominatorTable = "denominator",
+  outcomeTable = "outcome",
+  strata = list(c("group_1"), # for just group_1
+                c("group_2"), # for just group_2
+                c("group_1", "group_2")),  # for group_1 and group_2  outcomeWashout = 180,
+  repeatedEvents = TRUE
+)
+
+plotIncidence(inc, 
+               facet = "strata_level")
+
 ## ----message=TRUE, warning=FALSE----------------------------------------------
 inc <- estimateIncidence(
   cdm = cdm,

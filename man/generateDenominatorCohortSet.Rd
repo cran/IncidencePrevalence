@@ -12,9 +12,7 @@ generateDenominatorCohortSet(
   sex = "Both",
   daysPriorObservation = 0,
   requirementInteractions = TRUE,
-  targetCohortTable = NULL,
-  targetCohortId = NULL,
-  overwrite = FALSE
+  overwrite = TRUE
 )
 }
 \arguments{
@@ -47,14 +45,6 @@ a cohort.}
 all combinations of ageGroup, sex, and daysPriorObservation. If FALSE, only the
 first value specified for the other factors will be used. Consequently,
 order of values matters when requirementInteractions is FALSE.}
-
-\item{targetCohortTable}{A cohort table in the cdm reference to use
-to limit cohort entry and exit (with individuals only contributing to a
-cohort when they are contributing to the cohort in the target table).}
-
-\item{targetCohortId}{The cohort definition id for the cohort of interest
-in the target table. If targetCohortTable is specified, a single targetCohortId
-must also be specified.}
 
 \item{overwrite}{Whether to overwrite any existing table with the same name}
 }

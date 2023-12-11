@@ -138,25 +138,58 @@ plotPrevalence(prev,
   ylim = c(0, 0.07)
 )
 
-## ----message= FALSE, warning=FALSE--------------------------------------------
-prev <- estimatePointPrevalence(
+## -----------------------------------------------------------------------------
+cdm <- generateDenominatorCohortSet(
+  cdm = cdm, name = "denominator_age_sex",
+  cohortDateRange = c(as.Date("2008-01-01"), as.Date("2012-01-01")),
+  ageGroup = list(c(0, 39),
+                  c(41, 65),
+                  c(66, 150)),
+  sex = "Both",
+  daysPriorObservation = 0
+)
+prev <- estimatePeriodPrevalence(
+  cdm = cdm,
+  denominatorTable = "denominator_age_sex",
+  outcomeTable = "outcome",
+  minCellCount = 0
+)
+
+plotPrevalence(prev, facet = "denominator_age_group")
+
+## -----------------------------------------------------------------------------
+cdm$denominator <- cdm$denominator %>% 
+  mutate(group = if_else(as.numeric(subject_id)  < 500, "first", "second")) 
+
+prev <- estimatePeriodPrevalence(
   cdm = cdm,
   denominatorTable = "denominator",
   outcomeTable = "outcome",
-  interval = "Years",
-  outcomeLookbackDays = c(0, 30),
-  minCellCount = 0,
-  temporary = FALSE
+  strata = "group",
+  minCellCount = 0
 )
 
-prev %>%
-  glimpse()
+plotPrevalence(prev, 
+               facet = "strata_level")
 
-plotPrevalence(prev,
-  colour = "analysis_outcome_lookback_days",
-  colour_name = "Outcome lookback days",
-  ylim = c(0, NA)
+## -----------------------------------------------------------------------------
+cdm$denominator <- cdm$denominator %>% 
+  mutate(group_1 = if_else(as.numeric(subject_id)  < 1500, "first", "second"))  %>% 
+  mutate(group_2 = if_else(cohort_start_date  < as.Date("2010-01-01"), 
+                           "pre", "post"))
+
+prev <- estimatePeriodPrevalence(
+  cdm = cdm,
+  denominatorTable = "denominator",
+  outcomeTable = "outcome",
+  strata = list(c("group_1"), # for just group_1
+                c("group_2"), # for just group_2
+                c("group_1", "group_2")),  # for group_1 and group_2
+  minCellCount = 0
 )
+
+plotPrevalence(prev, 
+               facet = "strata_level")
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
 prev <- estimatePeriodPrevalence(
