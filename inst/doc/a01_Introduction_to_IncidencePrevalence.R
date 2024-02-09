@@ -28,7 +28,7 @@ library(ggplot2)
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
 cdm <- mockIncidencePrevalenceRef(
-  sampleSize = 50000,
+  sampleSize = 5000,
   outPre = 0.2
 )
 

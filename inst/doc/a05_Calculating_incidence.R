@@ -36,7 +36,7 @@ library(dplyr)
 library(tidyr)
 
 cdm <- mockIncidencePrevalenceRef(
-  sampleSize = 50000,
+  sampleSize = 1000,
   outPre = 0.5
 )
 
@@ -202,8 +202,8 @@ participants(inc, analysisId = 1) %>%
   glimpse()
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
-CDMConnector::listTables(attr(cdm, "dbcon"))
+CDMConnector::listTables(attr(attr(cdm, "cdm_source"), "dbcon"))
 CDMConnector::dropTable(cdm = cdm, name = starts_with("denominator"))
 CDMConnector::dropTable(cdm = cdm, name = starts_with("inc_participants"))
-CDMConnector::listTables(attr(cdm, "dbcon"))
+CDMConnector::listTables(attr(attr(cdm, "cdm_source"), "dbcon"))
 

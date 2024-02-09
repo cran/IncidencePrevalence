@@ -29,8 +29,8 @@ library(dplyr)
 library(tidyr)
 
 cdm <- mockIncidencePrevalenceRef(
-  sampleSize = 50000,
-  outPre = 0.5
+  sampleSize = 20000,
+  outPre = 0.3
 )
 
 cdm <- generateDenominatorCohortSet(
@@ -209,7 +209,6 @@ participants(prev, analysisId = 1) %>%
   glimpse()
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
-CDMConnector::listTables(attr(cdm, "dbcon"), schema = attr(cdm, "write_schema"))
 # drop tables created when instantiating denominator cohorts
 CDMConnector::dropTable(
   cdm = cdm,
@@ -220,4 +219,6 @@ CDMConnector::dropTable(
   cdm = cdm,
   name = "period_prev_participants1"
 )
+CDMConnector::cdm_disconnect(cdm)
+
 
