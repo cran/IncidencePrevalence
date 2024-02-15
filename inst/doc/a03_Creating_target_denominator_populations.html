@@ -419,19 +419,18 @@ cohort.</p>
 including any particular subset like so</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>cdm <span class="ot">&lt;-</span> <span class="fu">generateDenominatorCohortSet</span>(</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="at">cdm =</span> cdm, </span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;denominator&quot;</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="at">overwrite =</span> <span class="cn">TRUE</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>)</span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>cdm<span class="sc">$</span>denominator</span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; # Source:   table&lt;denominator&gt; [5 x 4]</span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; # Database: DuckDB v0.9.2 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt;   cohort_definition_id subject_id cohort_start_date cohort_end_date</span></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt;                  &lt;int&gt; &lt;chr&gt;      &lt;date&gt;            &lt;date&gt;         </span></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; 1                    1 2          2005-04-01        2005-11-29     </span></span>
-<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt; 2                    1 3          2009-04-10        2016-01-02     </span></span>
-<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt; 3                    1 4          2010-08-20        2011-12-11     </span></span>
-<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; 4                    1 5          2010-01-01        2015-06-01     </span></span>
-<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt; 5                    1 1          2010-12-19        2011-06-19</span></span></code></pre></div>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;denominator&quot;</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>)</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>cdm<span class="sc">$</span>denominator</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; # Source:   table&lt;denominator&gt; [5 x 4]</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; # Database: DuckDB v0.9.2 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt;   cohort_definition_id subject_id cohort_start_date cohort_end_date</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt;                  &lt;int&gt; &lt;chr&gt;      &lt;date&gt;            &lt;date&gt;         </span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; 1                    1 2          2005-04-01        2005-11-29     </span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; 2                    1 3          2009-04-10        2016-01-02     </span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt; 3                    1 4          2010-08-20        2011-12-11     </span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt; 4                    1 5          2010-01-01        2015-06-01     </span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; 5                    1 1          2010-12-19        2011-06-19</span></span></code></pre></div>
 <p>As we did not specify any study start and end date, the cohort start
 and end date of our 5 patients correspond to the same registered as
 observation period.</p>
@@ -454,9 +453,8 @@ cohort.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>cdm <span class="ot">&lt;-</span> <span class="fu">generateTargetDenominatorCohortSet</span>(</span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="at">cdm =</span> cdm, </span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;denominator_acute_asthma&quot;</span>,</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="at">targetCohortTable =</span> <span class="st">&quot;target&quot;</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>)</span></code></pre></div>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="at">targetCohortTable =</span> <span class="st">&quot;target&quot;</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>)</span></code></pre></div>
 <p>We can see that person “3” and “5” experienced this condition in two
 different occasions and contribute time to the denominator population
 twice, while person “2” contribute one period of time at risk.</p>
@@ -488,25 +486,24 @@ minimum age at that time.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>cdm <span class="ot">&lt;-</span> <span class="fu">generateTargetDenominatorCohortSet</span>(</span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="at">cdm =</span> cdm, </span>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;denominator_acute_asthma_2&quot;</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="at">ageGroup =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">15</span>)),</span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="at">sex =</span> <span class="st">&quot;Female&quot;</span>,</span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>  <span class="at">daysPriorObservation =</span> <span class="dv">0</span>,</span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>  <span class="at">targetCohortTable =</span> <span class="st">&quot;target&quot;</span></span>
-<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>)</span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>cdm<span class="sc">$</span>denominator_acute_asthma_2 <span class="sc">%&gt;%</span></span>
-<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>  <span class="fu">collect</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">row =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(</span>
-<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>    <span class="st">&quot;cohort_start_date&quot;</span>,</span>
-<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>    <span class="st">&quot;cohort_end_date&quot;</span></span>
-<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
-<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">group =</span> row)) <span class="sc">+</span></span>
-<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">y =</span> subject_id)) <span class="sc">+</span></span>
-<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">y =</span> subject_id)) <span class="sc">+</span></span>
-<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Year&quot;</span>)</span></code></pre></div>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="at">ageGroup =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">15</span>)),</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="at">sex =</span> <span class="st">&quot;Female&quot;</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="at">daysPriorObservation =</span> <span class="dv">0</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>  <span class="at">targetCohortTable =</span> <span class="st">&quot;target&quot;</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>)</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>cdm<span class="sc">$</span>denominator_acute_asthma_2 <span class="sc">%&gt;%</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>  <span class="fu">collect</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">row =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(</span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>    <span class="st">&quot;cohort_start_date&quot;</span>,</span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>    <span class="st">&quot;cohort_end_date&quot;</span></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">group =</span> row)) <span class="sc">+</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">y =</span> subject_id)) <span class="sc">+</span></span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">y =</span> subject_id)) <span class="sc">+</span></span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Year&quot;</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
 </div>
 

@@ -50,8 +50,7 @@ prev <- estimatePointPrevalence(
   denominatorTable = "denominator",
   outcomeTable = "outcome",
   interval = "Years",
-  minCellCount = 0,
-  temporary = FALSE
+  minCellCount = 0
 )
 
 prev %>%
@@ -65,8 +64,7 @@ prev <- estimatePointPrevalence(
   denominatorTable = "denominator",
   outcomeTable = "outcome",
   interval = "Months",
-  minCellCount = 0,
-  temporary = FALSE
+  minCellCount = 0
 )
 
 prev %>%
@@ -81,8 +79,7 @@ prev <- estimatePointPrevalence(
   outcomeTable = "outcome",
   interval = "Years",
   timePoint = "middle",
-  minCellCount = 0,
-  temporary = FALSE
+  minCellCount = 0
 )
 
 prev %>%
@@ -96,8 +93,7 @@ prev <- estimatePeriodPrevalence(
   denominatorTable = "denominator",
   outcomeTable = "outcome",
   interval = "Years",
-  minCellCount = 0,
-  temporary = FALSE
+  minCellCount = 0
 )
 
 prev %>%
@@ -111,8 +107,7 @@ prev <- estimatePeriodPrevalence(
   denominatorTable = "denominator",
   outcomeTable = "outcome",
   interval = "Months",
-  minCellCount = 0,
-  temporary = FALSE
+  minCellCount = 0
 )
 
 prev %>%
@@ -127,8 +122,7 @@ prev <- estimatePeriodPrevalence(
   outcomeTable = "outcome",
   interval = "Months",
   fullContribution = FALSE,
-  minCellCount = 0,
-  temporary = FALSE
+  minCellCount = 0
 )
 
 prev %>%
@@ -199,7 +193,6 @@ prev <- estimatePeriodPrevalence(
   interval = "Years",
   fullContribution = c(TRUE, FALSE),
   minCellCount = 0,
-  temporary = FALSE, # returnParticipants can only be TRUE with temporary = FALSE
   returnParticipants = TRUE
 )
 prevalenceAttrition(prev)

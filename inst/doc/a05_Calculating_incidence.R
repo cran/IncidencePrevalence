@@ -58,8 +58,7 @@ inc <- estimateIncidence(
   outcomeTable = "outcome",
   interval = "years",
   outcomeWashout = 0,
-  repeatedEvents = FALSE,
-  temporary = FALSE
+  repeatedEvents = FALSE
 )
 
 inc %>%
@@ -74,8 +73,7 @@ inc <- estimateIncidence(
   outcomeTable = "outcome",
   interval = "years",
   outcomeWashout = Inf,
-  repeatedEvents = FALSE,
-  temporary = FALSE
+  repeatedEvents = FALSE
 )
 
 inc %>%
@@ -90,8 +88,7 @@ inc <- estimateIncidence(
   outcomeTable = "outcome",
   interval = "years",
   outcomeWashout = 180,
-  repeatedEvents = FALSE,
-  temporary = FALSE
+  repeatedEvents = FALSE
 )
 
 inc %>%
@@ -106,8 +103,7 @@ inc <- estimateIncidence(
   outcomeTable = "outcome",
   interval = "years",
   outcomeWashout = 180,
-  repeatedEvents = TRUE,
-  temporary = FALSE
+  repeatedEvents = TRUE
 )
 
 inc %>%
@@ -131,8 +127,7 @@ inc <- estimateIncidence(
   outcomeTable = "outcome",
   interval = "years",
   outcomeWashout = 180,
-  repeatedEvents = TRUE,
-  temporary = FALSE
+  repeatedEvents = TRUE
 )
 
 plotIncidence(inc, facet = "denominator_age_group")
@@ -180,8 +175,7 @@ inc <- estimateIncidence(
   completeDatabaseIntervals = FALSE,
   outcomeWashout = 180,
   repeatedEvents = TRUE,
-  minCellCount = 0,
-  temporary = FALSE
+  minCellCount = 0
 )
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
@@ -192,7 +186,6 @@ inc <- estimateIncidence(
   interval = c("Years"),
   outcomeWashout = c(0, 180),
   repeatedEvents = TRUE,
-  temporary = FALSE,
   returnParticipants = TRUE
 )
 incidenceAttrition(inc)

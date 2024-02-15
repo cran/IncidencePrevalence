@@ -87,7 +87,6 @@ cdm$denominator %>%
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator", 
-  overwrite = TRUE,
   cohortDateRange = c(as.Date("2008-01-01"), as.Date("2009-12-31")),
   ageGroup = list(c(0, 150)),
   sex = "Both",
@@ -136,7 +135,6 @@ cdm$denominator %>%
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator",
-  overwrite = TRUE,
   cohortDateRange = c(as.Date("2008-01-01"), as.Date("2009-12-31")),
   ageGroup = list(c(0, 150)),
   sex = "Both",
@@ -185,7 +183,6 @@ cdm$denominator %>%
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator",
-  overwrite = TRUE,
   cohortDateRange = c(as.Date("2008-01-01"), as.Date("2009-12-31")),
   ageGroup = list(c(18, 65)),
   sex = "Female",
@@ -228,7 +225,6 @@ cdm <- mockIncidencePrevalenceRef(sampleSize = 500,
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator",
-  overwrite = TRUE,
   ageGroup = list(
     c(0, 40),
     c(41, 100)
@@ -259,7 +255,6 @@ cdm$denominator %>%
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator",
-  overwrite = TRUE,
   ageGroup = list(
     c(0, 40),
     c(41, 100)
@@ -291,7 +286,6 @@ cdm$denominator %>%
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator",
-  overwrite = TRUE,
   ageGroup = list(
     c(0, 40),
     c(41, 100)
@@ -323,7 +317,6 @@ cdm$denominator %>%
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator",
-  overwrite = TRUE,
   ageGroup = list(
     c(0, 40),
     c(41, 100)
@@ -355,7 +348,6 @@ cdm$denominator %>%
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator",
-  overwrite = TRUE,
   cohortDateRange = c(as.Date("2008-01-01"), as.Date("2009-12-31")),
   ageGroup = list(
     c(0, 18),

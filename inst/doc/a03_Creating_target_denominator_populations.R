@@ -70,8 +70,7 @@ cdm <- mockIncidencePrevalenceRef(
 ## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm <- generateDenominatorCohortSet(
   cdm = cdm, 
-  name = "denominator",
-  overwrite = TRUE
+  name = "denominator"
 )
 cdm$denominator
 
@@ -93,7 +92,6 @@ cdm$denominator %>%
 cdm <- generateTargetDenominatorCohortSet(
   cdm = cdm, 
   name = "denominator_acute_asthma",
-  overwrite = TRUE,
   targetCohortTable = "target"
 )
 
@@ -115,7 +113,6 @@ cdm$denominator_acute_asthma %>%
 cdm <- generateTargetDenominatorCohortSet(
   cdm = cdm, 
   name = "denominator_acute_asthma_2",
-  overwrite = TRUE,
   ageGroup = list(c(11, 15)),
   sex = "Female",
   daysPriorObservation = 0,
