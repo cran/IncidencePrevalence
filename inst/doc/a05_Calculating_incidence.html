@@ -808,13 +808,13 @@ after running our analysis.</p>
 <span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;denominator&quot;                   &quot;denominator_age_sex&quot;          </span></span>
 <span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="co">#&gt;  [3] &quot;denominator_age_sex_attrition&quot; &quot;denominator_age_sex_set&quot;      </span></span>
 <span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;denominator_attrition&quot;         &quot;denominator_set&quot;              </span></span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;inc_participants1&quot;             &quot;observation_period&quot;           </span></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;inc_participants_1&quot;            &quot;observation_period&quot;           </span></span>
 <span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;outcome&quot;                       &quot;outcome_attrition&quot;            </span></span>
 <span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="co">#&gt; [11] &quot;outcome_set&quot;                   &quot;person&quot;                       </span></span>
 <span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="co">#&gt; [13] &quot;target&quot;                        &quot;target_attrition&quot;             </span></span>
 <span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="co">#&gt; [15] &quot;target_set&quot;</span></span>
 <span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>CDMConnector<span class="sc">::</span><span class="fu">dropTable</span>(<span class="at">cdm =</span> cdm, <span class="at">name =</span> <span class="fu">starts_with</span>(<span class="st">&quot;denominator&quot;</span>))</span>
-<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>CDMConnector<span class="sc">::</span><span class="fu">dropTable</span>(<span class="at">cdm =</span> cdm, <span class="at">name =</span> <span class="fu">starts_with</span>(<span class="st">&quot;inc_participants&quot;</span>))</span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>CDMConnector<span class="sc">::</span><span class="fu">dropTable</span>(<span class="at">cdm =</span> cdm, <span class="at">name =</span> <span class="fu">starts_with</span>(<span class="st">&quot;inc_participants_&quot;</span>))</span>
 <span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a>CDMConnector<span class="sc">::</span><span class="fu">listTables</span>(<span class="fu">attr</span>(<span class="fu">attr</span>(cdm, <span class="st">&quot;cdm_source&quot;</span>), <span class="st">&quot;dbcon&quot;</span>))</span>
 <span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="co">#&gt; [1] &quot;observation_period&quot; &quot;outcome&quot;            &quot;outcome_attrition&quot; </span></span>
 <span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a><span class="co">#&gt; [4] &quot;outcome_set&quot;        &quot;person&quot;             &quot;target&quot;            </span></span>

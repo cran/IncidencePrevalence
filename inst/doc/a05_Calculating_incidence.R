@@ -197,6 +197,6 @@ participants(inc, analysisId = 1) %>%
 ## ----message= FALSE, warning=FALSE--------------------------------------------
 CDMConnector::listTables(attr(attr(cdm, "cdm_source"), "dbcon"))
 CDMConnector::dropTable(cdm = cdm, name = starts_with("denominator"))
-CDMConnector::dropTable(cdm = cdm, name = starts_with("inc_participants"))
+CDMConnector::dropTable(cdm = cdm, name = starts_with("inc_participants_"))
 CDMConnector::listTables(attr(attr(cdm, "cdm_source"), "dbcon"))
 
