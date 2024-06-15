@@ -188,7 +188,7 @@ inc <- estimateIncidence(
   repeatedEvents = TRUE,
   returnParticipants = TRUE
 )
-incidenceAttrition(inc)
+attrition(inc)
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
 participants(inc, analysisId = 1) %>%

@@ -447,7 +447,7 @@ than temporary tables which would be used by default).</p>
 <span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span>
 <span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="co">#&gt; Rows: ??</span></span>
 <span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="co">#&gt; Columns: 4</span></span>
-<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="co">#&gt; Database: DuckDB v0.9.2 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="co">#&gt; Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
 <span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="co">#&gt; $ cohort_definition_id &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…</span></span>
 <span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="co">#&gt; $ subject_id           &lt;chr&gt; &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;10&quot;, &quot;11&quot;, &quot;12&quot;, &quot;…</span></span>
 <span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="co">#&gt; $ cohort_start_date    &lt;date&gt; 2008-01-01, 2008-01-01, 2008-01-01, 2008-01-01, …</span></span>
@@ -768,7 +768,7 @@ also be associated with attributes such as settings and attrition.</p>
 <span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>  <span class="at">repeatedEvents =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>  <span class="at">returnParticipants =</span> <span class="cn">TRUE</span></span>
 <span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>)</span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="fu">incidenceAttrition</span>(inc)</span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="fu">attrition</span>(inc)</span>
 <span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt; # A tibble: 22 × 24</span></span>
 <span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="co">#&gt;    analysis_id number_records number_subjects reason_id reason  excluded_records</span></span>
 <span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;          &lt;chr&gt;               &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;           </span></span>
@@ -797,7 +797,7 @@ to analysis 1 by running</p>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span>
 <span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co">#&gt; Rows: ??</span></span>
 <span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co">#&gt; Columns: 4</span></span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#&gt; Database: DuckDB v0.9.2 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#&gt; Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
 <span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt; $ subject_id         &lt;chr&gt; &quot;3&quot;, &quot;4&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;10&quot;, &quot;14&quot;, &quot;20&quot;, &quot;23&quot;, &quot;2…</span></span>
 <span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt; $ cohort_start_date  &lt;date&gt; 2008-01-01, 2008-01-01, 2008-01-01, 2008-01-01, 20…</span></span>
 <span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co">#&gt; $ cohort_end_date    &lt;date&gt; 2012-01-01, 2012-01-01, 2012-01-01, 2012-01-01, 20…</span></span>

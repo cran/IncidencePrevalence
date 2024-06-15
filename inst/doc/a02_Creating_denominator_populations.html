@@ -426,7 +426,7 @@ requirements like so</p>
 <span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>)</span>
 <span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>cdm<span class="sc">$</span>denominator</span>
 <span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; # Source:   table&lt;main.denominator&gt; [?? x 4]</span></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; # Database: DuckDB v0.9.2 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; # Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
 <span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt;    cohort_definition_id subject_id cohort_start_date cohort_end_date</span></span>
 <span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt;                   &lt;int&gt; &lt;chr&gt;      &lt;date&gt;            &lt;date&gt;         </span></span>
 <span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt;  1                    1 2          1986-05-02        2060-06-10     </span></span>
@@ -444,7 +444,7 @@ requirements like so</p>
 <span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>cdm<span class="sc">$</span>denominator <span class="sc">%&gt;%</span></span>
 <span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>  <span class="fu">filter</span>(subject_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>))</span>
 <span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="co">#&gt; # Source:   SQL [5 x 4]</span></span>
-<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="co">#&gt; # Database: DuckDB v0.9.2 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="co">#&gt; # Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
 <span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="co">#&gt;   cohort_definition_id subject_id cohort_start_date cohort_end_date</span></span>
 <span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="co">#&gt;                  &lt;int&gt; &lt;chr&gt;      &lt;date&gt;            &lt;date&gt;         </span></span>
 <span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="co">#&gt; 1                    1 2          1986-05-02        2060-06-10     </span></span>
@@ -486,7 +486,7 @@ simulated patients</p>
 <span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>)</span>
 <span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>cdm<span class="sc">$</span>denominator</span>
 <span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; # Source:   table&lt;main.denominator&gt; [?? x 4]</span></span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt; # Database: DuckDB v0.9.2 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt; # Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
 <span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt;    cohort_definition_id subject_id cohort_start_date cohort_end_date</span></span>
 <span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt;                   &lt;int&gt; &lt;chr&gt;      &lt;date&gt;            &lt;date&gt;         </span></span>
 <span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt;  1                    1 2          2008-01-01        2009-12-31     </span></span>
@@ -510,7 +510,7 @@ simulated patients</p>
 <span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a>cdm<span class="sc">$</span>denominator <span class="sc">%&gt;%</span></span>
 <span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a>  <span class="fu">filter</span>(subject_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>))</span>
 <span id="cb5-34"><a href="#cb5-34" tabindex="-1"></a><span class="co">#&gt; # Source:   SQL [5 x 4]</span></span>
-<span id="cb5-35"><a href="#cb5-35" tabindex="-1"></a><span class="co">#&gt; # Database: DuckDB v0.9.2 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
+<span id="cb5-35"><a href="#cb5-35" tabindex="-1"></a><span class="co">#&gt; # Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
 <span id="cb5-36"><a href="#cb5-36" tabindex="-1"></a><span class="co">#&gt;   cohort_definition_id subject_id cohort_start_date cohort_end_date</span></span>
 <span id="cb5-37"><a href="#cb5-37" tabindex="-1"></a><span class="co">#&gt;                  &lt;int&gt; &lt;chr&gt;      &lt;date&gt;            &lt;date&gt;         </span></span>
 <span id="cb5-38"><a href="#cb5-38" tabindex="-1"></a><span class="co">#&gt; 1                    1 2          2008-01-01        2009-12-31     </span></span>
@@ -567,7 +567,7 @@ the end.</p>
 <span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>)</span>
 <span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>cdm<span class="sc">$</span>denominator</span>
 <span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; # Source:   table&lt;main.denominator&gt; [?? x 4]</span></span>
-<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; # Database: DuckDB v0.9.2 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; # Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
 <span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt;    cohort_definition_id subject_id cohort_start_date cohort_end_date</span></span>
 <span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt;                   &lt;int&gt; &lt;chr&gt;      &lt;date&gt;            &lt;date&gt;         </span></span>
 <span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt;  1                    1 2          2008-01-01        2009-12-31     </span></span>
@@ -591,7 +591,7 @@ the end.</p>
 <span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a>cdm<span class="sc">$</span>denominator <span class="sc">%&gt;%</span></span>
 <span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a>  <span class="fu">filter</span>(subject_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>))</span>
 <span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a><span class="co">#&gt; # Source:   SQL [5 x 4]</span></span>
-<span id="cb9-35"><a href="#cb9-35" tabindex="-1"></a><span class="co">#&gt; # Database: DuckDB v0.9.2 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
+<span id="cb9-35"><a href="#cb9-35" tabindex="-1"></a><span class="co">#&gt; # Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
 <span id="cb9-36"><a href="#cb9-36" tabindex="-1"></a><span class="co">#&gt;   cohort_definition_id subject_id cohort_start_date cohort_end_date</span></span>
 <span id="cb9-37"><a href="#cb9-37" tabindex="-1"></a><span class="co">#&gt;                  &lt;int&gt; &lt;chr&gt;      &lt;date&gt;            &lt;date&gt;         </span></span>
 <span id="cb9-38"><a href="#cb9-38" tabindex="-1"></a><span class="co">#&gt; 1                    1 2          2008-01-01        2009-12-31     </span></span>
@@ -653,7 +653,7 @@ before their 66th birthday.</p>
 <span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span>
 <span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="co">#&gt; Rows: ??</span></span>
 <span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="co">#&gt; Columns: 4</span></span>
-<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="co">#&gt; Database: DuckDB v0.9.2 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="co">#&gt; Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
 <span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="co">#&gt; $ cohort_definition_id &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…</span></span>
 <span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="co">#&gt; $ subject_id           &lt;chr&gt; &quot;6&quot;, &quot;20&quot;, &quot;24&quot;, &quot;38&quot;, &quot;39&quot;, &quot;44&quot;, &quot;54&quot;, &quot;61&quot;, &quot;6…</span></span>
 <span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="co">#&gt; $ cohort_start_date    &lt;date&gt; 2008-01-01, 2008-01-01, 2008-01-01, 2008-01-01, …</span></span>
@@ -668,7 +668,7 @@ before their 66th birthday.</p>
 <span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a>cdm<span class="sc">$</span>denominator <span class="sc">%&gt;%</span></span>
 <span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a>  <span class="fu">filter</span>(subject_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>))</span>
 <span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a><span class="co">#&gt; # Source:   SQL [0 x 4]</span></span>
-<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a><span class="co">#&gt; # Database: DuckDB v0.9.2 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
+<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a><span class="co">#&gt; # Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
 <span id="cb13-29"><a href="#cb13-29" tabindex="-1"></a><span class="co">#&gt; # ℹ 4 variables: cohort_definition_id &lt;int&gt;, subject_id &lt;chr&gt;,</span></span>
 <span id="cb13-30"><a href="#cb13-30" tabindex="-1"></a><span class="co">#&gt; #   cohort_start_date &lt;date&gt;, cohort_end_date &lt;date&gt;</span></span></code></pre></div>
 <p>Now none of the original first five are included and we´re including
@@ -855,7 +855,7 @@ and observation period is considered.</p>
 <span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a></span>
 <span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a><span class="fu">head</span>(cdm<span class="sc">$</span>denominator, <span class="dv">8</span>)</span>
 <span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a><span class="co">#&gt; # Source:   SQL [8 x 4]</span></span>
-<span id="cb20-15"><a href="#cb20-15" tabindex="-1"></a><span class="co">#&gt; # Database: DuckDB v0.9.2 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
+<span id="cb20-15"><a href="#cb20-15" tabindex="-1"></a><span class="co">#&gt; # Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
 <span id="cb20-16"><a href="#cb20-16" tabindex="-1"></a><span class="co">#&gt;   cohort_definition_id subject_id cohort_start_date cohort_end_date</span></span>
 <span id="cb20-17"><a href="#cb20-17" tabindex="-1"></a><span class="co">#&gt;                  &lt;int&gt; &lt;chr&gt;      &lt;date&gt;            &lt;date&gt;         </span></span>
 <span id="cb20-18"><a href="#cb20-18" tabindex="-1"></a><span class="co">#&gt; 1                    5 2          2008-01-01        2009-12-31     </span></span>

@@ -195,7 +195,7 @@ prev <- estimatePeriodPrevalence(
   minCellCount = 0,
   returnParticipants = TRUE
 )
-prevalenceAttrition(prev)
+attrition(prev)
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
 participants(prev, analysisId = 1) %>%
