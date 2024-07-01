@@ -10,7 +10,6 @@ library(CDMConnector)
 library(IncidencePrevalence)
 library(dbplyr)
 library(dplyr)
-library(tibble)
 library(tidyr)
 library(ggplot2)
 

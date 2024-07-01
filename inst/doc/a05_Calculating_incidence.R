@@ -9,14 +9,6 @@ knitr::opts_chunk$set(
 
 ## ----message= FALSE, warning=FALSE, echo=FALSE--------------------------------
 library(here)
-library(DBI)
-library(dbplyr)
-library(dplyr)
-library(tibble)
-library(tidyr)
-library(duckdb)
-library(knitr)
-library(IncidencePrevalence)
 
 ## ----echo=FALSE, out.width="80%"----------------------------------------------
 knitr::include_graphics(here("vignettes/inc_no_rep_no_washout.png"))
@@ -36,13 +28,15 @@ library(dplyr)
 library(tidyr)
 
 cdm <- mockIncidencePrevalenceRef(
-  sampleSize = 1000,
-  outPre = 0.5
+  sampleSize = 20000,
+  earliestObservationStartDate = as.Date("1960-01-01"), 
+  minOutcomeDays = 365,
+  outPre = 0.3
 )
 
 cdm <- generateDenominatorCohortSet(
   cdm = cdm, name = "denominator",
-  cohortDateRange = c(as.Date("2008-01-01"), as.Date("2012-01-01")),
+  cohortDateRange = c(as.Date("1990-01-01"), as.Date("2009-12-31")),
   ageGroup = list(c(0, 150)),
   sex = "Both",
   daysPriorObservation = 0
@@ -114,7 +108,7 @@ plotIncidence(inc)
 ## -----------------------------------------------------------------------------
 cdm <- generateDenominatorCohortSet(
   cdm = cdm, name = "denominator_age_sex",
-  cohortDateRange = c(as.Date("2008-01-01"), as.Date("2012-01-01")),
+  cohortDateRange = c(as.Date("1990-01-01"), as.Date("2009-12-31")),
   ageGroup = list(c(0, 39),
                   c(41, 65),
                   c(66, 150)),
@@ -134,7 +128,7 @@ plotIncidence(inc, facet = "denominator_age_group")
 
 ## -----------------------------------------------------------------------------
 cdm$denominator <- cdm$denominator %>% 
-  mutate(group = if_else(as.numeric(subject_id)  < 500, "first", "second")) 
+  mutate(group = if_else(as.numeric(subject_id)  < 3000, "first", "second")) 
 
 inc <- estimateIncidence(
   cdm = cdm,
@@ -149,9 +143,8 @@ plotIncidence(inc,
                facet = "strata_level")
 
 cdm$denominator <- cdm$denominator %>% 
-  mutate(group_1 = if_else(as.numeric(subject_id)  < 1500, "first", "second"))  %>% 
-  mutate(group_2 = if_else(cohort_start_date  < as.Date("2010-01-01"), 
-                           "pre", "post"))
+  mutate(group_1 = if_else(as.numeric(subject_id)  < 3000, "first", "second"),
+         group_2 = if_else(as.numeric(subject_id)  < 2000, "one", "two"))
 
 inc <- estimateIncidence(
   cdm = cdm,

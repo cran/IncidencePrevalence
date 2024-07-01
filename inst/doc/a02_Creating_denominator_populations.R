@@ -7,15 +7,6 @@ knitr::opts_chunk$set(
   eval = Sys.getenv("$RUNNER_OS") != "macOS"
 )
 
-## ----message= FALSE, warning=FALSE, echo=FALSE--------------------------------
-library(CDMConnector)
-library(IncidencePrevalence)
-library(dbplyr)
-library(dplyr)
-library(tibble)
-library(tidyr)
-library(ggplot2)
-
 ## ----echo=FALSE, message=FALSE, out.width="80%", warning=FALSE----------------
 library(knitr)
 library(here)
@@ -30,11 +21,14 @@ knitr::include_graphics(here("vignettes/dpop3.png"))
 ## ----echo=FALSE, out.width="80%"----------------------------------------------
 knitr::include_graphics(here("vignettes/dpop4.png"))
 
-## ----message=FALSE, warning=FALSE, results='hide'-----------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
+library(CDMConnector)
 library(IncidencePrevalence)
 library(ggplot2)
 library(tidyr)
+library(dplyr)
 
+## ----message=TRUE-------------------------------------------------------------
 cdm <- mockIncidencePrevalenceRef(sampleSize = 500)
 
 ## ----message=FALSE, warning=FALSE---------------------------------------------
@@ -87,7 +81,7 @@ cdm$denominator %>%
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator", 
-  cohortDateRange = c(as.Date("2008-01-01"), as.Date("2009-12-31")),
+  cohortDateRange = c(as.Date("1990-01-01"), as.Date("2009-12-31")),
   ageGroup = list(c(0, 150)),
   sex = "Both",
   daysPriorObservation = 0
@@ -101,20 +95,6 @@ cdm$denominator %>%
 
 ## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm$denominator %>%
-  filter(subject_id %in% c("1", "2", "3", "4", "5")) %>%
-  collect() %>%
-  pivot_longer(cols = c(
-    "cohort_start_date",
-    "cohort_end_date"
-  )) %>%
-  ggplot() +
-  geom_point(aes(x = value, y = subject_id)) +
-  geom_line(aes(x = value, y = subject_id)) +
-  theme_minimal() +
-  xlab("Year")
-
-## ----message=FALSE, warning=FALSE---------------------------------------------
-cdm$denominator %>%
   collect() %>%
   ggplot() +
   theme_minimal() +
@@ -135,7 +115,7 @@ cdm$denominator %>%
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator",
-  cohortDateRange = c(as.Date("2008-01-01"), as.Date("2009-12-31")),
+  cohortDateRange = c(as.Date("1990-01-01"), as.Date("2009-12-31")),
   ageGroup = list(c(0, 150)),
   sex = "Both",
   daysPriorObservation = 365
@@ -148,42 +128,10 @@ cdm$denominator %>%
   filter(subject_id %in% c("1", "2", "3", "4", "5"))
 
 ## ----message=FALSE, warning=FALSE---------------------------------------------
-cdm$denominator %>%
-  filter(subject_id %in% c("1", "2", "3", "4", "5")) %>%
-  collect() %>%
-  pivot_longer(cols = c(
-    "cohort_start_date",
-    "cohort_end_date"
-  )) %>%
-  ggplot() +
-  geom_point(aes(x = value, y = subject_id)) +
-  geom_line(aes(x = value, y = subject_id)) +
-  theme_minimal() +
-  xlab("Year")
-
-## ----message=FALSE, warning=FALSE---------------------------------------------
-cdm$denominator %>%
-  collect() %>%
-  ggplot() +
-  theme_minimal() +
-  geom_histogram(aes(cohort_start_date),
-    colour = "black", fill = "grey"
-  )
-
-## ----message=FALSE, warning=FALSE---------------------------------------------
-cdm$denominator %>%
-  collect() %>%
-  ggplot() +
-  theme_minimal() +
-  geom_histogram(aes(cohort_end_date),
-    colour = "black", fill = "grey"
-  )
-
-## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator",
-  cohortDateRange = c(as.Date("2008-01-01"), as.Date("2009-12-31")),
+  cohortDateRange = c(as.Date("1990-01-01"), as.Date("2009-12-31")),
   ageGroup = list(c(18, 65)),
   sex = "Female",
   daysPriorObservation = 365
@@ -195,24 +143,6 @@ cohortCount(cdm$denominator)
 
 cdm$denominator %>%
   filter(subject_id %in% c("1", "2", "3", "4", "5"))
-
-## ----message=FALSE, warning=FALSE---------------------------------------------
-cdm$denominator %>%
-  collect() %>%
-  ggplot() +
-  theme_minimal() +
-  geom_histogram(aes(cohort_start_date),
-    colour = "black", fill = "grey"
-  )
-
-## ----message=FALSE, warning=FALSE---------------------------------------------
-cdm$denominator %>%
-  collect() %>%
-  ggplot() +
-  theme_minimal() +
-  geom_histogram(aes(cohort_end_date),
-    colour = "black", fill = "grey"
-  )
 
 ## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm <- mockIncidencePrevalenceRef(sampleSize = 500, 
@@ -235,21 +165,21 @@ cdm <- generateDenominatorCohortSet(
 cdm$denominator %>%
   filter(subject_id %in% !!as.character(seq(1:30))) %>%
   collect() %>%
+  left_join(settings(cdm$denominator),
+            by = "cohort_definition_id") %>%
   pivot_longer(cols = c(
     "cohort_start_date",
     "cohort_end_date"
   )) %>%
-  mutate(cohort_definition_id = as.character(cohort_definition_id),
-         subject_id = factor(as.numeric(subject_id))) %>%
-  ggplot(aes(x = subject_id, y = value, colour = cohort_definition_id)) +
+  mutate(subject_id = factor(as.numeric(subject_id))) %>%
+  ggplot(aes(x = subject_id, y = value, colour = age_group)) +
   geom_point(position = position_dodge(width = 0.5)) +
   geom_line(position = position_dodge(width = 0.5)) +
   theme_minimal() +
-  theme(legend.position = "top") +
+  theme(legend.position = "top", 
+        legend.title = element_blank()) +
   ylab("Year") +
   coord_flip()
-
-
 
 ## ----message=FALSE, warning=FALSE, fig.height=8-------------------------------
 cdm <- generateDenominatorCohortSet(
@@ -265,22 +195,21 @@ cdm <- generateDenominatorCohortSet(
 cdm$denominator %>%
   filter(subject_id %in% !!as.character(seq(1:15))) %>%
   collect() %>%
-  left_join(cohortSet(cdm$denominator)) %>%
+  left_join(settings(cdm$denominator)) %>%
   pivot_longer(cols = c(
     "cohort_start_date",
     "cohort_end_date"
   )) %>%
-  mutate(cohort_definition_id = as.character(cohort_definition_id),
-         subject_id = factor(as.numeric(subject_id))) %>%
-  ggplot(aes(x = subject_id, y = value, colour = cohort_definition_id)) +
+  mutate(subject_id = factor(as.numeric(subject_id))) %>%
+  ggplot(aes(x = subject_id, y = value, colour = age_group)) +
     facet_grid(sex ~ ., space = "free_y") +
   geom_point(position = position_dodge(width = 0.5)) +
   geom_line(position = position_dodge(width = 0.5)) +
   theme_bw() +
-  theme(legend.position = "top") +
+  theme(legend.position = "top", 
+        legend.title = element_blank()) +
   ylab("Year") +
   coord_flip()
-
 
 ## ----message=FALSE, warning=FALSE, fig.height=10------------------------------
 cdm <- generateDenominatorCohortSet(
@@ -294,24 +223,25 @@ cdm <- generateDenominatorCohortSet(
   daysPriorObservation = c(0, 365)
 )
 cdm$denominator %>%
-  filter(subject_id %in% !!as.character(seq(1:15))) %>%
+  filter(subject_id %in% !!as.character(seq(1:8))) %>%
   collect() %>%
   left_join(cohortSet(cdm$denominator)) %>%
   pivot_longer(cols = c(
     "cohort_start_date",
     "cohort_end_date"
   )) %>%
-  mutate(cohort_definition_id = as.character(cohort_definition_id),
-         subject_id = factor(as.numeric(subject_id))) %>%
-  ggplot(aes(x = subject_id, y = value, colour = cohort_definition_id)) +
-  facet_grid(sex + days_prior_observation ~ ., space = "free_y") +
+  mutate(subject_id = factor(as.numeric(subject_id))) %>%
+  ggplot(aes(x = subject_id, y = value, colour = age_group, 
+             linetype = sex, shape = sex
+             )) +
+  facet_grid(sex + days_prior_observation ~ ., space = "free", 
+             scales = "free") +
   geom_point(position = position_dodge(width = 0.5)) +
   geom_line(position = position_dodge(width = 0.5)) +
   theme_bw() +
   theme(legend.position = "top") +
   ylab("Year") +
   coord_flip()
-
 
 ## ----message=FALSE, warning=FALSE, fig.height=10------------------------------
 cdm <- generateDenominatorCohortSet(
@@ -325,18 +255,21 @@ cdm <- generateDenominatorCohortSet(
   daysPriorObservation = c(0, 365),
   requirementInteractions = FALSE
 )
+
 cdm$denominator %>%
-  filter(subject_id %in% !!as.character(seq(1:15))) %>%
+  filter(subject_id %in% !!as.character(seq(1:8))) %>%
   collect() %>%
   left_join(cohortSet(cdm$denominator)) %>%
   pivot_longer(cols = c(
     "cohort_start_date",
     "cohort_end_date"
   )) %>%
-  mutate(cohort_definition_id = as.character(cohort_definition_id),
-         subject_id = factor(as.numeric(subject_id))) %>%
-  ggplot(aes(x = subject_id, y = value, colour = cohort_definition_id)) +
-  facet_grid(sex + days_prior_observation ~ ., space = "free_y") +
+  mutate(subject_id = factor(as.numeric(subject_id))) %>%
+  ggplot(aes(x = subject_id, y = value, colour = age_group, 
+             linetype = sex, shape = sex
+             )) +
+  facet_grid(sex + days_prior_observation ~ ., space = "free", 
+             scales = "free") +
   geom_point(position = position_dodge(width = 0.5)) +
   geom_line(position = position_dodge(width = 0.5)) +
   theme_bw() +
@@ -348,7 +281,7 @@ cdm$denominator %>%
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator",
-  cohortDateRange = c(as.Date("2008-01-01"), as.Date("2009-12-31")),
+  cohortDateRange = c(as.Date("1990-01-01"), as.Date("2009-12-31")),
   ageGroup = list(
     c(0, 18),
     c(19, 100)
@@ -360,7 +293,7 @@ cdm <- generateDenominatorCohortSet(
 head(cdm$denominator, 8)
 
 ## ----message=TRUE, warning=FALSE----------------------------------------------
-cohortSet(cdm$denominator) %>% 
+settings(cdm$denominator) %>% 
   glimpse()
 
 ## ----message=TRUE, warning=FALSE----------------------------------------------
@@ -368,6 +301,6 @@ cohortCount(cdm$denominator) %>%
   glimpse()
 
 ## ----message=TRUE, warning=FALSE----------------------------------------------
-cohortAttrition(cdm$denominator) %>% 
+attrition(cdm$denominator) %>% 
   glimpse()
 

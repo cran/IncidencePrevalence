@@ -14,26 +14,15 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 
-## ----eval=FALSE---------------------------------------------------------------
-#  con <- DBI::dbConnect(RPostgres::Postgres(),
-#    dbname = Sys.getenv("CDM5_POSTGRESQL_DBNAME"),
-#    host = Sys.getenv("CDM5_POSTGRESQL_HOST"),
-#    user = Sys.getenv("CDM5_POSTGRESQL_USER"),
-#    password = Sys.getenv("CDM5_POSTGRESQL_PASSWORD")
-#  )
-#  cdm <- CDMConnector::cdm_from_con(con,
-#    cdm_schema = Sys.getenv("CDM5_POSTGRESQL_CDM_SCHEMA"),
-#    write_schema = Sys.getenv("CDM5_POSTGRESQL_WRITE_SCHEMA")
-#  )
-
 ## ----message= FALSE, warning=FALSE--------------------------------------------
 cdm <- mockIncidencePrevalenceRef(
-  sampleSize = 5000,
+  sampleSize = 50000,
   outPre = 0.2
 )
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  cdm$outcome
+#  cdm$outcome %>%
+#    glimpse()
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
 cdm <- generateDenominatorCohortSet(
@@ -50,7 +39,7 @@ cdm$denominator %>%
   glimpse()
 
 ## -----------------------------------------------------------------------------
-cohortSet(cdm$denominator)
+settings(cdm$denominator)
 
 ## -----------------------------------------------------------------------------
 cohortCount(cdm$denominator)

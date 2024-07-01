@@ -9,13 +9,6 @@ knitr::opts_chunk$set(
 
 ## ----message= FALSE, warning=FALSE, echo=FALSE--------------------------------
 library(here)
-library(DBI)
-library(dbplyr)
-library(dplyr)
-library(tibble)
-library(tidyr)
-library(knitr)
-library(IncidencePrevalence)
 
 ## ----echo=FALSE, out.width="80%"----------------------------------------------
 knitr::include_graphics(here("vignettes/point_prev.png"))
@@ -23,19 +16,21 @@ knitr::include_graphics(here("vignettes/point_prev.png"))
 ## ----echo=FALSE, out.width="80%"----------------------------------------------
 knitr::include_graphics(here("vignettes/period_prev.png"))
 
-## ----setup--------------------------------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 library(IncidencePrevalence)
 library(dplyr)
 library(tidyr)
 
 cdm <- mockIncidencePrevalenceRef(
   sampleSize = 20000,
+  earliestObservationStartDate = as.Date("1960-01-01"), 
+  minOutcomeDays = 365,
   outPre = 0.3
 )
 
 cdm <- generateDenominatorCohortSet(
   cdm = cdm, name = "denominator",
-  cohortDateRange = c(as.Date("2008-01-01"), as.Date("2012-01-01")),
+  cohortDateRange = c(as.Date("1990-01-01"), as.Date("2009-12-31")),
   ageGroup = list(c(0, 150)),
   sex = "Both",
   daysPriorObservation = 0
@@ -99,7 +94,7 @@ prev <- estimatePeriodPrevalence(
 prev %>%
   glimpse()
 
-plotPrevalence(prev, ylim = c(0.1, 0.3))
+plotPrevalence(prev)
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
 prev <- estimatePeriodPrevalence(
@@ -128,14 +123,12 @@ prev <- estimatePeriodPrevalence(
 prev %>%
   glimpse()
 
-plotPrevalence(prev,
-  ylim = c(0, 0.07)
-)
+plotPrevalence(prev)
 
 ## -----------------------------------------------------------------------------
 cdm <- generateDenominatorCohortSet(
   cdm = cdm, name = "denominator_age_sex",
-  cohortDateRange = c(as.Date("2008-01-01"), as.Date("2012-01-01")),
+  cohortDateRange = c(as.Date("1990-01-01"), as.Date("2009-12-31")),
   ageGroup = list(c(0, 39),
                   c(41, 65),
                   c(66, 150)),
@@ -168,9 +161,8 @@ plotPrevalence(prev,
 
 ## -----------------------------------------------------------------------------
 cdm$denominator <- cdm$denominator %>% 
-  mutate(group_1 = if_else(as.numeric(subject_id)  < 1500, "first", "second"))  %>% 
-  mutate(group_2 = if_else(cohort_start_date  < as.Date("2010-01-01"), 
-                           "pre", "post"))
+  mutate(group_1 = if_else(as.numeric(subject_id)  < 1500, "first", "second"),
+         group_2 = if_else(as.numeric(subject_id)  < 1000, "one", "two"))
 
 prev <- estimatePeriodPrevalence(
   cdm = cdm,
