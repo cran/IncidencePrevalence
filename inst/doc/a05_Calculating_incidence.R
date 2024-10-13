@@ -177,19 +177,8 @@ inc <- estimateIncidence(
   denominatorTable = "denominator",
   outcomeTable = "outcome",
   interval = c("Years"),
-  outcomeWashout = c(0, 180),
-  repeatedEvents = TRUE,
-  returnParticipants = TRUE
+  outcomeWashout = 180,
+  repeatedEvents = TRUE
 )
-attrition(inc)
-
-## ----message= FALSE, warning=FALSE--------------------------------------------
-participants(inc, analysisId = 1) %>%
-  glimpse()
-
-## ----message= FALSE, warning=FALSE--------------------------------------------
-CDMConnector::listTables(attr(attr(cdm, "cdm_source"), "dbcon"))
-CDMConnector::dropTable(cdm = cdm, name = starts_with("denominator"))
-CDMConnector::dropTable(cdm = cdm, name = starts_with("inc_participants_"))
-CDMConnector::listTables(attr(attr(cdm, "cdm_source"), "dbcon"))
+tableIncidenceAttrition(inc)
 

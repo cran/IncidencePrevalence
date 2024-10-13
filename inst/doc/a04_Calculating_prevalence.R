@@ -183,27 +183,8 @@ prev <- estimatePeriodPrevalence(
   denominatorTable = "denominator",
   outcomeTable = "outcome",
   interval = "Years",
-  fullContribution = c(TRUE, FALSE),
-  minCellCount = 0,
-  returnParticipants = TRUE
+  fullContribution = TRUE,
+  minCellCount = 0
 )
-attrition(prev)
-
-## ----message= FALSE, warning=FALSE--------------------------------------------
-participants(prev, analysisId = 1) %>%
-  glimpse()
-
-## ----message= FALSE, warning=FALSE--------------------------------------------
-# drop tables created when instantiating denominator cohorts
-CDMConnector::dropTable(
-  cdm = cdm,
-  name = dplyr::starts_with("denominator")
-)
-# drop table with study participants when returnParticipants = TRUE
-CDMConnector::dropTable(
-  cdm = cdm,
-  name = "period_prev_participants_1"
-)
-CDMConnector::cdm_disconnect(cdm)
-
+tablePrevalenceAttrition(prev)
 
