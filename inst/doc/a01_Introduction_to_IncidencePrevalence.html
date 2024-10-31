@@ -49,7 +49,7 @@ overflow: visible;
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -399,7 +399,7 @@ an OMOP CDM cohort:</p>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; Rows: ??</span></span>
 <span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; Columns: 4</span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.4.0/:memory:]</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.2.1/:memory:]</span></span>
 <span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; $ cohort_definition_id &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…</span></span>
 <span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; $ subject_id           &lt;int&gt; 59, 89, 200, 208, 261, 501, 533, 579, 615, 642, 6…</span></span>
 <span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt; $ cohort_start_date    &lt;date&gt; 2008-06-24, 2008-01-01, 2008-01-01, 2008-01-01, …</span></span>
@@ -412,8 +412,9 @@ an OMOP CDM cohort:</p>
 <span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; 1                    1 denominator_cohor… 18 to 65  Male                     365</span></span>
 <span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; 2                    2 denominator_cohor… 18 to 65  Fema…                    365</span></span>
 <span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; 3                    3 denominator_cohor… 18 to 65  Both                     365</span></span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; # ℹ 5 more variables: start_date &lt;date&gt;, end_date &lt;date&gt;, time_at_risk &lt;chr&gt;,</span></span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt; #   target_cohort_definition_id &lt;int&gt;, target_cohort_name &lt;chr&gt;</span></span></code></pre></div>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; # ℹ 5 more variables: start_date &lt;date&gt;, end_date &lt;date&gt;,</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt; #   target_cohort_definition_id &lt;int&gt;, target_cohort_name &lt;chr&gt;,</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt; #   time_at_risk &lt;chr&gt;</span></span></code></pre></div>
 <p>And we can also see the count for each cohort</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">cohortCount</span>(cdm<span class="sc">$</span>denominator)</span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 3</span></span>
