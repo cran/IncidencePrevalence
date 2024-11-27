@@ -60,7 +60,7 @@ acute_asthma <- tibble(
 )
 
 # mock database
-cdm <- mockIncidencePrevalenceRef(
+cdm <- mockIncidencePrevalence(
   personTable = personTable,
   observationPeriodTable = observationPeriodTable,
   targetCohortTable = acute_asthma
@@ -119,6 +119,93 @@ cdm <- generateTargetDenominatorCohortSet(
 )
 
 cdm$denominator_acute_asthma_2 %>%
+  collect() %>%
+  mutate(row = row_number()) %>% 
+  pivot_longer(cols = c(
+    "cohort_start_date",
+    "cohort_end_date"
+  )) %>%
+  ggplot(aes(group = row)) +
+  geom_point(aes(x = value, y = subject_id)) +
+  geom_line(aes(x = value, y = subject_id)) +
+  theme_minimal() +
+  xlab("Year")
+
+## ----message=FALSE, warning=FALSE---------------------------------------------
+cdm <- generateTargetDenominatorCohortSet(
+  cdm = cdm, 
+  name = "denominator_acute_asthma_2",
+  ageGroup = list(c(11, 15)),
+  sex = "Female",
+  daysPriorObservation = 0,
+  targetCohortTable = "target",
+  timeAtRisk = c(0,30)
+)
+
+cdm$denominator_acute_asthma_2 %>%
+  collect() %>%
+  mutate(row = row_number()) %>% 
+  pivot_longer(cols = c(
+    "cohort_start_date",
+    "cohort_end_date"
+  )) %>%
+  ggplot(aes(group = row)) +
+  geom_point(aes(x = value, y = subject_id)) +
+  geom_line(aes(x = value, y = subject_id)) +
+  theme_minimal() +
+  xlab("Year")
+
+## ----message=FALSE, warning=FALSE---------------------------------------------
+cdm <- generateTargetDenominatorCohortSet(
+  cdm = cdm, 
+  name = "denominator_acute_asthma_3",
+  ageGroup = list(c(11, 15)),
+  sex = "Female",
+  daysPriorObservation = 0,
+  targetCohortTable = "target",
+  timeAtRisk = list(c(0,30), c(31,60))
+)
+
+cdm$denominator_acute_asthma_3 %>%
+  collect() %>%
+  dplyr::left_join(attr(cdm$denominator_acute_asthma_3, "cohort_set") %>%
+                     dplyr::select(c("cohort_definition_id",
+                                     "time_at_risk")),
+                   by = "cohort_definition_id",
+                   copy = TRUE) %>%
+  mutate(row = row_number()) %>% 
+  pivot_longer(cols = c(
+    "cohort_start_date",
+    "cohort_end_date"
+  )) %>%
+  ggplot(aes(group = row, colour = time_at_risk)) +
+  geom_point(aes(x = value, y = subject_id)) +
+  geom_line(aes(x = value, y = subject_id)) +
+  theme_minimal() +
+  xlab("Year")
+
+## ----message=FALSE, warning=FALSE---------------------------------------------
+cdm$target_2 <- cdm$target |>
+  dplyr::mutate(dif = cohort_end_date - cohort_start_date) |>
+  dplyr::mutate(cohort_end_date = dplyr::if_else(
+    dif > 30,
+    clock::add_days(cohort_start_date, 30),
+    cohort_end_date
+  )) |>
+  dplyr::select(-"dif") |>
+  dplyr::compute()
+
+cdm <- generateTargetDenominatorCohortSet(
+  cdm = cdm, 
+  name = "denominator_acute_asthma_4",
+  ageGroup = list(c(11, 15)),
+  sex = "Female",
+  daysPriorObservation = 0,
+  targetCohortTable = "target_2",
+  timeAtRisk = c(0,90)
+)
+
+cdm$denominator_acute_asthma_4 %>%
   collect() %>%
   mutate(row = row_number()) %>% 
   pivot_longer(cols = c(

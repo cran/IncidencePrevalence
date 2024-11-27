@@ -29,7 +29,7 @@ library(tidyr)
 library(dplyr)
 
 ## ----message=TRUE-------------------------------------------------------------
-cdm <- mockIncidencePrevalenceRef(sampleSize = 500)
+cdm <- mockIncidencePrevalence(sampleSize = 500)
 
 ## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm <- generateDenominatorCohortSet(
@@ -145,7 +145,7 @@ cdm$denominator %>%
   filter(subject_id %in% c("1", "2", "3", "4", "5"))
 
 ## ----message=FALSE, warning=FALSE---------------------------------------------
-cdm <- mockIncidencePrevalenceRef(sampleSize = 500, 
+cdm <- mockIncidencePrevalence(sampleSize = 500, 
                                   earliestObservationStartDate = as.Date("2000-01-01"),
                                   latestObservationStartDate =  as.Date("2005-01-01"),
                                   minDaysToObservationEnd = 10000, 

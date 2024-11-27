@@ -27,7 +27,7 @@ library(IncidencePrevalence)
 library(dplyr)
 library(tidyr)
 
-cdm <- mockIncidencePrevalenceRef(
+cdm <- mockIncidencePrevalence(
   sampleSize = 20000,
   earliestObservationStartDate = as.Date("1960-01-01"), 
   minOutcomeDays = 365,
@@ -140,7 +140,7 @@ inc <- estimateIncidence(
 )
 
 plotIncidence(inc, 
-               facet = "strata_level")
+               colour = "group")
 
 cdm$denominator <- cdm$denominator %>% 
   mutate(group_1 = if_else(as.numeric(subject_id)  < 3000, "first", "second"),
@@ -157,7 +157,7 @@ inc <- estimateIncidence(
 )
 
 plotIncidence(inc, 
-               facet = "strata_level")
+               facet = c("group_1", "group_2"))
 
 ## ----message=TRUE, warning=FALSE----------------------------------------------
 inc <- estimateIncidence(
@@ -167,8 +167,7 @@ inc <- estimateIncidence(
   interval = c("weeks"),
   completeDatabaseIntervals = FALSE,
   outcomeWashout = 180,
-  repeatedEvents = TRUE,
-  minCellCount = 0
+  repeatedEvents = TRUE
 )
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------

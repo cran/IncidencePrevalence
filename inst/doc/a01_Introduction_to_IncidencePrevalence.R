@@ -15,7 +15,7 @@ library(tidyr)
 library(ggplot2)
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
-cdm <- mockIncidencePrevalenceRef(
+cdm <- mockIncidencePrevalence(
   sampleSize = 50000,
   outPre = 0.2
 )
@@ -49,8 +49,7 @@ prev <- estimatePeriodPrevalence(
   cdm = cdm,
   denominatorTable = "denominator",
   outcomeTable = "outcome",
-  interval = "quarters",
-  minCellCount = 0
+  interval = "quarters"
 )
 
 prev %>%

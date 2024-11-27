@@ -18,7 +18,7 @@ library(knitr)
 library(IncidencePrevalence)
 
 ## ----setup--------------------------------------------------------------------
-cdm <- mockIncidencePrevalenceRef(
+cdm <- mockIncidencePrevalence(
   sampleSize = 10000,
   outPre = 0.5
 )
@@ -48,7 +48,10 @@ plotIncidence(inc, facet = "denominator_sex", ribbon = TRUE,
 
 ## ----stackedplot--------------------------------------------------------------
 plotIncidence(inc, facet = "denominator_sex", ribbon = TRUE, 
-              options = list('hideConfidenceInterval' = TRUE,
+              options = list('point' = FALSE,
                              'facetNcols' = 1, 
                              'facetScales' = "free"))
+
+## ----options------------------------------------------------------------------
+optionsPlot()
 
