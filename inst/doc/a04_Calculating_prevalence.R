@@ -1,6 +1,8 @@
 ## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
-  collapse = TRUE,
+  collapse = TRUE, 
+  warning = FALSE, 
+  message = FALSE,
   comment = "#>",
   fig.width = 7,
   fig.height = 5,
@@ -20,10 +22,12 @@ knitr::include_graphics(here("vignettes/period_prev.png"))
 library(IncidencePrevalence)
 library(dplyr)
 library(tidyr)
+library(ggplot2)
+library(patchwork)
 
 cdm <- mockIncidencePrevalence(
   sampleSize = 20000,
-  earliestObservationStartDate = as.Date("1960-01-01"), 
+  earliestObservationStartDate = as.Date("1960-01-01"),
   minOutcomeDays = 365,
   outPre = 0.3
 )
@@ -50,7 +54,15 @@ prev <- estimatePointPrevalence(
 prev %>%
   glimpse()
 
-plotPrevalence(prev, ylim = c(0, NA))
+plotPrevalence(prev)
+
+## ----message= FALSE, warning=FALSE--------------------------------------------
+outcome_plot <- plotPrevalencePopulation(result = prev, y = "outcome_count") + xlab("") +
+  theme(axis.text.x = element_blank()) +
+  ggtitle("a) Number of outcomes by year")
+denominator_plot <- plotPrevalencePopulation(result = prev) +
+  ggtitle("b) Number of people in denominator population by year")
+outcome_plot / denominator_plot
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
 prev <- estimatePointPrevalence(
@@ -63,7 +75,7 @@ prev <- estimatePointPrevalence(
 prev %>%
   glimpse()
 
-plotPrevalence(prev, ylim = c(0, NA))
+plotPrevalence(prev)
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
 prev <- estimatePointPrevalence(
@@ -77,7 +89,7 @@ prev <- estimatePointPrevalence(
 prev %>%
   glimpse()
 
-plotPrevalence(prev, ylim = c(0, NA), options = list(line = FALSE))
+plotPrevalence(prev, line = FALSE)
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
 prev <- estimatePeriodPrevalence(
@@ -103,7 +115,7 @@ prev <- estimatePeriodPrevalence(
 prev %>%
   glimpse()
 
-plotPrevalence(prev, ylim = c(0, NA))
+plotPrevalence(prev)
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
 prev <- estimatePeriodPrevalence(
@@ -123,9 +135,11 @@ plotPrevalence(prev)
 cdm <- generateDenominatorCohortSet(
   cdm = cdm, name = "denominator_age_sex",
   cohortDateRange = c(as.Date("1990-01-01"), as.Date("2009-12-31")),
-  ageGroup = list(c(0, 39),
-                  c(41, 65),
-                  c(66, 150)),
+  ageGroup = list(
+    c(0, 39),
+    c(41, 65),
+    c(66, 150)
+  ),
   sex = "Both",
   daysPriorObservation = 0
 )
@@ -135,11 +149,18 @@ prev <- estimatePeriodPrevalence(
   outcomeTable = "outcome"
 )
 
-plotPrevalence(prev, facet = "denominator_age_group")
+plotPrevalence(prev) +
+  facet_wrap(vars(denominator_age_group), ncol = 1)
+
+## ----message= FALSE, warning=FALSE--------------------------------------------
+denominator_plot <- plotPrevalencePopulation(result = prev)
+
+denominator_plot +
+  facet_wrap(vars(denominator_age_group), ncol = 1)
 
 ## -----------------------------------------------------------------------------
-cdm$denominator <- cdm$denominator %>% 
-  mutate(group = if_else(as.numeric(subject_id)  < 500, "first", "second")) 
+cdm$denominator <- cdm$denominator %>%
+  mutate(group = if_else(as.numeric(subject_id) < 500, "first", "second"))
 
 prev <- estimatePeriodPrevalence(
   cdm = cdm,
@@ -148,25 +169,32 @@ prev <- estimatePeriodPrevalence(
   strata = "group"
 )
 
-plotPrevalence(prev, 
-               colour = c("group"))
+plotPrevalence(prev,
+  facet = "group",
+  colour = "group"
+)
 
 ## -----------------------------------------------------------------------------
-cdm$denominator <- cdm$denominator %>% 
-  mutate(group_1 = if_else(as.numeric(subject_id)  < 1500, "first", "second"),
-         group_2 = if_else(as.numeric(subject_id)  < 1000, "one", "two"))
+cdm$denominator <- cdm$denominator %>%
+  mutate(
+    group_1 = if_else(as.numeric(subject_id) < 1500, "first", "second"),
+    group_2 = if_else(as.numeric(subject_id) < 1000, "one", "two")
+  )
 
 prev <- estimatePeriodPrevalence(
   cdm = cdm,
   denominatorTable = "denominator",
   outcomeTable = "outcome",
-  strata = list(c("group_1"), # for just group_1
-                c("group_2"), # for just group_2
-                c("group_1", "group_2"))  # for group_1 and group_2
+  strata = list(
+    c("group_1"), # for just group_1
+    c("group_2"), # for just group_2
+    c("group_1", "group_2")
+  ) # for group_1 and group_2
 )
 
-plotPrevalence(prev, 
-               facet = c("group_1", "group_2"))
+plotPrevalence(prev,
+  facet = c("group_1", "group_2")
+)
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
 prev <- estimatePeriodPrevalence(
@@ -176,5 +204,5 @@ prev <- estimatePeriodPrevalence(
   interval = "Years",
   fullContribution = TRUE
 )
-tablePrevalenceAttrition(prev, settingsColumns = character())
+tablePrevalenceAttrition(prev)
 

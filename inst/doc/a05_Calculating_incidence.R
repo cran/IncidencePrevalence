@@ -1,6 +1,8 @@
 ## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
+  warning = FALSE, 
+  message = FALSE,
   comment = "#>",
   fig.width = 7,
   fig.height = 5,
@@ -26,10 +28,12 @@ knitr::include_graphics(here("vignettes/inc_rep_some_washout.png"))
 library(IncidencePrevalence)
 library(dplyr)
 library(tidyr)
+library(ggplot2)
+library(patchwork)
 
 cdm <- mockIncidencePrevalence(
   sampleSize = 20000,
-  earliestObservationStartDate = as.Date("1960-01-01"), 
+  earliestObservationStartDate = as.Date("1960-01-01"),
   minOutcomeDays = 365,
   outPre = 0.3
 )
@@ -59,6 +63,18 @@ inc %>%
   glimpse()
 
 plotIncidence(inc)
+
+## ----message= FALSE, warning=FALSE--------------------------------------------
+outcome_plot <- plotIncidencePopulation(result = inc, y = "outcome_count") +
+  xlab("") +
+  theme(axis.text.x = element_blank()) +
+  ggtitle("a) Number of outcomes by year")
+denominator_plot <- plotIncidencePopulation(result = inc) +
+  ggtitle("b) Number of people in denominator population by year")
+pys_plot <- plotIncidencePopulation(result = inc, y = "person_years") +
+  ggtitle("c) Person-years contributed by year")
+
+outcome_plot / denominator_plot / pys_plot
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
 inc <- estimateIncidence(
@@ -109,9 +125,11 @@ plotIncidence(inc)
 cdm <- generateDenominatorCohortSet(
   cdm = cdm, name = "denominator_age_sex",
   cohortDateRange = c(as.Date("1990-01-01"), as.Date("2009-12-31")),
-  ageGroup = list(c(0, 39),
-                  c(41, 65),
-                  c(66, 150)),
+  ageGroup = list(
+    c(0, 39),
+    c(41, 65),
+    c(66, 150)
+  ),
   sex = "Both",
   daysPriorObservation = 0
 )
@@ -126,9 +144,15 @@ inc <- estimateIncidence(
 
 plotIncidence(inc, facet = "denominator_age_group")
 
+## ----message= FALSE, warning=FALSE--------------------------------------------
+pys_plot <- plotIncidencePopulation(result = inc, y = "person_years")
+
+pys_plot +
+  facet_wrap(vars(denominator_age_group), ncol = 1)
+
 ## -----------------------------------------------------------------------------
-cdm$denominator <- cdm$denominator %>% 
-  mutate(group = if_else(as.numeric(subject_id)  < 3000, "first", "second")) 
+cdm$denominator <- cdm$denominator %>%
+  mutate(group = if_else(as.numeric(subject_id) < 3000, "first", "second"))
 
 inc <- estimateIncidence(
   cdm = cdm,
@@ -139,25 +163,34 @@ inc <- estimateIncidence(
   repeatedEvents = TRUE
 )
 
-plotIncidence(inc, 
-               colour = "group")
+plotIncidence(inc,
+  facet = "group",
+  colour = "group"
+)
 
-cdm$denominator <- cdm$denominator %>% 
-  mutate(group_1 = if_else(as.numeric(subject_id)  < 3000, "first", "second"),
-         group_2 = if_else(as.numeric(subject_id)  < 2000, "one", "two"))
+cdm$denominator <- cdm$denominator %>%
+  mutate(
+    group_1 = if_else(as.numeric(subject_id) < 3000, "first", "second"),
+    group_2 = if_else(as.numeric(subject_id) < 2000, "one", "two")
+  )
 
 inc <- estimateIncidence(
   cdm = cdm,
   denominatorTable = "denominator",
   outcomeTable = "outcome",
-  strata = list(c("group_1"), # for just group_1
-                c("group_2"), # for just group_2
-                c("group_1", "group_2")),  # for group_1 and group_2  outcomeWashout = 180,
+  strata = list(
+    c("group_1"), # for just group_1
+    c("group_2"), # for just group_2
+    c("group_1", "group_2")
+  ), # for group_1 and group_2
+  outcomeWashout = 180,
   repeatedEvents = TRUE
 )
 
-plotIncidence(inc, 
-               facet = c("group_1", "group_2"))
+plotIncidence(inc,
+  facet = c("group_1", "group_2"),
+  colour = c("group_1", "group_2")
+)
 
 ## ----message=TRUE, warning=FALSE----------------------------------------------
 inc <- estimateIncidence(

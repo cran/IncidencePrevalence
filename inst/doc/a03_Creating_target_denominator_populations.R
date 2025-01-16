@@ -8,7 +8,6 @@ knitr::opts_chunk$set(
 library(IncidencePrevalence)
 library(CDMConnector)
 library(IncidencePrevalence)
-library(dbplyr)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
@@ -68,7 +67,7 @@ cdm <- mockIncidencePrevalence(
 
 ## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm <- generateDenominatorCohortSet(
-  cdm = cdm, 
+  cdm = cdm,
   name = "denominator"
 )
 cdm$denominator
@@ -89,7 +88,7 @@ cdm$denominator %>%
 
 ## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm <- generateTargetDenominatorCohortSet(
-  cdm = cdm, 
+  cdm = cdm,
   name = "denominator_acute_asthma",
   targetCohortTable = "target"
 )
@@ -97,7 +96,7 @@ cdm <- generateTargetDenominatorCohortSet(
 ## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm$denominator_acute_asthma %>%
   collect() %>%
-  mutate(row = row_number()) %>% 
+  mutate(row = row_number()) %>%
   pivot_longer(cols = c(
     "cohort_start_date",
     "cohort_end_date"
@@ -110,7 +109,7 @@ cdm$denominator_acute_asthma %>%
 
 ## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm <- generateTargetDenominatorCohortSet(
-  cdm = cdm, 
+  cdm = cdm,
   name = "denominator_acute_asthma_2",
   ageGroup = list(c(11, 15)),
   sex = "Female",
@@ -120,7 +119,7 @@ cdm <- generateTargetDenominatorCohortSet(
 
 cdm$denominator_acute_asthma_2 %>%
   collect() %>%
-  mutate(row = row_number()) %>% 
+  mutate(row = row_number()) %>%
   pivot_longer(cols = c(
     "cohort_start_date",
     "cohort_end_date"
@@ -133,18 +132,18 @@ cdm$denominator_acute_asthma_2 %>%
 
 ## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm <- generateTargetDenominatorCohortSet(
-  cdm = cdm, 
+  cdm = cdm,
   name = "denominator_acute_asthma_2",
   ageGroup = list(c(11, 15)),
   sex = "Female",
   daysPriorObservation = 0,
   targetCohortTable = "target",
-  timeAtRisk = c(0,30)
+  timeAtRisk = c(0, 30)
 )
 
 cdm$denominator_acute_asthma_2 %>%
   collect() %>%
-  mutate(row = row_number()) %>% 
+  mutate(row = row_number()) %>%
   pivot_longer(cols = c(
     "cohort_start_date",
     "cohort_end_date"
@@ -157,23 +156,27 @@ cdm$denominator_acute_asthma_2 %>%
 
 ## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm <- generateTargetDenominatorCohortSet(
-  cdm = cdm, 
+  cdm = cdm,
   name = "denominator_acute_asthma_3",
   ageGroup = list(c(11, 15)),
   sex = "Female",
   daysPriorObservation = 0,
   targetCohortTable = "target",
-  timeAtRisk = list(c(0,30), c(31,60))
+  timeAtRisk = list(c(0, 30), c(31, 60))
 )
 
 cdm$denominator_acute_asthma_3 %>%
   collect() %>%
-  dplyr::left_join(attr(cdm$denominator_acute_asthma_3, "cohort_set") %>%
-                     dplyr::select(c("cohort_definition_id",
-                                     "time_at_risk")),
-                   by = "cohort_definition_id",
-                   copy = TRUE) %>%
-  mutate(row = row_number()) %>% 
+  dplyr::left_join(
+    attr(cdm$denominator_acute_asthma_3, "cohort_set") %>%
+      dplyr::select(c(
+        "cohort_definition_id",
+        "time_at_risk"
+      )),
+    by = "cohort_definition_id",
+    copy = TRUE
+  ) %>%
+  mutate(row = row_number()) %>%
   pivot_longer(cols = c(
     "cohort_start_date",
     "cohort_end_date"
@@ -193,21 +196,21 @@ cdm$target_2 <- cdm$target |>
     cohort_end_date
   )) |>
   dplyr::select(-"dif") |>
-  dplyr::compute()
+  dplyr::compute(temporary = FALSE, name = "target_2")
 
 cdm <- generateTargetDenominatorCohortSet(
-  cdm = cdm, 
+  cdm = cdm,
   name = "denominator_acute_asthma_4",
   ageGroup = list(c(11, 15)),
   sex = "Female",
   daysPriorObservation = 0,
   targetCohortTable = "target_2",
-  timeAtRisk = c(0,90)
+  timeAtRisk = c(0, 90)
 )
 
 cdm$denominator_acute_asthma_4 %>%
   collect() %>%
-  mutate(row = row_number()) %>% 
+  mutate(row = row_number()) %>%
   pivot_longer(cols = c(
     "cohort_start_date",
     "cohort_end_date"

@@ -21,8 +21,8 @@ cdm <- mockIncidencePrevalence(
 )
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  cdm$outcome %>%
-#    glimpse()
+# cdm$outcome %>%
+#   glimpse()
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
 cdm <- generateDenominatorCohortSet(
@@ -56,9 +56,10 @@ prev %>%
   glimpse()
 
 ## ----message= FALSE, warning=FALSE, echo=FALSE--------------------------------
-plotPrevalence(prev, 
-               facet = "denominator_sex", 
-               colour = "denominator_sex")
+plotPrevalence(prev,
+  facet = "denominator_sex",
+  colour = "denominator_sex"
+)
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
 inc <- estimateIncidence(
