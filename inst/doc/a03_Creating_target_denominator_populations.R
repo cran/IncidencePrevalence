@@ -43,7 +43,7 @@ acute_asthma <- tibble(
   cohort_definition_id = rep("1", 5),
   subject_id = c("3", "3", "5", "5", "2"),
   cohort_start_date = c(
-    as.Date("2012-01-01"),
+    as.Date("2011-01-01"),
     as.Date("2015-06-01"),
     as.Date("2014-10-01"),
     as.Date("2010-06-01"),
@@ -108,16 +108,45 @@ cdm$denominator_acute_asthma %>%
   xlab("Year")
 
 ## ----message=FALSE, warning=FALSE---------------------------------------------
+cdm$target |> 
+  PatientProfiles::addDemographics(indexDate = "cohort_start_date")
+
+## ----message=FALSE, warning=FALSE---------------------------------------------
 cdm <- generateTargetDenominatorCohortSet(
   cdm = cdm,
-  name = "denominator_acute_asthma_2",
+  name = "denominator_acute_asthma_incident",
   ageGroup = list(c(11, 15)),
   sex = "Female",
   daysPriorObservation = 0,
-  targetCohortTable = "target"
+  targetCohortTable = "target",
+  requirementsAtEntry = TRUE
 )
 
-cdm$denominator_acute_asthma_2 %>%
+cdm$denominator_acute_asthma_incident %>%
+  collect() %>%
+  mutate(row = row_number()) %>%
+  pivot_longer(cols = c(
+    "cohort_start_date",
+    "cohort_end_date"
+  )) %>%
+  ggplot(aes(group = row)) +
+  geom_point(aes(x = value, y = subject_id)) +
+  geom_line(aes(x = value, y = subject_id)) +
+  theme_minimal() +
+  xlab("Year")
+
+## ----message=FALSE, warning=FALSE---------------------------------------------
+cdm <- generateTargetDenominatorCohortSet(
+  cdm = cdm,
+  name = "denominator_acute_asthma_prevalent",
+  ageGroup = list(c(11, 15)),
+  sex = "Female",
+  daysPriorObservation = 0,
+  targetCohortTable = "target",
+  requirementsAtEntry = FALSE
+)
+
+cdm$denominator_acute_asthma_prevalent %>%
   collect() %>%
   mutate(row = row_number()) %>%
   pivot_longer(cols = c(

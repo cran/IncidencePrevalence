@@ -706,7 +706,7 @@ birthday during the study period will go from the first cohort
 <span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a>cdm<span class="sc">$</span>denominator <span class="sc">%&gt;%</span></span>
 <span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a>  <span class="fu">filter</span>(subject_id <span class="sc">%in%</span> <span class="sc">!!</span><span class="fu">as.character</span>(<span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>))) <span class="sc">%&gt;%</span></span>
 <span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a>  <span class="fu">collect</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a>  <span class="fu">left_join</span>(<span class="fu">cohortSet</span>(cdm<span class="sc">$</span>denominator)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a>  <span class="fu">left_join</span>(<span class="fu">settings</span>(cdm<span class="sc">$</span>denominator)) <span class="sc">%&gt;%</span></span>
 <span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(</span>
 <span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a>    <span class="st">&quot;cohort_start_date&quot;</span>,</span>
 <span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a>    <span class="st">&quot;cohort_end_date&quot;</span></span>
@@ -748,7 +748,7 @@ analyses.</p>
 <span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a>cdm<span class="sc">$</span>denominator <span class="sc">%&gt;%</span></span>
 <span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a>  <span class="fu">filter</span>(subject_id <span class="sc">%in%</span> <span class="sc">!!</span><span class="fu">as.character</span>(<span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>))) <span class="sc">%&gt;%</span></span>
 <span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a>  <span class="fu">collect</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a>  <span class="fu">left_join</span>(<span class="fu">cohortSet</span>(cdm<span class="sc">$</span>denominator)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a>  <span class="fu">left_join</span>(<span class="fu">settings</span>(cdm<span class="sc">$</span>denominator)) <span class="sc">%&gt;%</span></span>
 <span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(</span>
 <span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a>    <span class="st">&quot;cohort_start_date&quot;</span>,</span>
 <span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a>    <span class="st">&quot;cohort_end_date&quot;</span></span>
@@ -817,7 +817,7 @@ corresponding cohort_definition_id. In the above example, we identified
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">settings</span>(cdm<span class="sc">$</span>denominator) <span class="sc">%&gt;%</span></span>
 <span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span>
 <span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="co">#&gt; Rows: 8</span></span>
-<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="co">#&gt; Columns: 10</span></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="co">#&gt; Columns: 11</span></span>
 <span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="co">#&gt; $ cohort_definition_id        &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8</span></span>
 <span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="co">#&gt; $ cohort_name                 &lt;chr&gt; &quot;denominator_cohort_1&quot;, &quot;denominator_cohor…</span></span>
 <span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a><span class="co">#&gt; $ age_group                   &lt;chr&gt; &quot;0 to 18&quot;, &quot;0 to 18&quot;, &quot;0 to 18&quot;, &quot;0 to 18&quot;…</span></span>
@@ -825,9 +825,10 @@ corresponding cohort_definition_id. In the above example, we identified
 <span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a><span class="co">#&gt; $ days_prior_observation      &lt;dbl&gt; 0, 365, 0, 365, 0, 365, 0, 365</span></span>
 <span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="co">#&gt; $ start_date                  &lt;date&gt; 1990-01-01, 1990-01-01, 1990-01-01, 1990-0…</span></span>
 <span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a><span class="co">#&gt; $ end_date                    &lt;date&gt; 2009-12-31, 2009-12-31, 2009-12-31, 2009-1…</span></span>
-<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a><span class="co">#&gt; $ target_cohort_definition_id &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA</span></span>
-<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a><span class="co">#&gt; $ target_cohort_name          &lt;chr&gt; &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;…</span></span>
-<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a><span class="co">#&gt; $ time_at_risk                &lt;chr&gt; &quot;0 to Inf&quot;, &quot;0 to Inf&quot;, &quot;0 to Inf&quot;, &quot;0 to…</span></span></code></pre></div>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a><span class="co">#&gt; $ requirements_at_entry       &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALS…</span></span>
+<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a><span class="co">#&gt; $ target_cohort_definition_id &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA</span></span>
+<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a><span class="co">#&gt; $ target_cohort_name          &lt;chr&gt; &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;…</span></span>
+<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a><span class="co">#&gt; $ time_at_risk                &lt;chr&gt; &quot;0 to Inf&quot;, &quot;0 to Inf&quot;, &quot;0 to Inf&quot;, &quot;0 to …</span></span></code></pre></div>
 <p>With <code>cohortCount()</code> we can see the number of individuals
 who entered each study cohort</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">cohortCount</span>(cdm<span class="sc">$</span>denominator) <span class="sc">%&gt;%</span></span>

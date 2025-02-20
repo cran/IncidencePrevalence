@@ -233,7 +233,7 @@ cdm <- generateDenominatorCohortSet(
 cdm$denominator %>%
   filter(subject_id %in% !!as.character(seq(1:8))) %>%
   collect() %>%
-  left_join(cohortSet(cdm$denominator)) %>%
+  left_join(settings(cdm$denominator)) %>%
   pivot_longer(cols = c(
     "cohort_start_date",
     "cohort_end_date"
@@ -270,7 +270,7 @@ cdm <- generateDenominatorCohortSet(
 cdm$denominator %>%
   filter(subject_id %in% !!as.character(seq(1:8))) %>%
   collect() %>%
-  left_join(cohortSet(cdm$denominator)) %>%
+  left_join(settings(cdm$denominator)) %>%
   pivot_longer(cols = c(
     "cohort_start_date",
     "cohort_end_date"
