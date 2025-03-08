@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Working with IncidencePrevalence results</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Working with IncidencePrevalence
+results</h1>
+
+
+
+<div id="standardardised-results-format" class="section level2">
+<h2>Standardardised results format</h2>
+<p>The IncidencePrevalence returns results from analyses in a
+standardised results format, as defined in the omopgenerics package.
+This format, a <code>summarised_result</code>, is explained in general
+in the omopgenerics documenatation <a href="https://darwin-eu.github.io/omopgenerics/articles/summarised_result.html" class="uri">https://darwin-eu.github.io/omopgenerics/articles/summarised_result.html</a>.</p>
+<p>Let’s see how this result format is used by IncidencePrevalence.</p>
+<p>We’ll first create some example incidence and prevalence results with
+a mock dataset.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(IncidencePrevalence)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>cdm <span class="ot">&lt;-</span> <span class="fu">mockIncidencePrevalence</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="at">sampleSize =</span> <span class="dv">10000</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  <span class="at">outPre =</span> <span class="fl">0.3</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  <span class="at">minOutcomeDays =</span> <span class="dv">365</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>  <span class="at">maxOutcomeDays =</span> <span class="dv">3650</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>)</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>cdm <span class="ot">&lt;-</span> <span class="fu">generateDenominatorCohortSet</span>(</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>  <span class="at">cdm =</span> cdm,</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;denominator&quot;</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>  <span class="at">cohortDateRange =</span> <span class="fu">as.Date</span>(<span class="fu">c</span>(<span class="st">&quot;2008-01-01&quot;</span>, <span class="st">&quot;2018-01-01&quot;</span>)),</span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>  <span class="at">ageGroup =</span> <span class="fu">list</span>(</span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>    <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">64</span>),</span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>    <span class="fu">c</span>(<span class="dv">65</span>, <span class="dv">100</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>  ),</span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>  <span class="at">sex =</span> <span class="fu">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Both&quot;</span>),</span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>  <span class="at">daysPriorObservation =</span> <span class="dv">180</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>)</span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>inc <span class="ot">&lt;-</span> <span class="fu">estimateIncidence</span>(</span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a>  <span class="at">cdm =</span> cdm,</span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a>  <span class="at">denominatorTable =</span> <span class="st">&quot;denominator&quot;</span>,</span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a>  <span class="at">outcomeTable =</span> <span class="st">&quot;outcome&quot;</span>,</span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a>  <span class="at">interval =</span> <span class="st">&quot;years&quot;</span>,</span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>  <span class="at">repeatedEvents =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a>  <span class="at">outcomeWashout =</span> <span class="dv">180</span>,</span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a>  <span class="at">completeDatabaseIntervals =</span> <span class="cn">TRUE</span></span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a>)</span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a>prev_point <span class="ot">&lt;-</span> <span class="fu">estimatePointPrevalence</span>(</span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a>  <span class="at">cdm =</span> cdm,</span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a>  <span class="at">denominatorTable =</span> <span class="st">&quot;denominator&quot;</span>,</span>
+<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a>  <span class="at">outcomeTable =</span> <span class="st">&quot;outcome&quot;</span>,</span>
+<span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a>  <span class="at">interval =</span> <span class="st">&quot;years&quot;</span>,</span>
+<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a>  <span class="at">timePoint =</span> <span class="st">&quot;start&quot;</span></span>
+<span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a>)</span></code></pre></div>
+<p>We can see that both of our results object have a “summarised_result”
+class.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">inherits</span>(inc, <span class="st">&quot;summarised_result&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="fu">inherits</span>(prev_point, <span class="st">&quot;summarised_result&quot;</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+<p>In practice, this means that our results have the following
+columns</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>omopgenerics<span class="sc">::</span><span class="fu">resultColumns</span>(<span class="st">&quot;summarised_result&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;result_id&quot;        &quot;cdm_name&quot;         &quot;group_name&quot;       &quot;group_level&quot;     </span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;strata_name&quot;      &quot;strata_level&quot;     &quot;variable_name&quot;    &quot;variable_level&quot;  </span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;estimate_name&quot;    &quot;estimate_type&quot;    &quot;estimate_value&quot;   &quot;additional_name&quot; </span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt; [13] &quot;additional_level&quot;</span></span></code></pre></div>
+<p>And we can see that this is indeed the case for incidence and
+prevalence results</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>inc <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt; Rows: 700</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt; Columns: 13</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt; $ result_id        &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; $ cdm_name         &lt;chr&gt; &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;mock…</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; $ group_name       &lt;chr&gt; &quot;denominator_cohort_name &amp;&amp;&amp; outcome_cohort_name&quot;, &quot;d…</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt; $ group_level      &lt;chr&gt; &quot;denominator_cohort_3 &amp;&amp;&amp; cohort_1&quot;, &quot;denominator_coh…</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; $ strata_name      &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;…</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; $ strata_level     &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;…</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt; $ variable_name    &lt;chr&gt; &quot;Denominator&quot;, &quot;Outcome&quot;, &quot;Denominator&quot;, &quot;Denominator…</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; $ variable_level   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt; $ estimate_name    &lt;chr&gt; &quot;denominator_count&quot;, &quot;outcome_count&quot;, &quot;person_days&quot;, …</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="co">#&gt; $ estimate_type    &lt;chr&gt; &quot;integer&quot;, &quot;integer&quot;, &quot;numeric&quot;, &quot;numeric&quot;, &quot;numeric&quot;…</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="co">#&gt; $ estimate_value   &lt;chr&gt; &quot;326&quot;, &quot;13&quot;, &quot;96994&quot;, &quot;265.555&quot;, &quot;4895.408&quot;, &quot;2606.59…</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co">#&gt; $ additional_name  &lt;chr&gt; &quot;incidence_start_date &amp;&amp;&amp; incidence_end_date &amp;&amp;&amp; anal…</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="co">#&gt; $ additional_level &lt;chr&gt; &quot;2008-01-01 &amp;&amp;&amp; 2008-12-31 &amp;&amp;&amp; years&quot;, &quot;2008-01-01 &amp;&amp;…</span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>prev_point <span class="sc">|&gt;</span> </span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="co">#&gt; Rows: 610</span></span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a><span class="co">#&gt; Columns: 13</span></span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a><span class="co">#&gt; $ result_id        &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…</span></span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a><span class="co">#&gt; $ cdm_name         &lt;chr&gt; &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;mock…</span></span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a><span class="co">#&gt; $ group_name       &lt;chr&gt; &quot;denominator_cohort_name &amp;&amp;&amp; outcome_cohort_name&quot;, &quot;d…</span></span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a><span class="co">#&gt; $ group_level      &lt;chr&gt; &quot;denominator_cohort_3 &amp;&amp;&amp; cohort_1&quot;, &quot;denominator_coh…</span></span>
+<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a><span class="co">#&gt; $ strata_name      &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;…</span></span>
+<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a><span class="co">#&gt; $ strata_level     &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;…</span></span>
+<span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a><span class="co">#&gt; $ variable_name    &lt;chr&gt; &quot;Denominator&quot;, &quot;Outcome&quot;, &quot;Outcome&quot;, &quot;Outcome&quot;, &quot;Outc…</span></span>
+<span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a><span class="co">#&gt; $ variable_level   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></span>
+<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a><span class="co">#&gt; $ estimate_name    &lt;chr&gt; &quot;denominator_count&quot;, &quot;outcome_count&quot;, &quot;prevalence&quot;, &quot;…</span></span>
+<span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a><span class="co">#&gt; $ estimate_type    &lt;chr&gt; &quot;integer&quot;, &quot;integer&quot;, &quot;numeric&quot;, &quot;numeric&quot;, &quot;numeric&quot;…</span></span>
+<span id="cb4-33"><a href="#cb4-33" tabindex="-1"></a><span class="co">#&gt; $ estimate_value   &lt;chr&gt; &quot;330&quot;, &quot;57&quot;, &quot;0.17273&quot;, &quot;0.13577&quot;, &quot;0.21722&quot;, &quot;322&quot;, …</span></span>
+<span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a><span class="co">#&gt; $ additional_name  &lt;chr&gt; &quot;prevalence_start_date &amp;&amp;&amp; prevalence_end_date &amp;&amp;&amp; an…</span></span>
+<span id="cb4-35"><a href="#cb4-35" tabindex="-1"></a><span class="co">#&gt; $ additional_level &lt;chr&gt; &quot;2008-01-01 &amp;&amp;&amp; 2008-01-01 &amp;&amp;&amp; years&quot;, &quot;2008-01-01 &amp;&amp;…</span></span></code></pre></div>
+<p>In addition to these main results, we can see that our results are
+also associated with settings. These settings contain information on how
+the results were created. Although we can see that some settings are
+present for both incidence and prevalence, such as
+<code>denominator_days_prior_observation</code> which relates to the
+input to <code>daysPriorObservation</code> we specified above, others
+are only present for the relevant result, such analysis_outcome_washout
+which relates to the <code>outcomeWashout</code> argument used for the
+<code>estimateIncidence()</code> function.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">settings</span>(inc) <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; Rows: 12</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; Columns: 20</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; $ result_id                            &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11…</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; $ result_type                          &lt;chr&gt; &quot;incidence&quot;, &quot;incidence&quot;, &quot;incide…</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; $ package_name                         &lt;chr&gt; &quot;IncidencePrevalence&quot;, &quot;Incidence…</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt; $ package_version                      &lt;chr&gt; &quot;1.2.0&quot;, &quot;1.2.0&quot;, &quot;1.2.0&quot;, &quot;1.2.0…</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt; $ group                                &lt;chr&gt; &quot;denominator_cohort_name &amp;&amp;&amp; outc…</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; $ strata                               &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;reason&quot;,…</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt; $ additional                           &lt;chr&gt; &quot;incidence_start_date &amp;&amp;&amp; inciden…</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt; $ min_cell_count                       &lt;chr&gt; &quot;0&quot;, &quot;0&quot;, &quot;0&quot;, &quot;0&quot;, &quot;0&quot;, &quot;0&quot;, &quot;0&quot;…</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; $ analysis_censor_cohort_name          &lt;chr&gt; &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;…</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; $ analysis_complete_database_intervals &lt;chr&gt; &quot;TRUE&quot;, &quot;TRUE&quot;, &quot;TRUE&quot;, &quot;TRUE&quot;, &quot;…</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt; $ analysis_outcome_washout             &lt;chr&gt; &quot;180&quot;, &quot;180&quot;, &quot;180&quot;, &quot;180&quot;, &quot;180&quot;…</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt; $ analysis_repeated_events             &lt;chr&gt; &quot;TRUE&quot;, &quot;TRUE&quot;, &quot;TRUE&quot;, &quot;TRUE&quot;, &quot;…</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt; $ denominator_age_group                &lt;chr&gt; &quot;0 to 64&quot;, &quot;0 to 64&quot;, &quot;0 to 64&quot;, …</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt; $ denominator_days_prior_observation   &lt;chr&gt; &quot;180&quot;, &quot;180&quot;, &quot;180&quot;, &quot;180&quot;, &quot;180&quot;…</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co">#&gt; $ denominator_end_date                 &lt;chr&gt; &quot;2018-01-01&quot;, &quot;2018-01-01&quot;, &quot;2018…</span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="co">#&gt; $ denominator_requirements_at_entry    &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE…</span></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co">#&gt; $ denominator_sex                      &lt;chr&gt; &quot;Both&quot;, &quot;Female&quot;, &quot;Male&quot;, &quot;Both&quot;,…</span></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="co">#&gt; $ denominator_start_date               &lt;chr&gt; &quot;2008-01-01&quot;, &quot;2008-01-01&quot;, &quot;2008…</span></span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a><span class="co">#&gt; $ denominator_target_cohort_name       &lt;chr&gt; &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;…</span></span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a><span class="co">#&gt; $ denominator_time_at_risk             &lt;chr&gt; &quot;0 to Inf&quot;, &quot;0 to Inf&quot;, &quot;0 to Inf…</span></span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a><span class="fu">settings</span>(prev_point) <span class="sc">|&gt;</span> </span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a><span class="co">#&gt; Rows: 12</span></span>
+<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a><span class="co">#&gt; Columns: 19</span></span>
+<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a><span class="co">#&gt; $ result_id                            &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11…</span></span>
+<span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a><span class="co">#&gt; $ result_type                          &lt;chr&gt; &quot;prevalence&quot;, &quot;prevalence&quot;, &quot;prev…</span></span>
+<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a><span class="co">#&gt; $ package_name                         &lt;chr&gt; &quot;IncidencePrevalence&quot;, &quot;Incidence…</span></span>
+<span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a><span class="co">#&gt; $ package_version                      &lt;chr&gt; &quot;1.2.0&quot;, &quot;1.2.0&quot;, &quot;1.2.0&quot;, &quot;1.2.0…</span></span>
+<span id="cb5-34"><a href="#cb5-34" tabindex="-1"></a><span class="co">#&gt; $ group                                &lt;chr&gt; &quot;denominator_cohort_name &amp;&amp;&amp; outc…</span></span>
+<span id="cb5-35"><a href="#cb5-35" tabindex="-1"></a><span class="co">#&gt; $ strata                               &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;reason&quot;,…</span></span>
+<span id="cb5-36"><a href="#cb5-36" tabindex="-1"></a><span class="co">#&gt; $ additional                           &lt;chr&gt; &quot;prevalence_start_date &amp;&amp;&amp; preval…</span></span>
+<span id="cb5-37"><a href="#cb5-37" tabindex="-1"></a><span class="co">#&gt; $ min_cell_count                       &lt;chr&gt; &quot;0&quot;, &quot;0&quot;, &quot;0&quot;, &quot;0&quot;, &quot;0&quot;, &quot;0&quot;, &quot;0&quot;…</span></span>
+<span id="cb5-38"><a href="#cb5-38" tabindex="-1"></a><span class="co">#&gt; $ analysis_complete_database_intervals &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE…</span></span>
+<span id="cb5-39"><a href="#cb5-39" tabindex="-1"></a><span class="co">#&gt; $ analysis_full_contribution           &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE…</span></span>
+<span id="cb5-40"><a href="#cb5-40" tabindex="-1"></a><span class="co">#&gt; $ analysis_type                        &lt;chr&gt; &quot;point prevalence&quot;, &quot;point preval…</span></span>
+<span id="cb5-41"><a href="#cb5-41" tabindex="-1"></a><span class="co">#&gt; $ denominator_age_group                &lt;chr&gt; &quot;0 to 64&quot;, &quot;0 to 64&quot;, &quot;0 to 64&quot;, …</span></span>
+<span id="cb5-42"><a href="#cb5-42" tabindex="-1"></a><span class="co">#&gt; $ denominator_days_prior_observation   &lt;chr&gt; &quot;180&quot;, &quot;180&quot;, &quot;180&quot;, &quot;180&quot;, &quot;180&quot;…</span></span>
+<span id="cb5-43"><a href="#cb5-43" tabindex="-1"></a><span class="co">#&gt; $ denominator_end_date                 &lt;chr&gt; &quot;2018-01-01&quot;, &quot;2018-01-01&quot;, &quot;2018…</span></span>
+<span id="cb5-44"><a href="#cb5-44" tabindex="-1"></a><span class="co">#&gt; $ denominator_requirements_at_entry    &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE…</span></span>
+<span id="cb5-45"><a href="#cb5-45" tabindex="-1"></a><span class="co">#&gt; $ denominator_sex                      &lt;chr&gt; &quot;Both&quot;, &quot;Female&quot;, &quot;Male&quot;, &quot;Both&quot;,…</span></span>
+<span id="cb5-46"><a href="#cb5-46" tabindex="-1"></a><span class="co">#&gt; $ denominator_start_date               &lt;chr&gt; &quot;2008-01-01&quot;, &quot;2008-01-01&quot;, &quot;2008…</span></span>
+<span id="cb5-47"><a href="#cb5-47" tabindex="-1"></a><span class="co">#&gt; $ denominator_target_cohort_name       &lt;chr&gt; &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;…</span></span>
+<span id="cb5-48"><a href="#cb5-48" tabindex="-1"></a><span class="co">#&gt; $ denominator_time_at_risk             &lt;chr&gt; &quot;0 to Inf&quot;, &quot;0 to Inf&quot;, &quot;0 to Inf…</span></span></code></pre></div>
+<p>Because our results are in the same format we can easily combine them
+using the <code>bind</code>. We can see that after this we will have the
+same results columns, while the settings are now combined with all
+analytic choices used stored.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">bind</span>(inc, prev_point) <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt; Rows: 1,310</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt; Columns: 13</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; $ result_id        &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; $ cdm_name         &lt;chr&gt; &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;mock…</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; $ group_name       &lt;chr&gt; &quot;denominator_cohort_name &amp;&amp;&amp; outcome_cohort_name&quot;, &quot;d…</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; $ group_level      &lt;chr&gt; &quot;denominator_cohort_3 &amp;&amp;&amp; cohort_1&quot;, &quot;denominator_coh…</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt; $ strata_name      &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;…</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt; $ strata_level     &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;…</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt; $ variable_name    &lt;chr&gt; &quot;Denominator&quot;, &quot;Outcome&quot;, &quot;Denominator&quot;, &quot;Denominator…</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt; $ variable_level   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt; $ estimate_name    &lt;chr&gt; &quot;denominator_count&quot;, &quot;outcome_count&quot;, &quot;person_days&quot;, …</span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="co">#&gt; $ estimate_type    &lt;chr&gt; &quot;integer&quot;, &quot;integer&quot;, &quot;numeric&quot;, &quot;numeric&quot;, &quot;numeric&quot;…</span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#&gt; $ estimate_value   &lt;chr&gt; &quot;326&quot;, &quot;13&quot;, &quot;96994&quot;, &quot;265.555&quot;, &quot;4895.408&quot;, &quot;2606.59…</span></span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="co">#&gt; $ additional_name  &lt;chr&gt; &quot;incidence_start_date &amp;&amp;&amp; incidence_end_date &amp;&amp;&amp; anal…</span></span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="co">#&gt; $ additional_level &lt;chr&gt; &quot;2008-01-01 &amp;&amp;&amp; 2008-12-31 &amp;&amp;&amp; years&quot;, &quot;2008-01-01 &amp;&amp;…</span></span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a>results <span class="sc">|&gt;</span> </span>
+<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span>
+<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="co">#&gt; Rows: 1,310</span></span>
+<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="co">#&gt; Columns: 13</span></span>
+<span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a><span class="co">#&gt; $ result_id        &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…</span></span>
+<span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a><span class="co">#&gt; $ cdm_name         &lt;chr&gt; &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;mock…</span></span>
+<span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a><span class="co">#&gt; $ group_name       &lt;chr&gt; &quot;denominator_cohort_name &amp;&amp;&amp; outcome_cohort_name&quot;, &quot;d…</span></span>
+<span id="cb6-26"><a href="#cb6-26" tabindex="-1"></a><span class="co">#&gt; $ group_level      &lt;chr&gt; &quot;denominator_cohort_3 &amp;&amp;&amp; cohort_1&quot;, &quot;denominator_coh…</span></span>
+<span id="cb6-27"><a href="#cb6-27" tabindex="-1"></a><span class="co">#&gt; $ strata_name      &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;…</span></span>
+<span id="cb6-28"><a href="#cb6-28" tabindex="-1"></a><span class="co">#&gt; $ strata_level     &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;…</span></span>
+<span id="cb6-29"><a href="#cb6-29" tabindex="-1"></a><span class="co">#&gt; $ variable_name    &lt;chr&gt; &quot;Denominator&quot;, &quot;Outcome&quot;, &quot;Denominator&quot;, &quot;Denominator…</span></span>
+<span id="cb6-30"><a href="#cb6-30" tabindex="-1"></a><span class="co">#&gt; $ variable_level   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></span>
+<span id="cb6-31"><a href="#cb6-31" tabindex="-1"></a><span class="co">#&gt; $ estimate_name    &lt;chr&gt; &quot;denominator_count&quot;, &quot;outcome_count&quot;, &quot;person_days&quot;, …</span></span>
+<span id="cb6-32"><a href="#cb6-32" tabindex="-1"></a><span class="co">#&gt; $ estimate_type    &lt;chr&gt; &quot;integer&quot;, &quot;integer&quot;, &quot;numeric&quot;, &quot;numeric&quot;, &quot;numeric&quot;…</span></span>
+<span id="cb6-33"><a href="#cb6-33" tabindex="-1"></a><span class="co">#&gt; $ estimate_value   &lt;chr&gt; &quot;326&quot;, &quot;13&quot;, &quot;96994&quot;, &quot;265.555&quot;, &quot;4895.408&quot;, &quot;2606.59…</span></span>
+<span id="cb6-34"><a href="#cb6-34" tabindex="-1"></a><span class="co">#&gt; $ additional_name  &lt;chr&gt; &quot;incidence_start_date &amp;&amp;&amp; incidence_end_date &amp;&amp;&amp; anal…</span></span>
+<span id="cb6-35"><a href="#cb6-35" tabindex="-1"></a><span class="co">#&gt; $ additional_level &lt;chr&gt; &quot;2008-01-01 &amp;&amp;&amp; 2008-12-31 &amp;&amp;&amp; years&quot;, &quot;2008-01-01 &amp;&amp;…</span></span>
+<span id="cb6-36"><a href="#cb6-36" tabindex="-1"></a></span>
+<span id="cb6-37"><a href="#cb6-37" tabindex="-1"></a><span class="fu">settings</span>(results) <span class="sc">|&gt;</span> </span>
+<span id="cb6-38"><a href="#cb6-38" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span>
+<span id="cb6-39"><a href="#cb6-39" tabindex="-1"></a><span class="co">#&gt; Rows: 24</span></span>
+<span id="cb6-40"><a href="#cb6-40" tabindex="-1"></a><span class="co">#&gt; Columns: 22</span></span>
+<span id="cb6-41"><a href="#cb6-41" tabindex="-1"></a><span class="co">#&gt; $ result_id                            &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11…</span></span>
+<span id="cb6-42"><a href="#cb6-42" tabindex="-1"></a><span class="co">#&gt; $ result_type                          &lt;chr&gt; &quot;incidence&quot;, &quot;incidence&quot;, &quot;incide…</span></span>
+<span id="cb6-43"><a href="#cb6-43" tabindex="-1"></a><span class="co">#&gt; $ package_name                         &lt;chr&gt; &quot;IncidencePrevalence&quot;, &quot;Incidence…</span></span>
+<span id="cb6-44"><a href="#cb6-44" tabindex="-1"></a><span class="co">#&gt; $ package_version                      &lt;chr&gt; &quot;1.2.0&quot;, &quot;1.2.0&quot;, &quot;1.2.0&quot;, &quot;1.2.0…</span></span>
+<span id="cb6-45"><a href="#cb6-45" tabindex="-1"></a><span class="co">#&gt; $ group                                &lt;chr&gt; &quot;denominator_cohort_name &amp;&amp;&amp; outc…</span></span>
+<span id="cb6-46"><a href="#cb6-46" tabindex="-1"></a><span class="co">#&gt; $ strata                               &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;reason&quot;,…</span></span>
+<span id="cb6-47"><a href="#cb6-47" tabindex="-1"></a><span class="co">#&gt; $ additional                           &lt;chr&gt; &quot;incidence_start_date &amp;&amp;&amp; inciden…</span></span>
+<span id="cb6-48"><a href="#cb6-48" tabindex="-1"></a><span class="co">#&gt; $ min_cell_count                       &lt;chr&gt; &quot;0&quot;, &quot;0&quot;, &quot;0&quot;, &quot;0&quot;, &quot;0&quot;, &quot;0&quot;, &quot;0&quot;…</span></span>
+<span id="cb6-49"><a href="#cb6-49" tabindex="-1"></a><span class="co">#&gt; $ analysis_censor_cohort_name          &lt;chr&gt; &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;…</span></span>
+<span id="cb6-50"><a href="#cb6-50" tabindex="-1"></a><span class="co">#&gt; $ analysis_complete_database_intervals &lt;chr&gt; &quot;TRUE&quot;, &quot;TRUE&quot;, &quot;TRUE&quot;, &quot;TRUE&quot;, &quot;…</span></span>
+<span id="cb6-51"><a href="#cb6-51" tabindex="-1"></a><span class="co">#&gt; $ analysis_full_contribution           &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, N…</span></span>
+<span id="cb6-52"><a href="#cb6-52" tabindex="-1"></a><span class="co">#&gt; $ analysis_outcome_washout             &lt;chr&gt; &quot;180&quot;, &quot;180&quot;, &quot;180&quot;, &quot;180&quot;, &quot;180&quot;…</span></span>
+<span id="cb6-53"><a href="#cb6-53" tabindex="-1"></a><span class="co">#&gt; $ analysis_repeated_events             &lt;chr&gt; &quot;TRUE&quot;, &quot;TRUE&quot;, &quot;TRUE&quot;, &quot;TRUE&quot;, &quot;…</span></span>
+<span id="cb6-54"><a href="#cb6-54" tabindex="-1"></a><span class="co">#&gt; $ analysis_type                        &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, N…</span></span>
+<span id="cb6-55"><a href="#cb6-55" tabindex="-1"></a><span class="co">#&gt; $ denominator_age_group                &lt;chr&gt; &quot;0 to 64&quot;, &quot;0 to 64&quot;, &quot;0 to 64&quot;, …</span></span>
+<span id="cb6-56"><a href="#cb6-56" tabindex="-1"></a><span class="co">#&gt; $ denominator_days_prior_observation   &lt;chr&gt; &quot;180&quot;, &quot;180&quot;, &quot;180&quot;, &quot;180&quot;, &quot;180&quot;…</span></span>
+<span id="cb6-57"><a href="#cb6-57" tabindex="-1"></a><span class="co">#&gt; $ denominator_end_date                 &lt;chr&gt; &quot;2018-01-01&quot;, &quot;2018-01-01&quot;, &quot;2018…</span></span>
+<span id="cb6-58"><a href="#cb6-58" tabindex="-1"></a><span class="co">#&gt; $ denominator_requirements_at_entry    &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE…</span></span>
+<span id="cb6-59"><a href="#cb6-59" tabindex="-1"></a><span class="co">#&gt; $ denominator_sex                      &lt;chr&gt; &quot;Both&quot;, &quot;Female&quot;, &quot;Male&quot;, &quot;Both&quot;,…</span></span>
+<span id="cb6-60"><a href="#cb6-60" tabindex="-1"></a><span class="co">#&gt; $ denominator_start_date               &lt;chr&gt; &quot;2008-01-01&quot;, &quot;2008-01-01&quot;, &quot;2008…</span></span>
+<span id="cb6-61"><a href="#cb6-61" tabindex="-1"></a><span class="co">#&gt; $ denominator_target_cohort_name       &lt;chr&gt; &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;…</span></span>
+<span id="cb6-62"><a href="#cb6-62" tabindex="-1"></a><span class="co">#&gt; $ denominator_time_at_risk             &lt;chr&gt; &quot;0 to Inf&quot;, &quot;0 to Inf&quot;, &quot;0 to Inf…</span></span></code></pre></div>
+</div>
+<div id="exporting-and-importing-results" class="section level2">
+<h2>Exporting and importing results</h2>
+<p>We can export our results in a single CSV. Note that when exporting
+we will apply minimum cell count of 5, suppressing any results below
+this.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>dir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">&quot;my_study_results&quot;</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">dir.create</span>(dir)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="fu">exportSummarisedResult</span>(results,</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>                       <span class="at">minCellCount =</span> <span class="dv">5</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>                       <span class="at">fileName =</span> <span class="st">&quot;incidence_prevalence_results.csv&quot;</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>                       <span class="at">path =</span> dir)</span></code></pre></div>
+<p>We can see we have created a single CSV file with our results which
+contains our suppressed aggregated results which our ready to share.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">list.files</span>(dir)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;incidence_prevalence_results.csv&quot;</span></span></code></pre></div>
+<p>We can import our results back into R (or if we’re running a network
+study we could import our set of results from data partners).</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>res_imported <span class="ot">&lt;-</span> <span class="fu">importSummarisedResult</span>(<span class="at">path =</span> dir)</span></code></pre></div>
+</div>
+<div id="validate-minimum-cell-count-suppression" class="section level1">
+<h1>Validate minimum cell count suppression</h1>
+<p>We can validate whether our results have been suppressed. We can see
+that our original results have not been suppressed but the ones we
+exported were.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>omopgenerics<span class="sc">::</span><span class="fu">isResultSuppressed</span>(results)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="co">#&gt; Warning: ✖ 24 (1310 rows) not suppressed.</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>omopgenerics<span class="sc">::</span><span class="fu">isResultSuppressed</span>(res_imported)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="co">#&gt; ✔ The &lt;summarised_result&gt; is suppressed with minCellCount = 5.</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+</div>
+<div id="tidying-results-for-further-analysis" class="section level1">
+<h1>Tidying results for further analysis</h1>
+<p>Although our standardised result format is a nice way to combine,
+store, and share results, in can be somewhat difficult to use if we want
+to perform further analyses. So to get to a tidy format more specific to
+their type of results we can use asIncidenceResult() and
+asPrevalenceResult(), respectively.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">asIncidenceResult</span>(inc) <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="co">#&gt; Rows: 60</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="co">#&gt; Columns: 26</span></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="co">#&gt; $ cdm_name                             &lt;chr&gt; &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;…</span></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_name              &lt;chr&gt; &quot;denominator_cohort_3&quot;, &quot;denomina…</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_name                  &lt;chr&gt; &quot;cohort_1&quot;, &quot;cohort_1&quot;, &quot;cohort_1…</span></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="co">#&gt; $ incidence_start_date                 &lt;date&gt; 2008-01-01, 2009-01-01, 2010-01-…</span></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="co">#&gt; $ incidence_end_date                   &lt;date&gt; 2008-12-31, 2009-12-31, 2010-12-…</span></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="co">#&gt; $ analysis_interval                    &lt;chr&gt; &quot;years&quot;, &quot;years&quot;, &quot;years&quot;, &quot;years…</span></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a><span class="co">#&gt; $ analysis_censor_cohort_name          &lt;chr&gt; &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;…</span></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="co">#&gt; $ analysis_complete_database_intervals &lt;chr&gt; &quot;TRUE&quot;, &quot;TRUE&quot;, &quot;TRUE&quot;, &quot;TRUE&quot;, &quot;…</span></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co">#&gt; $ analysis_outcome_washout             &lt;chr&gt; &quot;180&quot;, &quot;180&quot;, &quot;180&quot;, &quot;180&quot;, &quot;180&quot;…</span></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="co">#&gt; $ analysis_repeated_events             &lt;chr&gt; &quot;TRUE&quot;, &quot;TRUE&quot;, &quot;TRUE&quot;, &quot;TRUE&quot;, &quot;…</span></span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a><span class="co">#&gt; $ denominator_age_group                &lt;chr&gt; &quot;0 to 64&quot;, &quot;0 to 64&quot;, &quot;0 to 64&quot;, …</span></span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a><span class="co">#&gt; $ denominator_days_prior_observation   &lt;chr&gt; &quot;180&quot;, &quot;180&quot;, &quot;180&quot;, &quot;180&quot;, &quot;180&quot;…</span></span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a><span class="co">#&gt; $ denominator_end_date                 &lt;date&gt; 2018-01-01, 2018-01-01, 2018-01-…</span></span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a><span class="co">#&gt; $ denominator_requirements_at_entry    &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE…</span></span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a><span class="co">#&gt; $ denominator_sex                      &lt;chr&gt; &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;, &quot;…</span></span>
+<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a><span class="co">#&gt; $ denominator_start_date               &lt;date&gt; 2008-01-01, 2008-01-01, 2008-01-…</span></span>
+<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a><span class="co">#&gt; $ denominator_target_cohort_name       &lt;chr&gt; &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;…</span></span>
+<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a><span class="co">#&gt; $ denominator_time_at_risk             &lt;chr&gt; &quot;0 to Inf&quot;, &quot;0 to Inf&quot;, &quot;0 to Inf…</span></span>
+<span id="cb12-22"><a href="#cb12-22" tabindex="-1"></a><span class="co">#&gt; $ denominator_count                    &lt;int&gt; 326, 317, 312, 235, 179, 140, 106…</span></span>
+<span id="cb12-23"><a href="#cb12-23" tabindex="-1"></a><span class="co">#&gt; $ outcome_count                        &lt;int&gt; 13, 14, 20, 16, 6, 7, 4, 2, 4, 2,…</span></span>
+<span id="cb12-24"><a href="#cb12-24" tabindex="-1"></a><span class="co">#&gt; $ person_days                          &lt;dbl&gt; 96994, 98005, 95462, 76142, 58392…</span></span>
+<span id="cb12-25"><a href="#cb12-25" tabindex="-1"></a><span class="co">#&gt; $ person_years                         &lt;dbl&gt; 265.555, 268.323, 261.361, 208.46…</span></span>
+<span id="cb12-26"><a href="#cb12-26" tabindex="-1"></a><span class="co">#&gt; $ incidence_100000_pys                 &lt;dbl&gt; 4895.408, 5217.592, 7652.251, 767…</span></span>
+<span id="cb12-27"><a href="#cb12-27" tabindex="-1"></a><span class="co">#&gt; $ incidence_100000_pys_95CI_lower      &lt;dbl&gt; 2606.598, 2852.506, 4674.194, 438…</span></span>
+<span id="cb12-28"><a href="#cb12-28" tabindex="-1"></a><span class="co">#&gt; $ incidence_100000_pys_95CI_upper      &lt;dbl&gt; 8371.296, 8754.233, 11818.281, 12…</span></span>
+<span id="cb12-29"><a href="#cb12-29" tabindex="-1"></a><span class="co">#&gt; $ result_type                          &lt;chr&gt; &quot;tidy_incidence&quot;, &quot;tidy_incidence…</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">asPrevalenceResult</span>(prev_point) <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="co">#&gt; Rows: 66</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="co">#&gt; Columns: 23</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co">#&gt; $ cdm_name                             &lt;chr&gt; &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;…</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="co">#&gt; $ denominator_cohort_name              &lt;chr&gt; &quot;denominator_cohort_3&quot;, &quot;denomina…</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#&gt; $ outcome_cohort_name                  &lt;chr&gt; &quot;cohort_1&quot;, &quot;cohort_1&quot;, &quot;cohort_1…</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="co">#&gt; $ prevalence_start_date                &lt;date&gt; 2008-01-01, 2009-01-01, 2010-01-…</span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="co">#&gt; $ prevalence_end_date                  &lt;date&gt; 2008-01-01, 2009-01-01, 2010-01-…</span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="co">#&gt; $ analysis_interval                    &lt;chr&gt; &quot;years&quot;, &quot;years&quot;, &quot;years&quot;, &quot;years…</span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="co">#&gt; $ analysis_complete_database_intervals &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE…</span></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="co">#&gt; $ analysis_full_contribution           &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE…</span></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="co">#&gt; $ analysis_type                        &lt;chr&gt; &quot;point prevalence&quot;, &quot;point preval…</span></span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="co">#&gt; $ denominator_age_group                &lt;chr&gt; &quot;0 to 64&quot;, &quot;0 to 64&quot;, &quot;0 to 64&quot;, …</span></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="co">#&gt; $ denominator_days_prior_observation   &lt;chr&gt; &quot;180&quot;, &quot;180&quot;, &quot;180&quot;, &quot;180&quot;, &quot;180&quot;…</span></span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="co">#&gt; $ denominator_end_date                 &lt;date&gt; 2018-01-01, 2018-01-01, 2018-01-…</span></span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="co">#&gt; $ denominator_requirements_at_entry    &lt;chr&gt; &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;, &quot;FALSE…</span></span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a><span class="co">#&gt; $ denominator_sex                      &lt;chr&gt; &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;, &quot;Both&quot;, &quot;…</span></span>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a><span class="co">#&gt; $ denominator_start_date               &lt;date&gt; 2008-01-01, 2008-01-01, 2008-01-…</span></span>
+<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a><span class="co">#&gt; $ denominator_target_cohort_name       &lt;chr&gt; &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;…</span></span>
+<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a><span class="co">#&gt; $ denominator_time_at_risk             &lt;chr&gt; &quot;0 to Inf&quot;, &quot;0 to Inf&quot;, &quot;0 to Inf…</span></span>
+<span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a><span class="co">#&gt; $ denominator_count                    &lt;int&gt; 330, 322, 326, 291, 236, 184, 142…</span></span>
+<span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a><span class="co">#&gt; $ outcome_count                        &lt;int&gt; 57, 55, 54, 56, 57, 44, 36, 27, 2…</span></span>
+<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a><span class="co">#&gt; $ prevalence                           &lt;dbl&gt; 0.17273, 0.17081, 0.16564, 0.1924…</span></span>
+<span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a><span class="co">#&gt; $ prevalence_95CI_lower                &lt;dbl&gt; 0.13577, 0.13364, 0.12923, 0.1512…</span></span>
+<span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a><span class="co">#&gt; $ prevalence_95CI_upper                &lt;dbl&gt; 0.21722, 0.21573, 0.20985, 0.2416…</span></span>
+<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a><span class="co">#&gt; $ result_type                          &lt;chr&gt; &quot;tidy_prevalence&quot;, &quot;tidy_prevalen…</span></span></code></pre></div>
+<p>With these formats it is now much easier to create custom tables,
+plots, or post-process are results. For a somewhat trivial example, we
+can use this to help us quickly add a smoothed line to our incidence
+results in a custom plot.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="fu">asIncidenceResult</span>(inc) <span class="sc">|&gt;</span> </span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> incidence_start_date, </span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>             <span class="at">y =</span> incidence_100000_pys)) <span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>  </span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(denominator_age_group, denominator_sex)) <span class="sc">+</span> </span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Smoothed incidence rates over time&quot;</span>) <span class="sc">+</span></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Date&quot;</span>) <span class="sc">+</span></span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Incidence per 100,000 person-years&quot;</span>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,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" /><!-- --></p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

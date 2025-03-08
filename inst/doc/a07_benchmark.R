@@ -11,6 +11,7 @@ library(IncidencePrevalence)
 library(visOmopResults)
 library(dplyr)
 library(ggplot2)
+library(stringr)
 
 cdm <- mockIncidencePrevalence(
   sampleSize = 100,
@@ -35,16 +36,43 @@ visOmopTable(timings,
 )
 
 ## -----------------------------------------------------------------------------
-test_db <- IncidencePrevalenceBenchmarkResults
+test_db <- IncidencePrevalenceBenchmarkResults |> 
+  filter(str_detect(cdm_name, "CPRD", negate = TRUE))
 test_db |>
   glimpse()
 
 ## -----------------------------------------------------------------------------
 visOmopTable(bind(timings, test_db),
+  settingsColumn = "package_version",
   hide = c(
     "variable_name", "variable_level",
     "strata_name", "strata_level"
   ),
   groupColumn = "task"
 )
+
+## -----------------------------------------------------------------------------
+real_db <- IncidencePrevalenceBenchmarkResults |>
+  filter(str_detect(cdm_name, "CPRD"))
+visOmopTable(real_db,
+  settingsColumn = "package_version",
+  hide = c(
+    "variable_name", "variable_level",
+    "strata_name", "strata_level"
+  ),
+  groupColumn = "task"
+)
+
+## ----eval = FALSE-------------------------------------------------------------
+# library(CDMConnector)
+# library(IncidencePrevalence)
+# 
+# cdm <- cdmFromCon("....")
+# timings <- benchmarkIncidencePrevalence(cdm)
+# exportSummarisedResult(
+#   timings,
+#   minCellCount = 5,
+#   fileName = "results_{cdm_name}_{date}.csv",
+#   path = getwd()
+# )
 

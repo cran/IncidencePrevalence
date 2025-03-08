@@ -4,8 +4,8 @@ knitr::opts_chunk$set(
   warning = FALSE, 
   message = FALSE,
   comment = "#>",
-  fig.width = 7,
-  fig.height = 5,
+  fig.width = 8.5,
+  fig.height = 6,
   eval = Sys.getenv("$RUNNER_OS") != "macOS"
 )
 
@@ -23,6 +23,9 @@ knitr::include_graphics(here("vignettes/inc_no_rep_some_washout.png"))
 
 ## ----echo=FALSE, out.width="80%"----------------------------------------------
 knitr::include_graphics(here("vignettes/inc_rep_some_washout.png"))
+
+## ----echo=FALSE, out.width="80%"----------------------------------------------
+knitr::include_graphics(here("vignettes/inc_rep_some_washout_censor.png"))
 
 ## ----setup--------------------------------------------------------------------
 library(IncidencePrevalence)
@@ -121,6 +124,22 @@ inc %>%
 
 plotIncidence(inc)
 
+## ----message= FALSE, warning=FALSE--------------------------------------------
+inc <- estimateIncidence(
+  cdm = cdm,
+  denominatorTable = "denominator",
+  outcomeTable = "outcome",
+  censorTable = "censor",
+  interval = "years",
+  outcomeWashout = 180,
+  repeatedEvents = TRUE
+)
+
+inc %>%
+  glimpse()
+
+plotIncidence(inc)
+
 ## -----------------------------------------------------------------------------
 cdm <- generateDenominatorCohortSet(
   cdm = cdm, name = "denominator_age_sex",
@@ -142,7 +161,8 @@ inc <- estimateIncidence(
   repeatedEvents = TRUE
 )
 
-plotIncidence(inc, facet = "denominator_age_group")
+plotIncidence(inc) + 
+  facet_wrap(vars(denominator_age_group), ncol = 1)
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
 pys_plot <- plotIncidencePopulation(result = inc, y = "person_years")
@@ -150,7 +170,7 @@ pys_plot <- plotIncidencePopulation(result = inc, y = "person_years")
 pys_plot +
   facet_wrap(vars(denominator_age_group), ncol = 1)
 
-## -----------------------------------------------------------------------------
+## ----fig.width=13-------------------------------------------------------------
 cdm$denominator <- cdm$denominator %>%
   mutate(group = if_else(as.numeric(subject_id) < 3000, "first", "second"))
 
@@ -164,9 +184,9 @@ inc <- estimateIncidence(
 )
 
 plotIncidence(inc,
-  facet = "group",
   colour = "group"
-)
+) + 
+  facet_wrap(vars(group), ncol = 1)
 
 cdm$denominator <- cdm$denominator %>%
   mutate(
@@ -188,9 +208,10 @@ inc <- estimateIncidence(
 )
 
 plotIncidence(inc,
-  facet = c("group_1", "group_2"),
   colour = c("group_1", "group_2")
-)
+) +
+  facet_wrap(vars(group_1, group_2), ncol = 2) +
+  theme(legend.position = "top")
 
 ## ----message=TRUE, warning=FALSE----------------------------------------------
 inc <- estimateIncidence(

@@ -4,8 +4,8 @@ knitr::opts_chunk$set(
   warning = FALSE, 
   message = FALSE,
   comment = "#>",
-  fig.width = 7,
-  fig.height = 5,
+  fig.width = 8.5,
+  fig.height = 6,
   eval = Sys.getenv("$RUNNER_OS") != "macOS"
 )
 
@@ -170,11 +170,11 @@ prev <- estimatePeriodPrevalence(
 )
 
 plotPrevalence(prev,
-  facet = "group",
   colour = "group"
-)
+) + 
+  facet_wrap(vars(group), ncol = 1)
 
-## -----------------------------------------------------------------------------
+## ----fig.width=13-------------------------------------------------------------
 cdm$denominator <- cdm$denominator %>%
   mutate(
     group_1 = if_else(as.numeric(subject_id) < 1500, "first", "second"),
@@ -192,9 +192,8 @@ prev <- estimatePeriodPrevalence(
   ) # for group_1 and group_2
 )
 
-plotPrevalence(prev,
-  facet = c("group_1", "group_2")
-)
+plotPrevalence(prev) + 
+  facet_wrap(vars(group_1, group_2), ncol = 2)
 
 ## ----message= FALSE, warning=FALSE--------------------------------------------
 prev <- estimatePeriodPrevalence(

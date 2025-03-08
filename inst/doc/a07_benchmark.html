@@ -60,7 +60,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -351,34 +351,35 @@ uses duckdb.</p>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(visOmopResults)</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>cdm <span class="ot">&lt;-</span> <span class="fu">mockIncidencePrevalence</span>(</span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  <span class="at">sampleSize =</span> <span class="dv">100</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>  <span class="at">earliestObservationStartDate =</span> <span class="fu">as.Date</span>(<span class="st">&quot;2010-01-01&quot;</span>),</span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>  <span class="at">latestObservationStartDate =</span> <span class="fu">as.Date</span>(<span class="st">&quot;2010-01-01&quot;</span>),</span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>  <span class="at">minDaysToObservationEnd =</span> <span class="dv">364</span>,</span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>  <span class="at">maxDaysToObservationEnd =</span> <span class="dv">364</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>  <span class="at">outPre =</span> <span class="fl">0.1</span></span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>)</span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>timings <span class="ot">&lt;-</span> <span class="fu">benchmarkIncidencePrevalence</span>(cdm)</span>
-<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>timings <span class="sc">|&gt;</span></span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="co">#&gt; Rows: 4</span></span>
-<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co">#&gt; Columns: 13</span></span>
-<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="co">#&gt; $ result_id        &lt;int&gt; 1, 1, 1, 1</span></span>
-<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="co">#&gt; $ cdm_name         &lt;chr&gt; &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;</span></span>
-<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="co">#&gt; $ group_name       &lt;chr&gt; &quot;task&quot;, &quot;task&quot;, &quot;task&quot;, &quot;task&quot;</span></span>
-<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="co">#&gt; $ group_level      &lt;chr&gt; &quot;generating denominator (8 cohorts)&quot;, &quot;yearly point p…</span></span>
-<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="co">#&gt; $ strata_name      &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;</span></span>
-<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="co">#&gt; $ strata_level     &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;</span></span>
-<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="co">#&gt; $ variable_name    &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;</span></span>
-<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="co">#&gt; $ variable_level   &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;</span></span>
-<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="co">#&gt; $ estimate_name    &lt;chr&gt; &quot;time_taken_minutes&quot;, &quot;time_taken_minutes&quot;, &quot;time_tak…</span></span>
-<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a><span class="co">#&gt; $ estimate_type    &lt;chr&gt; &quot;numeric&quot;, &quot;numeric&quot;, &quot;numeric&quot;, &quot;numeric&quot;</span></span>
-<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="co">#&gt; $ estimate_value   &lt;chr&gt; &quot;0.1&quot;, &quot;0.05&quot;, &quot;0.05&quot;, &quot;0.14&quot;</span></span>
-<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="co">#&gt; $ additional_name  &lt;chr&gt; &quot;dbms &amp;&amp;&amp; person_n &amp;&amp;&amp; min_observation_start &amp;&amp;&amp; max_…</span></span>
-<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a><span class="co">#&gt; $ additional_level &lt;chr&gt; &quot;duckdb &amp;&amp;&amp; 100 &amp;&amp;&amp; 2010-01-01 &amp;&amp;&amp; 2010-12-31&quot;, &quot;duck…</span></span></code></pre></div>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>cdm <span class="ot">&lt;-</span> <span class="fu">mockIncidencePrevalence</span>(</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>  <span class="at">sampleSize =</span> <span class="dv">100</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>  <span class="at">earliestObservationStartDate =</span> <span class="fu">as.Date</span>(<span class="st">&quot;2010-01-01&quot;</span>),</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>  <span class="at">latestObservationStartDate =</span> <span class="fu">as.Date</span>(<span class="st">&quot;2010-01-01&quot;</span>),</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>  <span class="at">minDaysToObservationEnd =</span> <span class="dv">364</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>  <span class="at">maxDaysToObservationEnd =</span> <span class="dv">364</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>  <span class="at">outPre =</span> <span class="fl">0.1</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>)</span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>timings <span class="ot">&lt;-</span> <span class="fu">benchmarkIncidencePrevalence</span>(cdm)</span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>timings <span class="sc">|&gt;</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co">#&gt; Rows: 4</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="co">#&gt; Columns: 13</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="co">#&gt; $ result_id        &lt;int&gt; 1, 1, 1, 1</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="co">#&gt; $ cdm_name         &lt;chr&gt; &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;, &quot;mock&quot;</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="co">#&gt; $ group_name       &lt;chr&gt; &quot;task&quot;, &quot;task&quot;, &quot;task&quot;, &quot;task&quot;</span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="co">#&gt; $ group_level      &lt;chr&gt; &quot;generating denominator (8 cohorts)&quot;, &quot;yearly point p…</span></span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="co">#&gt; $ strata_name      &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;</span></span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="co">#&gt; $ strata_level     &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;</span></span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="co">#&gt; $ variable_name    &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;</span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="co">#&gt; $ variable_level   &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;</span></span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a><span class="co">#&gt; $ estimate_name    &lt;chr&gt; &quot;time_taken_minutes&quot;, &quot;time_taken_minutes&quot;, &quot;time_tak…</span></span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="co">#&gt; $ estimate_type    &lt;chr&gt; &quot;numeric&quot;, &quot;numeric&quot;, &quot;numeric&quot;, &quot;numeric&quot;</span></span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="co">#&gt; $ estimate_value   &lt;chr&gt; &quot;0.11&quot;, &quot;0.07&quot;, &quot;0.05&quot;, &quot;0.16&quot;</span></span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a><span class="co">#&gt; $ additional_name  &lt;chr&gt; &quot;dbms &amp;&amp;&amp; person_n &amp;&amp;&amp; min_observation_start &amp;&amp;&amp; max_…</span></span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a><span class="co">#&gt; $ additional_level &lt;chr&gt; &quot;duckdb &amp;&amp;&amp; 100 &amp;&amp;&amp; 2010-01-01 &amp;&amp;&amp; 2010-12-31&quot;, &quot;duck…</span></span></code></pre></div>
 <p>We can see our results like so:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">visOmopTable</span>(timings,</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="at">hide =</span> <span class="fu">c</span>(</span>
@@ -387,20 +388,20 @@ uses duckdb.</p>
 <span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  ),</span>
 <span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">groupColumn =</span> <span class="st">&quot;task&quot;</span></span>
 <span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>)</span></code></pre></div>
-<div id="ymskymsidu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ymskymsidu table {
+<div id="zsowywobda" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zsowywobda table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#ymskymsidu thead, #ymskymsidu tbody, #ymskymsidu tfoot, #ymskymsidu tr, #ymskymsidu td, #ymskymsidu th {
+#zsowywobda thead, #zsowywobda tbody, #zsowywobda tfoot, #zsowywobda tr, #zsowywobda td, #zsowywobda th {
 border-style: none;
 }
-#ymskymsidu p {
+#zsowywobda p {
 margin: 0;
 padding: 0;
 }
-#ymskymsidu .gt_table {
+#zsowywobda .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -425,11 +426,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#ymskymsidu .gt_caption {
+#zsowywobda .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#ymskymsidu .gt_title {
+#zsowywobda .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -440,7 +441,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#ymskymsidu .gt_subtitle {
+#zsowywobda .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -451,7 +452,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#ymskymsidu .gt_heading {
+#zsowywobda .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -462,12 +463,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#ymskymsidu .gt_bottom_border {
+#zsowywobda .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#ymskymsidu .gt_col_headings {
+#zsowywobda .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -481,7 +482,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#ymskymsidu .gt_col_heading {
+#zsowywobda .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -500,7 +501,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#ymskymsidu .gt_column_spanner_outer {
+#zsowywobda .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -511,13 +512,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#ymskymsidu .gt_column_spanner_outer:first-child {
+#zsowywobda .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#ymskymsidu .gt_column_spanner_outer:last-child {
+#zsowywobda .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#ymskymsidu .gt_column_spanner {
+#zsowywobda .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -528,10 +529,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#ymskymsidu .gt_spanner_row {
+#zsowywobda .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#ymskymsidu .gt_group_heading {
+#zsowywobda .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -556,7 +557,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#ymskymsidu .gt_empty_group_heading {
+#zsowywobda .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -570,13 +571,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#ymskymsidu .gt_from_md > :first-child {
+#zsowywobda .gt_from_md > :first-child {
 margin-top: 0;
 }
-#ymskymsidu .gt_from_md > :last-child {
+#zsowywobda .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#ymskymsidu .gt_row {
+#zsowywobda .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -594,7 +595,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#ymskymsidu .gt_stub {
+#zsowywobda .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -606,7 +607,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ymskymsidu .gt_stub_row_group {
+#zsowywobda .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -619,13 +620,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#ymskymsidu .gt_row_group_first td {
+#zsowywobda .gt_row_group_first td {
 border-top-width: 2px;
 }
-#ymskymsidu .gt_row_group_first th {
+#zsowywobda .gt_row_group_first th {
 border-top-width: 2px;
 }
-#ymskymsidu .gt_summary_row {
+#zsowywobda .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -634,14 +635,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ymskymsidu .gt_first_summary_row {
+#zsowywobda .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#ymskymsidu .gt_first_summary_row.thick {
+#zsowywobda .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#ymskymsidu .gt_last_summary_row {
+#zsowywobda .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -650,7 +651,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#ymskymsidu .gt_grand_summary_row {
+#zsowywobda .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -659,7 +660,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ymskymsidu .gt_first_grand_summary_row {
+#zsowywobda .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -668,7 +669,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#ymskymsidu .gt_last_grand_summary_row_top {
+#zsowywobda .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -677,10 +678,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#ymskymsidu .gt_striped {
+#zsowywobda .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#ymskymsidu .gt_table_body {
+#zsowywobda .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -688,7 +689,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#ymskymsidu .gt_footnotes {
+#zsowywobda .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -701,7 +702,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#ymskymsidu .gt_footnote {
+#zsowywobda .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -709,7 +710,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ymskymsidu .gt_sourcenotes {
+#zsowywobda .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -722,64 +723,64 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#ymskymsidu .gt_sourcenote {
+#zsowywobda .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ymskymsidu .gt_left {
+#zsowywobda .gt_left {
 text-align: left;
 }
-#ymskymsidu .gt_center {
+#zsowywobda .gt_center {
 text-align: center;
 }
-#ymskymsidu .gt_right {
+#zsowywobda .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#ymskymsidu .gt_font_normal {
+#zsowywobda .gt_font_normal {
 font-weight: normal;
 }
-#ymskymsidu .gt_font_bold {
+#zsowywobda .gt_font_bold {
 font-weight: bold;
 }
-#ymskymsidu .gt_font_italic {
+#zsowywobda .gt_font_italic {
 font-style: italic;
 }
-#ymskymsidu .gt_super {
+#zsowywobda .gt_super {
 font-size: 65%;
 }
-#ymskymsidu .gt_footnote_marks {
+#zsowywobda .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#ymskymsidu .gt_asterisk {
+#zsowywobda .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#ymskymsidu .gt_indent_1 {
+#zsowywobda .gt_indent_1 {
 text-indent: 5px;
 }
-#ymskymsidu .gt_indent_2 {
+#zsowywobda .gt_indent_2 {
 text-indent: 10px;
 }
-#ymskymsidu .gt_indent_3 {
+#zsowywobda .gt_indent_3 {
 text-indent: 15px;
 }
-#ymskymsidu .gt_indent_4 {
+#zsowywobda .gt_indent_4 {
 text-indent: 20px;
 }
-#ymskymsidu .gt_indent_5 {
+#zsowywobda .gt_indent_5 {
 text-indent: 25px;
 }
-#ymskymsidu .katex-display {
+#zsowywobda .katex-display {
 display: inline-flex !important;
 margin-bottom: 0.75em !important;
 }
-#ymskymsidu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#zsowywobda div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
 height: 0px !important;
 }
 </style>
@@ -805,7 +806,7 @@ height: 0px !important;
 <td headers="generating denominator (8 cohorts)  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-01-01</td>
 <td headers="generating denominator (8 cohorts)  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
 <td headers="generating denominator (8 cohorts)  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="generating denominator (8 cohorts)  Estimate value" class="gt_row gt_right" style="text-align: left;">0.10</td></tr>
+<td headers="generating denominator (8 cohorts)  Estimate value" class="gt_row gt_right" style="text-align: left;">0.11</td></tr>
     <tr class="gt_group_heading_row">
       <th colspan="7" class="gt_group_heading" style="background-color: #E9E9E9; font-weight: bold;" scope="colgroup" id="yearly point prevalence for two outcomes with eight denominator cohorts">yearly point prevalence for two outcomes with eight denominator cohorts</th>
     </tr>
@@ -815,7 +816,7 @@ height: 0px !important;
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-01-01</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.05</td></tr>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.07</td></tr>
     <tr class="gt_group_heading_row">
       <th colspan="7" class="gt_group_heading" style="background-color: #E9E9E9; font-weight: bold;" scope="colgroup" id="yearly period prevalence for two outcomes with eight denominator cohorts">yearly period prevalence for two outcomes with eight denominator cohorts</th>
     </tr>
@@ -835,7 +836,7 @@ height: 0px !important;
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-01-01</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.14</td></tr>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.16</td></tr>
   </tbody>
   
   
@@ -846,45 +847,47 @@ height: 0px !important;
 <p>Here we can see the results from the running the benchmark on test
 datasets on different databases management systems. These benchmarks
 have already been run so we’ll start by loading the results.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>test_db <span class="ot">&lt;-</span> IncidencePrevalenceBenchmarkResults</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>test_db <span class="sc">|&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt; Rows: 16</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt; Columns: 13</span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; $ result_id        &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1</span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; $ cdm_name         &lt;chr&gt; &quot;ohdsi_postgres&quot;, &quot;ohdsi_postgres&quot;, &quot;ohdsi_postgres&quot;,…</span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; $ group_name       &lt;chr&gt; &quot;task&quot;, &quot;task&quot;, &quot;task&quot;, &quot;task&quot;, &quot;task&quot;, &quot;task&quot;, &quot;task…</span></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt; $ group_level      &lt;chr&gt; &quot;generating denominator (8 cohorts)&quot;, &quot;yearly point p…</span></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; $ strata_name      &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;…</span></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; $ strata_level     &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;…</span></span>
-<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt; $ variable_name    &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;…</span></span>
-<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt; $ variable_level   &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;…</span></span>
-<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; $ estimate_name    &lt;chr&gt; &quot;time_taken_minutes&quot;, &quot;time_taken_minutes&quot;, &quot;time_tak…</span></span>
-<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt; $ estimate_type    &lt;chr&gt; &quot;numeric&quot;, &quot;numeric&quot;, &quot;numeric&quot;, &quot;numeric&quot;, &quot;numeric&quot;…</span></span>
-<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt; $ estimate_value   &lt;chr&gt; &quot;0.81&quot;, &quot;0.23&quot;, &quot;0.23&quot;, &quot;1.02&quot;, &quot;1.2&quot;, &quot;0.25&quot;, &quot;0.24&quot;…</span></span>
-<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt; $ additional_name  &lt;chr&gt; &quot;dbms &amp;&amp;&amp; person_n &amp;&amp;&amp; min_observation_start &amp;&amp;&amp; max_…</span></span>
-<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co">#&gt; $ additional_level &lt;chr&gt; &quot;postgresql &amp;&amp;&amp; 1000 &amp;&amp;&amp; 2008-01-01 &amp;&amp;&amp; 2010-12-31&quot;, …</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>test_db <span class="ot">&lt;-</span> IncidencePrevalenceBenchmarkResults <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(cdm_name, <span class="st">&quot;CPRD&quot;</span>, <span class="at">negate =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>test_db <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt; Rows: 20</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; Columns: 13</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; $ result_id        &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; $ cdm_name         &lt;chr&gt; &quot;ohdsi_postgres&quot;, &quot;ohdsi_postgres&quot;, &quot;ohdsi_postgres&quot;,…</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt; $ group_name       &lt;chr&gt; &quot;task&quot;, &quot;task&quot;, &quot;task&quot;, &quot;task&quot;, &quot;task&quot;, &quot;task&quot;, &quot;task…</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; $ group_level      &lt;chr&gt; &quot;generating denominator (8 cohorts)&quot;, &quot;yearly point p…</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; $ strata_name      &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;…</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt; $ strata_level     &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;…</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt; $ variable_name    &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;…</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; $ variable_level   &lt;chr&gt; &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;, &quot;overall&quot;…</span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt; $ estimate_name    &lt;chr&gt; &quot;time_taken_minutes&quot;, &quot;time_taken_minutes&quot;, &quot;time_tak…</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt; $ estimate_type    &lt;chr&gt; &quot;numeric&quot;, &quot;numeric&quot;, &quot;numeric&quot;, &quot;numeric&quot;, &quot;numeric&quot;…</span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt; $ estimate_value   &lt;chr&gt; &quot;1.55&quot;, &quot;0.33&quot;, &quot;0.36&quot;, &quot;2.35&quot;, &quot;1.39&quot;, &quot;0.34&quot;, &quot;0.36…</span></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co">#&gt; $ additional_name  &lt;chr&gt; &quot;dbms &amp;&amp;&amp; person_n &amp;&amp;&amp; min_observation_start &amp;&amp;&amp; max_…</span></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">#&gt; $ additional_level &lt;chr&gt; &quot;postgresql &amp;&amp;&amp; 1000 &amp;&amp;&amp; 2008-01-01 &amp;&amp;&amp; 2010-12-31&quot;, …</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">visOmopTable</span>(<span class="fu">bind</span>(timings, test_db),</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="at">hide =</span> <span class="fu">c</span>(</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>    <span class="st">&quot;variable_name&quot;</span>, <span class="st">&quot;variable_level&quot;</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>    <span class="st">&quot;strata_name&quot;</span>, <span class="st">&quot;strata_level&quot;</span></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  ),</span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  <span class="at">groupColumn =</span> <span class="st">&quot;task&quot;</span></span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>)</span></code></pre></div>
-<div id="jtjscigaga" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#jtjscigaga table {
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="at">settingsColumn =</span> <span class="st">&quot;package_version&quot;</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="at">hide =</span> <span class="fu">c</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>    <span class="st">&quot;variable_name&quot;</span>, <span class="st">&quot;variable_level&quot;</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>    <span class="st">&quot;strata_name&quot;</span>, <span class="st">&quot;strata_level&quot;</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  ),</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>  <span class="at">groupColumn =</span> <span class="st">&quot;task&quot;</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>)</span></code></pre></div>
+<div id="mnutbiwwfw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#mnutbiwwfw table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#jtjscigaga thead, #jtjscigaga tbody, #jtjscigaga tfoot, #jtjscigaga tr, #jtjscigaga td, #jtjscigaga th {
+#mnutbiwwfw thead, #mnutbiwwfw tbody, #mnutbiwwfw tfoot, #mnutbiwwfw tr, #mnutbiwwfw td, #mnutbiwwfw th {
 border-style: none;
 }
-#jtjscigaga p {
+#mnutbiwwfw p {
 margin: 0;
 padding: 0;
 }
-#jtjscigaga .gt_table {
+#mnutbiwwfw .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -909,11 +912,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#jtjscigaga .gt_caption {
+#mnutbiwwfw .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#jtjscigaga .gt_title {
+#mnutbiwwfw .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -924,7 +927,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#jtjscigaga .gt_subtitle {
+#mnutbiwwfw .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -935,7 +938,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#jtjscigaga .gt_heading {
+#mnutbiwwfw .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -946,12 +949,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#jtjscigaga .gt_bottom_border {
+#mnutbiwwfw .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#jtjscigaga .gt_col_headings {
+#mnutbiwwfw .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -965,7 +968,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#jtjscigaga .gt_col_heading {
+#mnutbiwwfw .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -984,7 +987,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#jtjscigaga .gt_column_spanner_outer {
+#mnutbiwwfw .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -995,13 +998,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#jtjscigaga .gt_column_spanner_outer:first-child {
+#mnutbiwwfw .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#jtjscigaga .gt_column_spanner_outer:last-child {
+#mnutbiwwfw .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#jtjscigaga .gt_column_spanner {
+#mnutbiwwfw .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -1012,10 +1015,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#jtjscigaga .gt_spanner_row {
+#mnutbiwwfw .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#jtjscigaga .gt_group_heading {
+#mnutbiwwfw .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -1040,7 +1043,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#jtjscigaga .gt_empty_group_heading {
+#mnutbiwwfw .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -1054,13 +1057,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#jtjscigaga .gt_from_md > :first-child {
+#mnutbiwwfw .gt_from_md > :first-child {
 margin-top: 0;
 }
-#jtjscigaga .gt_from_md > :last-child {
+#mnutbiwwfw .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#jtjscigaga .gt_row {
+#mnutbiwwfw .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -1078,7 +1081,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#jtjscigaga .gt_stub {
+#mnutbiwwfw .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -1090,7 +1093,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#jtjscigaga .gt_stub_row_group {
+#mnutbiwwfw .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -1103,13 +1106,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#jtjscigaga .gt_row_group_first td {
+#mnutbiwwfw .gt_row_group_first td {
 border-top-width: 2px;
 }
-#jtjscigaga .gt_row_group_first th {
+#mnutbiwwfw .gt_row_group_first th {
 border-top-width: 2px;
 }
-#jtjscigaga .gt_summary_row {
+#mnutbiwwfw .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -1118,14 +1121,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#jtjscigaga .gt_first_summary_row {
+#mnutbiwwfw .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#jtjscigaga .gt_first_summary_row.thick {
+#mnutbiwwfw .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#jtjscigaga .gt_last_summary_row {
+#mnutbiwwfw .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -1134,7 +1137,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#jtjscigaga .gt_grand_summary_row {
+#mnutbiwwfw .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -1143,7 +1146,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#jtjscigaga .gt_first_grand_summary_row {
+#mnutbiwwfw .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -1152,7 +1155,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#jtjscigaga .gt_last_grand_summary_row_top {
+#mnutbiwwfw .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -1161,10 +1164,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#jtjscigaga .gt_striped {
+#mnutbiwwfw .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#jtjscigaga .gt_table_body {
+#mnutbiwwfw .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -1172,7 +1175,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#jtjscigaga .gt_footnotes {
+#mnutbiwwfw .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -1185,7 +1188,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#jtjscigaga .gt_footnote {
+#mnutbiwwfw .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -1193,7 +1196,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#jtjscigaga .gt_sourcenotes {
+#mnutbiwwfw .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -1206,64 +1209,64 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#jtjscigaga .gt_sourcenote {
+#mnutbiwwfw .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#jtjscigaga .gt_left {
+#mnutbiwwfw .gt_left {
 text-align: left;
 }
-#jtjscigaga .gt_center {
+#mnutbiwwfw .gt_center {
 text-align: center;
 }
-#jtjscigaga .gt_right {
+#mnutbiwwfw .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#jtjscigaga .gt_font_normal {
+#mnutbiwwfw .gt_font_normal {
 font-weight: normal;
 }
-#jtjscigaga .gt_font_bold {
+#mnutbiwwfw .gt_font_bold {
 font-weight: bold;
 }
-#jtjscigaga .gt_font_italic {
+#mnutbiwwfw .gt_font_italic {
 font-style: italic;
 }
-#jtjscigaga .gt_super {
+#mnutbiwwfw .gt_super {
 font-size: 65%;
 }
-#jtjscigaga .gt_footnote_marks {
+#mnutbiwwfw .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#jtjscigaga .gt_asterisk {
+#mnutbiwwfw .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#jtjscigaga .gt_indent_1 {
+#mnutbiwwfw .gt_indent_1 {
 text-indent: 5px;
 }
-#jtjscigaga .gt_indent_2 {
+#mnutbiwwfw .gt_indent_2 {
 text-indent: 10px;
 }
-#jtjscigaga .gt_indent_3 {
+#mnutbiwwfw .gt_indent_3 {
 text-indent: 15px;
 }
-#jtjscigaga .gt_indent_4 {
+#mnutbiwwfw .gt_indent_4 {
 text-indent: 20px;
 }
-#jtjscigaga .gt_indent_5 {
+#mnutbiwwfw .gt_indent_5 {
 text-indent: 25px;
 }
-#jtjscigaga .katex-display {
+#mnutbiwwfw .katex-display {
 display: inline-flex !important;
 margin-bottom: 0.75em !important;
 }
-#jtjscigaga div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#mnutbiwwfw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
 height: 0px !important;
 }
 </style>
@@ -1275,95 +1278,123 @@ height: 0px !important;
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Person-n">Person n</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Min-observation-start">Min observation start</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Max-observation-end">Max observation end</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Package-version">Package version</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Estimate-name">Estimate name</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Estimate-value">Estimate value</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
     <tr class="gt_group_heading_row">
-      <th colspan="7" class="gt_group_heading" style="background-color: #E9E9E9; font-weight: bold;" scope="colgroup" id="generating denominator (8 cohorts)">generating denominator (8 cohorts)</th>
+      <th colspan="8" class="gt_group_heading" style="background-color: #E9E9E9; font-weight: bold;" scope="colgroup" id="generating denominator (8 cohorts)">generating denominator (8 cohorts)</th>
     </tr>
     <tr class="gt_row_group_first"><td headers="generating denominator (8 cohorts)  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">mock</td>
 <td headers="generating denominator (8 cohorts)  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">duckdb</td>
 <td headers="generating denominator (8 cohorts)  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">100</td>
 <td headers="generating denominator (8 cohorts)  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-01-01</td>
 <td headers="generating denominator (8 cohorts)  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
+<td headers="generating denominator (8 cohorts)  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.2.0</td>
 <td headers="generating denominator (8 cohorts)  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="generating denominator (8 cohorts)  Estimate value" class="gt_row gt_right" style="text-align: left;">0.10</td></tr>
+<td headers="generating denominator (8 cohorts)  Estimate value" class="gt_row gt_right" style="text-align: left;">0.11</td></tr>
     <tr><td headers="generating denominator (8 cohorts)  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">ohdsi_postgres</td>
 <td headers="generating denominator (8 cohorts)  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">postgresql</td>
 <td headers="generating denominator (8 cohorts)  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1000</td>
 <td headers="generating denominator (8 cohorts)  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2008-01-01</td>
 <td headers="generating denominator (8 cohorts)  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
+<td headers="generating denominator (8 cohorts)  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
 <td headers="generating denominator (8 cohorts)  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="generating denominator (8 cohorts)  Estimate value" class="gt_row gt_right" style="text-align: left;">0.81</td></tr>
+<td headers="generating denominator (8 cohorts)  Estimate value" class="gt_row gt_right" style="text-align: left;">1.55</td></tr>
     <tr><td headers="generating denominator (8 cohorts)  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">ohdsi_redshift</td>
 <td headers="generating denominator (8 cohorts)  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">redshift</td>
 <td headers="generating denominator (8 cohorts)  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1000</td>
 <td headers="generating denominator (8 cohorts)  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2007-12-15</td>
 <td headers="generating denominator (8 cohorts)  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
+<td headers="generating denominator (8 cohorts)  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
 <td headers="generating denominator (8 cohorts)  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="generating denominator (8 cohorts)  Estimate value" class="gt_row gt_right" style="text-align: left;">1.20</td></tr>
+<td headers="generating denominator (8 cohorts)  Estimate value" class="gt_row gt_right" style="text-align: left;">1.39</td></tr>
     <tr><td headers="generating denominator (8 cohorts)  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">ohdsi_sql_Server</td>
 <td headers="generating denominator (8 cohorts)  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">sql server</td>
 <td headers="generating denominator (8 cohorts)  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1000</td>
 <td headers="generating denominator (8 cohorts)  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2008-01-01</td>
 <td headers="generating denominator (8 cohorts)  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
+<td headers="generating denominator (8 cohorts)  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
 <td headers="generating denominator (8 cohorts)  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="generating denominator (8 cohorts)  Estimate value" class="gt_row gt_right" style="text-align: left;">0.55</td></tr>
+<td headers="generating denominator (8 cohorts)  Estimate value" class="gt_row gt_right" style="text-align: left;">0.75</td></tr>
     <tr><td headers="generating denominator (8 cohorts)  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">ohdsi_snowflake</td>
 <td headers="generating denominator (8 cohorts)  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">snowflake</td>
 <td headers="generating denominator (8 cohorts)  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">116352</td>
 <td headers="generating denominator (8 cohorts)  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2007-11-27</td>
 <td headers="generating denominator (8 cohorts)  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
+<td headers="generating denominator (8 cohorts)  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
 <td headers="generating denominator (8 cohorts)  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="generating denominator (8 cohorts)  Estimate value" class="gt_row gt_right" style="text-align: left;">2.03</td></tr>
+<td headers="generating denominator (8 cohorts)  Estimate value" class="gt_row gt_right" style="text-align: left;">2.17</td></tr>
+    <tr><td headers="generating denominator (8 cohorts)  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">darwin_databricks_spark</td>
+<td headers="generating denominator (8 cohorts)  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">spark</td>
+<td headers="generating denominator (8 cohorts)  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2694</td>
+<td headers="generating denominator (8 cohorts)  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1908-09-22</td>
+<td headers="generating denominator (8 cohorts)  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2019-07-03</td>
+<td headers="generating denominator (8 cohorts)  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
+<td headers="generating denominator (8 cohorts)  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
+<td headers="generating denominator (8 cohorts)  Estimate value" class="gt_row gt_right" style="text-align: left;">4.71</td></tr>
     <tr class="gt_group_heading_row">
-      <th colspan="7" class="gt_group_heading" style="background-color: #E9E9E9; font-weight: bold;" scope="colgroup" id="yearly point prevalence for two outcomes with eight denominator cohorts">yearly point prevalence for two outcomes with eight denominator cohorts</th>
+      <th colspan="8" class="gt_group_heading" style="background-color: #E9E9E9; font-weight: bold;" scope="colgroup" id="yearly point prevalence for two outcomes with eight denominator cohorts">yearly point prevalence for two outcomes with eight denominator cohorts</th>
     </tr>
     <tr class="gt_row_group_first"><td headers="yearly point prevalence for two outcomes with eight denominator cohorts  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">mock</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">duckdb</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">100</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-01-01</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.2.0</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.05</td></tr>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.07</td></tr>
     <tr><td headers="yearly point prevalence for two outcomes with eight denominator cohorts  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">ohdsi_postgres</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">postgresql</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1000</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2008-01-01</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.23</td></tr>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.33</td></tr>
     <tr><td headers="yearly point prevalence for two outcomes with eight denominator cohorts  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">ohdsi_redshift</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">redshift</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1000</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2007-12-15</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.25</td></tr>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.34</td></tr>
     <tr><td headers="yearly point prevalence for two outcomes with eight denominator cohorts  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">ohdsi_sql_Server</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">sql server</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1000</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2008-01-01</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.18</td></tr>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.20</td></tr>
     <tr><td headers="yearly point prevalence for two outcomes with eight denominator cohorts  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">ohdsi_snowflake</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">snowflake</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">116352</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2007-11-27</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
 <td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.50</td></tr>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.82</td></tr>
+    <tr><td headers="yearly point prevalence for two outcomes with eight denominator cohorts  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">darwin_databricks_spark</td>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">spark</td>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2694</td>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1908-09-22</td>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2019-07-03</td>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.93</td></tr>
     <tr class="gt_group_heading_row">
-      <th colspan="7" class="gt_group_heading" style="background-color: #E9E9E9; font-weight: bold;" scope="colgroup" id="yearly period prevalence for two outcomes with eight denominator cohorts">yearly period prevalence for two outcomes with eight denominator cohorts</th>
+      <th colspan="8" class="gt_group_heading" style="background-color: #E9E9E9; font-weight: bold;" scope="colgroup" id="yearly period prevalence for two outcomes with eight denominator cohorts">yearly period prevalence for two outcomes with eight denominator cohorts</th>
     </tr>
     <tr class="gt_row_group_first"><td headers="yearly period prevalence for two outcomes with eight denominator cohorts  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">mock</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">duckdb</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">100</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-01-01</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.2.0</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.05</td></tr>
     <tr><td headers="yearly period prevalence for two outcomes with eight denominator cohorts  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">ohdsi_postgres</td>
@@ -1371,72 +1402,591 @@ height: 0px !important;
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1000</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2008-01-01</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.23</td></tr>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.36</td></tr>
     <tr><td headers="yearly period prevalence for two outcomes with eight denominator cohorts  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">ohdsi_redshift</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">redshift</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1000</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2007-12-15</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.24</td></tr>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.36</td></tr>
     <tr><td headers="yearly period prevalence for two outcomes with eight denominator cohorts  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">ohdsi_sql_Server</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">sql server</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1000</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2008-01-01</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.18</td></tr>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.21</td></tr>
     <tr><td headers="yearly period prevalence for two outcomes with eight denominator cohorts  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">ohdsi_snowflake</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">snowflake</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">116352</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2007-11-27</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
 <td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.37</td></tr>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.59</td></tr>
+    <tr><td headers="yearly period prevalence for two outcomes with eight denominator cohorts  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">darwin_databricks_spark</td>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">spark</td>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2694</td>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1908-09-22</td>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2019-07-03</td>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">1.03</td></tr>
     <tr class="gt_group_heading_row">
-      <th colspan="7" class="gt_group_heading" style="background-color: #E9E9E9; font-weight: bold;" scope="colgroup" id="yearly incidence for two outcomes with eight denominator cohorts">yearly incidence for two outcomes with eight denominator cohorts</th>
+      <th colspan="8" class="gt_group_heading" style="background-color: #E9E9E9; font-weight: bold;" scope="colgroup" id="yearly incidence for two outcomes with eight denominator cohorts">yearly incidence for two outcomes with eight denominator cohorts</th>
     </tr>
     <tr class="gt_row_group_first"><td headers="yearly incidence for two outcomes with eight denominator cohorts  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">mock</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">duckdb</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">100</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-01-01</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.2.0</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.14</td></tr>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.16</td></tr>
     <tr><td headers="yearly incidence for two outcomes with eight denominator cohorts  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">ohdsi_postgres</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">postgresql</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1000</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2008-01-01</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">1.02</td></tr>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">2.35</td></tr>
     <tr><td headers="yearly incidence for two outcomes with eight denominator cohorts  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">ohdsi_redshift</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">redshift</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1000</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2007-12-15</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">1.38</td></tr>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">2.58</td></tr>
     <tr><td headers="yearly incidence for two outcomes with eight denominator cohorts  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">ohdsi_sql_Server</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">sql server</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1000</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2008-01-01</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">0.70</td></tr>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">1.08</td></tr>
     <tr><td headers="yearly incidence for two outcomes with eight denominator cohorts  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">ohdsi_snowflake</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">snowflake</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">116352</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2007-11-27</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2010-12-31</td>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
 <td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
-<td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">2.49</td></tr>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">5.36</td></tr>
+    <tr><td headers="yearly incidence for two outcomes with eight denominator cohorts  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">darwin_databricks_spark</td>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">spark</td>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2694</td>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1908-09-22</td>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2019-07-03</td>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">5.61</td></tr>
   </tbody>
   
   
 </table>
 </div>
+</div>
+<div id="results-from-real-databases" class="section level1">
+<h1>Results from real databases</h1>
+<p>Above we’ve seen performance on small test databases. However, more
+interesting is to know how the package performs on our actual
+patient-level data, which is often much larger. Below our results from
+running our benchmarking tasks against real patient datasets.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>real_db <span class="ot">&lt;-</span> IncidencePrevalenceBenchmarkResults <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(cdm_name, <span class="st">&quot;CPRD&quot;</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="fu">visOmopTable</span>(real_db,</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="at">settingsColumn =</span> <span class="st">&quot;package_version&quot;</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="at">hide =</span> <span class="fu">c</span>(</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>    <span class="st">&quot;variable_name&quot;</span>, <span class="st">&quot;variable_level&quot;</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>    <span class="st">&quot;strata_name&quot;</span>, <span class="st">&quot;strata_level&quot;</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>  ),</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>  <span class="at">groupColumn =</span> <span class="st">&quot;task&quot;</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>)</span></code></pre></div>
+<div id="fgfqgvqtho" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fgfqgvqtho table {
+font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+#fgfqgvqtho thead, #fgfqgvqtho tbody, #fgfqgvqtho tfoot, #fgfqgvqtho tr, #fgfqgvqtho td, #fgfqgvqtho th {
+border-style: none;
+}
+#fgfqgvqtho p {
+margin: 0;
+padding: 0;
+}
+#fgfqgvqtho .gt_table {
+display: table;
+border-collapse: collapse;
+line-height: normal;
+margin-left: auto;
+margin-right: auto;
+color: #333333;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+background-color: #FFFFFF;
+width: auto;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #A8A8A8;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #A8A8A8;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+}
+#fgfqgvqtho .gt_caption {
+padding-top: 4px;
+padding-bottom: 4px;
+}
+#fgfqgvqtho .gt_title {
+color: #333333;
+font-size: 125%;
+font-weight: initial;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-color: #FFFFFF;
+border-bottom-width: 0;
+}
+#fgfqgvqtho .gt_subtitle {
+color: #333333;
+font-size: 85%;
+font-weight: initial;
+padding-top: 3px;
+padding-bottom: 5px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-color: #FFFFFF;
+border-top-width: 0;
+}
+#fgfqgvqtho .gt_heading {
+background-color: #FFFFFF;
+text-align: center;
+border-bottom-color: #FFFFFF;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#fgfqgvqtho .gt_bottom_border {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#fgfqgvqtho .gt_col_headings {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#fgfqgvqtho .gt_col_heading {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 6px;
+padding-left: 5px;
+padding-right: 5px;
+overflow-x: hidden;
+}
+#fgfqgvqtho .gt_column_spanner_outer {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+padding-top: 0;
+padding-bottom: 0;
+padding-left: 4px;
+padding-right: 4px;
+}
+#fgfqgvqtho .gt_column_spanner_outer:first-child {
+padding-left: 0;
+}
+#fgfqgvqtho .gt_column_spanner_outer:last-child {
+padding-right: 0;
+}
+#fgfqgvqtho .gt_column_spanner {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 5px;
+overflow-x: hidden;
+display: inline-block;
+width: 100%;
+}
+#fgfqgvqtho .gt_spanner_row {
+border-bottom-style: hidden;
+}
+#fgfqgvqtho .gt_group_heading {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+text-align: left;
+}
+#fgfqgvqtho .gt_empty_group_heading {
+padding: 0.5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: middle;
+}
+#fgfqgvqtho .gt_from_md > :first-child {
+margin-top: 0;
+}
+#fgfqgvqtho .gt_from_md > :last-child {
+margin-bottom: 0;
+}
+#fgfqgvqtho .gt_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+margin: 10px;
+border-top-style: solid;
+border-top-width: 1px;
+border-top-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+overflow-x: hidden;
+}
+#fgfqgvqtho .gt_stub {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+}
+#fgfqgvqtho .gt_stub_row_group {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+vertical-align: top;
+}
+#fgfqgvqtho .gt_row_group_first td {
+border-top-width: 2px;
+}
+#fgfqgvqtho .gt_row_group_first th {
+border-top-width: 2px;
+}
+#fgfqgvqtho .gt_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#fgfqgvqtho .gt_first_summary_row {
+border-top-style: solid;
+border-top-color: #D3D3D3;
+}
+#fgfqgvqtho .gt_first_summary_row.thick {
+border-top-width: 2px;
+}
+#fgfqgvqtho .gt_last_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#fgfqgvqtho .gt_grand_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#fgfqgvqtho .gt_first_grand_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-style: double;
+border-top-width: 6px;
+border-top-color: #D3D3D3;
+}
+#fgfqgvqtho .gt_last_grand_summary_row_top {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: double;
+border-bottom-width: 6px;
+border-bottom-color: #D3D3D3;
+}
+#fgfqgvqtho .gt_striped {
+background-color: rgba(128, 128, 128, 0.05);
+}
+#fgfqgvqtho .gt_table_body {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#fgfqgvqtho .gt_footnotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#fgfqgvqtho .gt_footnote {
+margin: 0px;
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#fgfqgvqtho .gt_sourcenotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#fgfqgvqtho .gt_sourcenote {
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#fgfqgvqtho .gt_left {
+text-align: left;
+}
+#fgfqgvqtho .gt_center {
+text-align: center;
+}
+#fgfqgvqtho .gt_right {
+text-align: right;
+font-variant-numeric: tabular-nums;
+}
+#fgfqgvqtho .gt_font_normal {
+font-weight: normal;
+}
+#fgfqgvqtho .gt_font_bold {
+font-weight: bold;
+}
+#fgfqgvqtho .gt_font_italic {
+font-style: italic;
+}
+#fgfqgvqtho .gt_super {
+font-size: 65%;
+}
+#fgfqgvqtho .gt_footnote_marks {
+font-size: 75%;
+vertical-align: 0.4em;
+position: initial;
+}
+#fgfqgvqtho .gt_asterisk {
+font-size: 100%;
+vertical-align: 0;
+}
+#fgfqgvqtho .gt_indent_1 {
+text-indent: 5px;
+}
+#fgfqgvqtho .gt_indent_2 {
+text-indent: 10px;
+}
+#fgfqgvqtho .gt_indent_3 {
+text-indent: 15px;
+}
+#fgfqgvqtho .gt_indent_4 {
+text-indent: 20px;
+}
+#fgfqgvqtho .gt_indent_5 {
+text-indent: 25px;
+}
+#fgfqgvqtho .katex-display {
+display: inline-flex !important;
+margin-bottom: 0.75em !important;
+}
+#fgfqgvqtho div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="CDM-name">CDM name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Dbms">Dbms</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Person-n">Person n</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Min-observation-start">Min observation start</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Max-observation-end">Max observation end</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Package-version">Package version</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Estimate-name">Estimate name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Estimate-value">Estimate value</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr class="gt_group_heading_row">
+      <th colspan="8" class="gt_group_heading" style="background-color: #E9E9E9; font-weight: bold;" scope="colgroup" id="generating denominator (8 cohorts)">generating denominator (8 cohorts)</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="generating denominator (8 cohorts)  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">CPRD GOLD</td>
+<td headers="generating denominator (8 cohorts)  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">postgresql</td>
+<td headers="generating denominator (8 cohorts)  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">17521504</td>
+<td headers="generating denominator (8 cohorts)  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1987-09-09</td>
+<td headers="generating denominator (8 cohorts)  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2024-06-15</td>
+<td headers="generating denominator (8 cohorts)  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
+<td headers="generating denominator (8 cohorts)  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
+<td headers="generating denominator (8 cohorts)  Estimate value" class="gt_row gt_right" style="text-align: left;">31.06</td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="8" class="gt_group_heading" style="background-color: #E9E9E9; font-weight: bold;" scope="colgroup" id="yearly point prevalence for two outcomes with eight denominator cohorts">yearly point prevalence for two outcomes with eight denominator cohorts</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="yearly point prevalence for two outcomes with eight denominator cohorts  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">CPRD GOLD</td>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">postgresql</td>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">17521504</td>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1987-09-09</td>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2024-06-15</td>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
+<td headers="yearly point prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">14.08</td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="8" class="gt_group_heading" style="background-color: #E9E9E9; font-weight: bold;" scope="colgroup" id="yearly period prevalence for two outcomes with eight denominator cohorts">yearly period prevalence for two outcomes with eight denominator cohorts</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="yearly period prevalence for two outcomes with eight denominator cohorts  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">CPRD GOLD</td>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">postgresql</td>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">17521504</td>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1987-09-09</td>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2024-06-15</td>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
+<td headers="yearly period prevalence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">14.78</td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="8" class="gt_group_heading" style="background-color: #E9E9E9; font-weight: bold;" scope="colgroup" id="yearly incidence for two outcomes with eight denominator cohorts">yearly incidence for two outcomes with eight denominator cohorts</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="yearly incidence for two outcomes with eight denominator cohorts  CDM name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">CPRD GOLD</td>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Dbms" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">postgresql</td>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Person n" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">17521504</td>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Min observation start" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1987-09-09</td>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Max observation end" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2024-06-15</td>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Package version" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1.1.0</td>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">time_taken_minutes</td>
+<td headers="yearly incidence for two outcomes with eight denominator cohorts  Estimate value" class="gt_row gt_right" style="text-align: left;">64.51</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+<div id="sharing-your-benchmarking-results" class="section level1">
+<h1>Sharing your benchmarking results</h1>
+<p>Sharing your benchmark results will help us improve the package. To
+run the benchmark, connect to your database and create your cdm
+reference. Then run the benchmark like below and export the results as a
+csv.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">library</span>(CDMConnector)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">library</span>(IncidencePrevalence)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>cdm <span class="ot">&lt;-</span> <span class="fu">cdmFromCon</span>(<span class="st">&quot;....&quot;</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>timings <span class="ot">&lt;-</span> <span class="fu">benchmarkIncidencePrevalence</span>(cdm)</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="fu">exportSummarisedResult</span>(</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>  timings,</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>  <span class="at">minCellCount =</span> <span class="dv">5</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>  <span class="at">fileName =</span> <span class="st">&quot;results_{cdm_name}_{date}.csv&quot;</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>  <span class="at">path =</span> <span class="fu">getwd</span>()</span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 
 
