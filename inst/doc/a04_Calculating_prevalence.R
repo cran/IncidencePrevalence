@@ -203,5 +203,5 @@ prev <- estimatePeriodPrevalence(
   interval = "Years",
   fullContribution = TRUE
 )
-tablePrevalenceAttrition(prev)
+tablePrevalenceAttrition(prev, style = "darwin")
 

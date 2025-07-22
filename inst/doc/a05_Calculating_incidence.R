@@ -233,5 +233,5 @@ inc <- estimateIncidence(
   outcomeWashout = 180,
   repeatedEvents = TRUE
 )
-tableIncidenceAttrition(inc)
+tableIncidenceAttrition(inc, style = "darwin")
 

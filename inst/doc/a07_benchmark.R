@@ -1,67 +1,74 @@
 ## ----include = FALSE----------------------------------------------------------
+NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
+
 knitr::opts_chunk$set(
   collapse = TRUE,
+  eval = TRUE, 
+  warning = FALSE, 
+  message = FALSE,
   comment = "#>",
+  echo = FALSE,
+  eval = NOT_CRAN,
   fig.width = 7,
   fig.height = 5
 )
 
 ## ----message=FALSE, warning=FALSE---------------------------------------------
-library(IncidencePrevalence)
-library(visOmopResults)
-library(dplyr)
-library(ggplot2)
-library(stringr)
-
-cdm <- mockIncidencePrevalence(
-  sampleSize = 100,
-  earliestObservationStartDate = as.Date("2010-01-01"),
-  latestObservationStartDate = as.Date("2010-01-01"),
-  minDaysToObservationEnd = 364,
-  maxDaysToObservationEnd = 364,
-  outPre = 0.1
-)
-
-timings <- benchmarkIncidencePrevalence(cdm)
-timings |>
-  glimpse()
-
-## -----------------------------------------------------------------------------
-visOmopTable(timings,
-  hide = c(
-    "variable_name", "variable_level",
-    "strata_name", "strata_level"
-  ),
-  groupColumn = "task"
-)
+# library(IncidencePrevalence)
+# library(visOmopResults)
+# library(dplyr)
+# library(ggplot2)
+# library(stringr)
+# 
+# cdm <- mockIncidencePrevalence(
+#   sampleSize = 100,
+#   earliestObservationStartDate = as.Date("2010-01-01"),
+#   latestObservationStartDate = as.Date("2010-01-01"),
+#   minDaysToObservationEnd = 364,
+#   maxDaysToObservationEnd = 364,
+#   outPre = 0.1
+# )
+# 
+# timings <- benchmarkIncidencePrevalence(cdm)
+# timings |>
+#   glimpse()
 
 ## -----------------------------------------------------------------------------
-test_db <- IncidencePrevalenceBenchmarkResults |> 
-  filter(str_detect(cdm_name, "CPRD", negate = TRUE))
-test_db |>
-  glimpse()
+# visOmopTable(timings,
+#   hide = c(
+#     "variable_name", "variable_level",
+#     "strata_name", "strata_level"
+#   ),
+#   groupColumn = "task"
+# )
 
 ## -----------------------------------------------------------------------------
-visOmopTable(bind(timings, test_db),
-  settingsColumn = "package_version",
-  hide = c(
-    "variable_name", "variable_level",
-    "strata_name", "strata_level"
-  ),
-  groupColumn = "task"
-)
+# test_db <- IncidencePrevalenceBenchmarkResults |>
+#   filter(str_detect(cdm_name, "CPRD", negate = TRUE))
+# test_db |>
+#   glimpse()
 
 ## -----------------------------------------------------------------------------
-real_db <- IncidencePrevalenceBenchmarkResults |>
-  filter(str_detect(cdm_name, "CPRD"))
-visOmopTable(real_db,
-  settingsColumn = "package_version",
-  hide = c(
-    "variable_name", "variable_level",
-    "strata_name", "strata_level"
-  ),
-  groupColumn = "task"
-)
+# visOmopTable(bind(timings, test_db),
+#   settingsColumn = "package_version",
+#   hide = c(
+#     "variable_name", "variable_level",
+#     "strata_name", "strata_level"
+#   ),
+#   groupColumn = "task"
+# )
+
+## -----------------------------------------------------------------------------
+# real_db <- IncidencePrevalenceBenchmarkResults |>
+#   filter(str_detect(cdm_name, "CPRD"))
+# visOmopTable(real_db,
+#   settingsColumn = "package_version",
+#   hide = c(
+#     "variable_name", "variable_level",
+#     "strata_name", "strata_level"
+#   ),
+#   groupColumn = "task"
+# )
 
 ## ----eval = FALSE-------------------------------------------------------------
 # library(CDMConnector)
